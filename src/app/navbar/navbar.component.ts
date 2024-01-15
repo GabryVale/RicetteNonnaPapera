@@ -4,6 +4,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatMenuModule, MatMenuTrigger} from '@angular/material/menu';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-navbar',
@@ -13,9 +15,11 @@ import { CommonModule } from '@angular/common';
   imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatMenuModule,CommonModule],
 })
 export class NavbarComponent {
+  constructor(private router: Router){
 
+  }
   LogOut() {
-    
+    this.router.navigate(['Login']);
   }
 
 }

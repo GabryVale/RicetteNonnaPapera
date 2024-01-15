@@ -1,13 +1,11 @@
-<div>
-    <div>
-        <div>
-            <input type="text">
-        </div>
-        <div>
-            <input type="password">
-        </div>
-    </div>
-    <div>
-        <input (click)="login()" type="submit">
-    </div>
-</div>
+<div class="login-container">
+    <form>
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required>
+  
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+  
+      <button (click)="login()" type="submit">Login</button>
+    </form>
+  </div>
