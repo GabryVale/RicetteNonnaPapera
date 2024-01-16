@@ -34,15 +34,15 @@ export class NavbarComponent {
     this.router.navigate(['Login'])
   }
 
-  primiPiatti(){ 
-   this.router.navigate(['Homepage/Primi-Piatti'])
+  primiPiatti() {
+    this.router.navigate(['Homepage/Primi-Piatti'])
   }
 
-  secondiPiatti(){
+  secondiPiatti() {
     this.router.navigate(['Homepage/Secondi-Piatti'])
   }
 
-  contorni(){
+  contorni() {
     this.router.navigate(['Homepage/Contorni'])
   }
 }
