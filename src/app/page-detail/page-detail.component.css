@@ -1,0 +1,24 @@
+.example-card {
+    max-width: 400px;
+    background-color: rgb(191, 178, 178);
+  }
+  
+  .example-header-image {
+    background-size: cover;
+  }
+
+  .display{
+    display: inline-flex;
+    justify-content: space-between;
+    padding: 15px;
+  }
+
+  .example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }
