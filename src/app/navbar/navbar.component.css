@@ -12,6 +12,21 @@
     padding: 8px;
     margin-bottom: 10px;
   }
+
+  .example-card {
+    max-width: 400px;
+    cursor: pointer;
+    background-color: rgb(191, 178, 178);
+  }
   
+  .example-header-image {
+    background-size: cover;
+  }
+
+  .display{
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+  }
   
   
