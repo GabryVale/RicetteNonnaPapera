@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { ActivatedRoute, Route } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { ServiceService } from '../service.ts/service.service';
 import { Ricette } from '../class/ricette';
 import { MatCardModule } from '@angular/material/card';
@@ -12,6 +12,7 @@ import {MatInputModule} from '@angular/material/input';
 import {AsyncPipe} from '@angular/common';
 import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
+
 
 @Component({
   selector: 'app-page-detail',
@@ -26,20 +27,19 @@ export class PageDetailComponent {
   ricette: Ricette[] = [];
   listaRicette: Ricette[] = [];
 
-  constructor(private route: ActivatedRoute, private service: ServiceService) {
+  constructor(private route: ActivatedRoute, private service: ServiceService, private router: Router) {
 
   }
 
   myControl = new FormControl('');
   options: string[] = ["rigatoni", "calamarata"];
   filteredOptions: any;
-
   
 
   
 
   ngOnInit() {
-    this.tipoPiatto = this.route!.snapshot.params['tipoPiatto'];
+    this.tipoPiatto = this.route!.snapshot.params['tipoPagina'];
     this.service.getListaRicette().subscribe(
       (res) => this.ricette = res
     )

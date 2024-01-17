@@ -1,13 +1,14 @@
-import { Component, Output, ViewChild } from '@angular/core';
+import { Component, Input, Output, ViewChild } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { User } from '../class/user';
 import { PageDetailComponent } from '../page-detail/page-detail.component';
+import { EventEmitter } from 'stream';
 
 
 @Component({
@@ -18,11 +19,11 @@ import { PageDetailComponent } from '../page-detail/page-detail.component';
   imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatMenuModule, CommonModule, MatCardModule],
 })
 export class NavbarComponent {
+  tipoPagina : string = "";
+  
 
   isLogin: boolean = true;
-  @Output() tipoPiatto: string = '';
-  constructor(private router: Router) {
-
+  constructor(private router: Router, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
@@ -34,15 +35,4 @@ export class NavbarComponent {
     this.router.navigate(['Login'])
   }
 
-  primiPiatti() {
-    this.router.navigate(['Homepage/Primi-Piatti'])
-  }
-
-  secondiPiatti() {
-    this.router.navigate(['Homepage/Secondi-Piatti'])
-  }
-
-  contorni() {
-    this.router.navigate(['Homepage/Contorni'])
-  }
 }

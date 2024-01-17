@@ -19,7 +19,7 @@ export class ServiceService {
       idCategorie: 0
     },
     {
-      id: 0,
+      id: 1,
       titolo: "Rigatoni salsiccia e broccoli",
       quantitaPersone: 0,
       preparazione: "Un bel piatto di pasta è quello che ci vuole per accontentare i gusti di tutti. Ricchi, gustosi, dal sapore avvolgente e facili da preparare. In questa sezione vi voglio proporre mille diverse ricette di primi davvero irresistibili!",
