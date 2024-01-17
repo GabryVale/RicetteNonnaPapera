@@ -8,7 +8,7 @@ import { Observable, of } from 'rxjs';
 export class ServiceService {
 
   constructor() { }
-
+  isLogged: boolean = false;
    ricette: Ricette [] = [
     {
       id: 0,

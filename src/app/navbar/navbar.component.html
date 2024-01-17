@@ -1,6 +1,6 @@
 
 <mat-toolbar>
-    <span>homepage</span>
+    <span style="cursor: pointer;" (click)="homepage()">homepage</span>
     <span class="example-spacer"></span>
     <!--<button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
           <mat-icon>favorite</mat-icon>
@@ -8,8 +8,8 @@
         <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
           <mat-icon>share</mat-icon>
         </button>-->
-    <button *ngIf="!isLogin" mat-button (click)="LogIn()">Log In</button>
-    <button *ngIf="isLogin" mat-button (click)="LogOut()">Log Out</button>
+    <button *ngIf="!this.service.isLogged" mat-button (click)="LogIn()">Log In</button>
+    <button *ngIf="this.service.isLogged" mat-button (click)="LogOut()">Log Out</button>
   </mat-toolbar>
 
 

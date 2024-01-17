@@ -11,7 +11,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatInputModule} from '@angular/material/input';
 import {AsyncPipe} from '@angular/common';
 import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { Observable, map, startWith } from 'rxjs';
+import { map, startWith } from 'rxjs';
 
 
 @Component({
