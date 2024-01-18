@@ -4,6 +4,7 @@ import { LoginComponent } from './login/login.component';
 import { PageDetailComponent } from './page-detail/page-detail.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { PageRicettaComponent } from './page-ricetta/page-ricetta.component';
+import { CreazioneRicettaComponent } from './creazione-ricetta/creazione-ricetta.component';
 
 
 export const routes: Routes = [
@@ -27,4 +28,8 @@ export const routes: Routes = [
 {
     path: 'Homepage/:tipoPagina/:id',
     component: PageRicettaComponent
+},
+{
+    path: 'creazione',
+    component: CreazioneRicettaComponent
 }];

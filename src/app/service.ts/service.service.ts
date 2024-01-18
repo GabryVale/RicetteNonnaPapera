@@ -8,7 +8,9 @@ import { Observable, of } from 'rxjs';
 export class ServiceService {
 
   constructor() { }
+  isAdmin: boolean = false;
   isLogged: boolean = false;
+  form: boolean = false;
    ricette: Ricette [] = [
     {
       id: 0,

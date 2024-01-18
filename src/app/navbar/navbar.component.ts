@@ -36,12 +36,17 @@ export class NavbarComponent {
   }
   LogOut() {
     localStorage.setItem("login", "false");
+    localStorage.setItem("admin", "false");
     this.service.isLogged = false;
+    this.service.isAdmin = false;
   }
   LogIn() {
     this.router.navigate(['Login'])
   }
   homepage() {
     this.router.navigate(['Homepage']);
+  }
+  aggiungiRicetta(){
+    this.router.navigate(['creazione']);
   }
 }

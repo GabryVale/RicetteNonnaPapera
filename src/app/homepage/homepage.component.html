@@ -5,11 +5,11 @@
                 <mat-card-header>
                     <mat-card-title>Primi Piatti</mat-card-title>
                 </mat-card-header>
-                <img mat-card-image src="assets/Calamarata-primi.jpg">
-                <mat-card-actions>
+                <img (click)="primiPiatti()" mat-card-image src="assets/Calamarata-primi.jpg">
+                <!--<mat-card-actions>
                     <button mat-button style="color: rgb(255, 255, 255); background-color: rgb(0, 0, 0);"
                         (click)="primiPiatti()">Select</button>
-                </mat-card-actions>
+                </mat-card-actions>-->
             </mat-card>
         </div>
         <div>
@@ -17,11 +17,11 @@
                 <mat-card-header>
                     <mat-card-title>Secondi Piatti</mat-card-title>
                 </mat-card-header>
-                <img mat-card-image src="assets/secondi-piatti.jpg">
-                <mat-card-actions>
-                    <button mat-button style="color: rgb(255, 255, 255); background-color: rgb(0, 0, 0);"
+                <img (click)="secondiPiatti()" mat-card-image src="assets/secondi-piatti.jpg">
+                <!--<mat-card-actions>
+                <button mat-button style="color: rgb(255, 255, 255); background-color: rgb(0, 0, 0);"
                         (click)="secondiPiatti()">Select</button>
-                </mat-card-actions>
+                </mat-card-actions>-->
             </mat-card>
         </div>
         <div>
@@ -29,11 +29,11 @@
                 <mat-card-header>
                     <mat-card-title>Contorni</mat-card-title>
                 </mat-card-header>
-                <img mat-card-image src="assets/Contorni-piatti.jpg">
-                <mat-card-actions>
-                    <button mat-button style="color: rgb(255, 255, 255); background-color: rgb(0, 0, 0);"
+                <img (click)="contorni()" mat-card-image src="assets/Contorni-piatti.jpg">
+                <!--<mat-card-actions>
+                <button mat-button style="color: rgb(255, 255, 255); background-color: rgb(0, 0, 0);"
                         (click)="contorni()">Select</button>
-                </mat-card-actions>
+                </mat-card-actions>-->
             </mat-card>
         </div>
     </div>

@@ -8,6 +8,7 @@
         <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
           <mat-icon>share</mat-icon>
         </button>-->
+    <button *ngIf="this.service.isAdmin && this.service.isLogged" mat-button (click)="aggiungiRicetta()">Aggiungi ricetta</button>    
     <button *ngIf="!this.service.isLogged" mat-button (click)="LogIn()">Log In</button>
     <button *ngIf="this.service.isLogged" mat-button (click)="LogOut()">Log Out</button>
   </mat-toolbar>
