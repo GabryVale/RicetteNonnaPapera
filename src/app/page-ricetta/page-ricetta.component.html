@@ -1,0 +1,12 @@
+<div *ngFor="let ricetta of listaRicette" style="padding: 15px;">
+    <h2 style="color: rgb(59, 58, 58);">{{ricetta.titolo}}</h2>
+    <div>
+        <img style="height: 400px; width: 600px; border-radius: 5px;" *ngIf="tipoPiatto == 'Primi-Piatti' " mat-card-image src="assets/rigatoni.png">
+        <img style="height: 400px; width: 600px; border-radius: 5px;" *ngIf="tipoPiatto == 'Secondi-Piatti' " mat-card-image src="assets/Orata-al-forno.jpg">
+        <img style="height: 400px; width: 600px; border-radius: 5px;" *ngIf="tipoPiatto == 'Contorni' " mat-card-image src="assets/Patate-al-forno.jpg">
+    </div>
+    <div [innerHTML]="ricetta.preparazione">
+    </div>
+    <div [innerHTML]="ricetta.ingredienti">
+    </div>
+</div>

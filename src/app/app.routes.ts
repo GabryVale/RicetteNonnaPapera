@@ -3,6 +3,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { LoginComponent } from './login/login.component';
 import { PageDetailComponent } from './page-detail/page-detail.component';
 import { HomepageComponent } from './homepage/homepage.component';
+import { PageRicettaComponent } from './page-ricetta/page-ricetta.component';
 
 
 export const routes: Routes = [
@@ -22,4 +23,8 @@ export const routes: Routes = [
 {
     path: 'Login',
     component: LoginComponent
+},
+{
+    path: 'Homepage/:tipoPagina/:id',
+    component: PageRicettaComponent
 }];

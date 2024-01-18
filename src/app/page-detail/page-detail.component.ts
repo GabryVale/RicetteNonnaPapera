@@ -6,11 +6,11 @@ import { Ricette } from '../class/ricette';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {MatInputModule} from '@angular/material/input';
-import {AsyncPipe} from '@angular/common';
-import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
+import { AsyncPipe } from '@angular/common';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { map, startWith } from 'rxjs';
 
 
@@ -27,16 +27,16 @@ export class PageDetailComponent {
   ricette: Ricette[] = [];
   listaRicette: Ricette[] = [];
 
-  constructor(private route: ActivatedRoute, private service: ServiceService, private router: Router) {
+  constructor(private route: ActivatedRoute, private service: ServiceService, public router: Router) {
 
   }
 
   myControl = new FormControl('');
   options: string[] = ["rigatoni", "calamarata"];
   filteredOptions: any;
-  
 
-  
+
+
 
   ngOnInit() {
     this.tipoPiatto = this.route!.snapshot.params['tipoPagina'];
@@ -47,22 +47,39 @@ export class PageDetailComponent {
     if (this.tipoPiatto == "Primi-Piatti") {
       this.listaRicette = this.ricette.filter((res) => res.id == 0)
     }
-    if(this.tipoPiatto == "Secondi-Piatti"){
-      this.listaRicette = this.ricette.filter((res)=> res.id == 1)
+    if (this.tipoPiatto == "Secondi-Piatti") {
+      this.listaRicette = this.ricette.filter((res) => res.id == 1)
     }
-    if(this.tipoPiatto == "Contorni"){
-      this.listaRicette = this.ricette.filter((res)=> res.id == 2)
+    if (this.tipoPiatto == "Contorni") {
+      this.listaRicette = this.ricette.filter((res) => res.id == 2)
     }
 
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value || '')),
     );
-   }
+  }
 
-   private _filter(value: string) {
+  private _filter(value: string) {
     const filterValue = value;
 
     return this.options.filter(option => option.includes(filterValue));
+  }
+
+  dettaglioRicette() {
+    this.tipoPiatto = this.route!.snapshot.params['tipoPagina'];
+
+    if (this.tipoPiatto == "Primi-Piatti") {
+      this.listaRicette = this.ricette.filter((res) => res.id == 0)
+      this.router.navigate(['Homepage/Primi-Piatti/0'])
+    }
+    if (this.tipoPiatto == "Secondi-Piatti") {
+      this.listaRicette = this.ricette.filter((res) => res.id == 1)
+      this.router.navigate(['Homepage/Secondi-Piatti/1'])
+    }
+    if (this.tipoPiatto == "Contorni") {
+      this.listaRicette = this.ricette.filter((res) => res.id == 2)
+      this.router.navigate(['Homepage/Contorni/2'])
+    }
   }
 }
