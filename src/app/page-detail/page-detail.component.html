@@ -19,23 +19,22 @@
     <h1>{{tipoPiatto}}</h1>
 </div>
 <div class="display" *ngFor="let ricetta of listaRicette">
-    <span (click)="dettaglioRicette()">
+    <span>
         <mat-card class="example-card" style="cursor: pointer;">
             <mat-card-header>
                 <mat-card-title>{{ricetta.titolo}}</mat-card-title>
             </mat-card-header>
-            <img *ngIf="tipoPiatto == 'Primi-Piatti' " mat-card-image src="assets/rigatoni.png">
-            <img *ngIf="tipoPiatto == 'Secondi-Piatti' " mat-card-image src="assets/Orata-al-forno.jpg">
-            <img *ngIf="tipoPiatto == 'Contorni' " mat-card-image src="assets/Patate-al-forno.avif">
+            <img (click)="dettaglioRicette()" *ngIf="tipoPiatto == 'Primi-Piatti' " mat-card-image src="assets/rigatoni.png">
+            <img (click)="dettaglioRicette()" *ngIf="tipoPiatto == 'Secondi-Piatti' " mat-card-image src="assets/Orata-al-forno.jpg">
+            <img (click)="dettaglioRicette()" *ngIf="tipoPiatto == 'Contorni' " mat-card-image src="assets/Patate-al-forno.jpg">
             <mat-card-content>
                 <p>
                     {{ricetta.preparazione}}
                 </p>
             </mat-card-content>
-            <!--<mat-card-actions>
-                <button style="color: black;" (click)="dettaglioRicette()" mat-button>Seleziona Ricetta</button>
-            </mat-card-actions>-->
-            
+            <mat-card-actions>
+                <button *ngIf="this.service.isAdmin" style="color: black; background-color: rgb(181, 40, 40);"  mat-button (click)="cancella(ricetta)">Cancella Ricetta</button>
+            </mat-card-actions>
         </mat-card>
     </span>
 </div>

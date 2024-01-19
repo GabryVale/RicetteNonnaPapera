@@ -22,6 +22,7 @@ export class HomepageComponent {
   }
   
   ngOnInit(){
+    
     if(localStorage.getItem("login") == "true"){
       this.service.isLogged = true;
     }

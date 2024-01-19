@@ -1,9 +1,9 @@
 export class Ricette{
     id: number
-    titolo: string
+    titolo: any
     quantitaPersone: number
-    preparazione: string
-    ingredienti: string
+    preparazione: any
+    ingredienti: any
     idCategorie: number
 
     constructor(){

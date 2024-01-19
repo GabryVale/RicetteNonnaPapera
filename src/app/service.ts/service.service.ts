@@ -11,6 +11,7 @@ export class ServiceService {
   isAdmin: boolean = false;
   isLogged: boolean = false;
   form: boolean = false;
+  apiUrl: string = 'https://bdba-151-84-203-176.ngrok-free.app/';
    ricette: Ricette [] = [
     {
       id: 0,

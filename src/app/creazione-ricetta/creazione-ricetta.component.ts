@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Ricette } from '../class/ricette';
 import { ServiceService } from '../service.ts/service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-creazione-ricetta',
@@ -10,7 +11,7 @@ import { ServiceService } from '../service.ts/service.service';
   styleUrl: './creazione-ricetta.component.css'
 })
 export class CreazioneRicettaComponent {
-     constructor(private service: ServiceService){
+     constructor(private service: ServiceService, private router: Router){
 
      }
 
@@ -31,7 +32,7 @@ export class CreazioneRicettaComponent {
      }
      creazioneRicetta(){
       const titolo = document.getElementById(
-        'titolo',
+        'titolo'
       ) as HTMLInputElement | null;
       const descrizione = document.getElementById(
         'descrizione',
@@ -44,10 +45,11 @@ export class CreazioneRicettaComponent {
       ) as HTMLInputElement | null;
       
 
-      //capire come prendere i dati del form per aggiungere una ricetta
+      this.ricetta.titolo = titolo?.value;
+      this.ricetta.preparazione = descrizione?.value;
+      this.ricetta.ingredienti = ingredienti?.value;
+      this.service.ricette.push(this.ricetta);
+      this.router.navigate(['Homepage']);
       
-     }
-
-     
-
+    }
 }

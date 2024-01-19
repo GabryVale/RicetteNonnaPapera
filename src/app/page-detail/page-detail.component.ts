@@ -12,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { AsyncPipe } from '@angular/common';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { map, startWith } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -27,7 +28,7 @@ export class PageDetailComponent {
   ricette: Ricette[] = [];
   listaRicette: Ricette[] = [];
 
-  constructor(private route: ActivatedRoute, private service: ServiceService, public router: Router) {
+  constructor(private route: ActivatedRoute, public service: ServiceService, public router: Router) {
 
   }
 
@@ -80,6 +81,31 @@ export class PageDetailComponent {
     if (this.tipoPiatto == "Contorni") {
       this.listaRicette = this.ricette.filter((res) => res.id == 2)
       this.router.navigate(['Homepage/Contorni/2'])
+    }
+  }
+
+
+  cancella(ricetta: Ricette) {
+    const index = this.ricette.indexOf(ricetta);
+    if (index > -1) {
+      this.ricette.splice(index, 1);
+    }
+    this.service.getListaRicette().subscribe(
+      (res) => this.ricette = res
+    )
+    this.tipoPiatto = this.route!.snapshot.params['tipoPagina'];
+
+    if (this.tipoPiatto == "Primi-Piatti") {
+      this.listaRicette = this.ricette.filter((res) => res.id == 0)
+
+    }
+    if (this.tipoPiatto == "Secondi-Piatti") {
+      this.listaRicette = this.ricette.filter((res) => res.id == 1)
+
+    }
+    if (this.tipoPiatto == "Contorni") {
+      this.listaRicette = this.ricette.filter((res) => res.id == 2)
+
     }
   }
 }

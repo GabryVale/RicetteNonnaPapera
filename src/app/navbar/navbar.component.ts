@@ -6,9 +6,6 @@ import { MatMenuModule } from '@angular/material/menu';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
-import { User } from '../class/user';
-import { PageDetailComponent } from '../page-detail/page-detail.component';
-import { EventEmitter } from 'stream';
 import { ServiceService } from '../service.ts/service.service';
 
 
@@ -32,6 +29,13 @@ export class NavbarComponent {
     }
     else{
       this.service.isLogged = true;
+    }
+
+    if(localStorage.getItem("admin") == "false"){
+      this.service.isAdmin = false;
+    }
+    else{
+      this.service.isAdmin = true;
     }
   }
   LogOut() {
