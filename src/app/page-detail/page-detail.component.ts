@@ -12,7 +12,6 @@ import { MatInputModule } from '@angular/material/input';
 import { AsyncPipe } from '@angular/common';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { map, startWith } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -41,71 +40,101 @@ export class PageDetailComponent {
 
   ngOnInit() {
     this.tipoPiatto = this.route!.snapshot.params['tipoPagina'];
-    this.service.getListaRicette().subscribe(
+    this.service.getDati().subscribe(
       (res) => this.ricette = res
     )
 
+     console.log(this.ricette)
     if (this.tipoPiatto == "Primi-Piatti") {
-      this.listaRicette = this.ricette.filter((res) => res.id == 0)
+      this.listaRicette = this.ricette.filter((res) => res.categoria.id == 1)
     }
     if (this.tipoPiatto == "Secondi-Piatti") {
-      this.listaRicette = this.ricette.filter((res) => res.id == 1)
+      this.listaRicette = this.ricette.filter((res) => res.categoria.id == 2)
     }
     if (this.tipoPiatto == "Contorni") {
-      this.listaRicette = this.ricette.filter((res) => res.id == 2)
+      this.listaRicette = this.ricette.filter((res) => res.categoria.id == 3)
     }
 
-    this.filteredOptions = this.myControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value || '')),
-    );
+    // if (this.tipoPiatto == "Primi-Piatti") {
+    //   this.listaRicette = this.ricette.filter((res) => res.id == 0)
+    // }
+    // if (this.tipoPiatto == "Secondi-Piatti") {
+    //   this.listaRicette = this.ricette.filter((res) => res.id == 1)
+    // }
+    // if (this.tipoPiatto == "Contorni") {
+    //   this.listaRicette = this.ricette.filter((res) => res.id == 2)
+    // }
+
+    // this.filteredOptions = this.myControl.valueChanges.pipe(
+    //   startWith(''),
+    //   map(value => this._filter(value || '')),
+    // );
   }
 
-  private _filter(value: string) {
-    const filterValue = value;
+  // private _filter(value: string) {
+  //   const filterValue = value;
 
-    return this.options.filter(option => option.includes(filterValue));
-  }
+  //   return this.options.filter(option => option.includes(filterValue));
+  // }
 
   dettaglioRicette() {
     this.tipoPiatto = this.route!.snapshot.params['tipoPagina'];
-
+    
     if (this.tipoPiatto == "Primi-Piatti") {
-      this.listaRicette = this.ricette.filter((res) => res.id == 0)
-      this.router.navigate(['Homepage/Primi-Piatti/0'])
+      this.listaRicette = this.ricette.filter((res) => res.categoria.id == 1)
+      this.router.navigate(['Homepage/Primi-Piatti/1'])
     }
     if (this.tipoPiatto == "Secondi-Piatti") {
-      this.listaRicette = this.ricette.filter((res) => res.id == 1)
-      this.router.navigate(['Homepage/Secondi-Piatti/1'])
+      this.listaRicette = this.ricette.filter((res) => res.categoria.id == 2)
+      this.router.navigate(['Homepage/Secondi-Piatti/2'])
     }
     if (this.tipoPiatto == "Contorni") {
-      this.listaRicette = this.ricette.filter((res) => res.id == 2)
-      this.router.navigate(['Homepage/Contorni/2'])
+      this.listaRicette = this.ricette.filter((res) => res.categoria.id == 3)
+      this.router.navigate(['Homepage/Contorni/3'])
     }
   }
 
+  ricerca(){
+    this.tipoPiatto = this.route!.snapshot.params['tipoPagina'];
+    const titolo = document.getElementById(
+      'cerca'
+    ) as HTMLInputElement | null;
+    this.service.ricerca(titolo?.value).subscribe((res)=>{
+      this.ricette = res;
+    });
+
+    if (this.tipoPiatto == "Primi-Piatti") {
+      this.listaRicette = this.ricette.filter((res) => res.categoria.id == 1)
+    }
+    if (this.tipoPiatto == "Secondi-Piatti") {
+      this.listaRicette = this.ricette.filter((res) => res.categoria.id == 2)
+    }
+    if (this.tipoPiatto == "Contorni") {
+      this.listaRicette = this.ricette.filter((res) => res.categoria.id == 3)
+    }
+  }
 
   cancella(ricetta: Ricette) {
     const index = this.ricette.indexOf(ricetta);
     if (index > -1) {
-      this.ricette.splice(index, 1);
+      //this.ricette.splice(index, 1);
+      this.service.delete(index).subscribe();
     }
-    this.service.getListaRicette().subscribe(
+    this.service.getDati().subscribe(
       (res) => this.ricette = res
     )
     this.tipoPiatto = this.route!.snapshot.params['tipoPagina'];
 
     if (this.tipoPiatto == "Primi-Piatti") {
-      this.listaRicette = this.ricette.filter((res) => res.id == 0)
+      this.listaRicette = this.ricette.filter((res) => res.categoria.id == 1)
 
     }
     if (this.tipoPiatto == "Secondi-Piatti") {
-      this.listaRicette = this.ricette.filter((res) => res.id == 1)
+      this.listaRicette = this.ricette.filter((res) => res.categoria.id == 2)
 
     }
     if (this.tipoPiatto == "Contorni") {
-      this.listaRicette = this.ricette.filter((res) => res.id == 2)
-
+      this.listaRicette = this.ricette.filter((res) => res.categoria.id == 3)
     }
   }
 }

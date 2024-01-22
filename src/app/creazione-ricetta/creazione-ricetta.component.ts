@@ -22,15 +22,8 @@ export class CreazioneRicettaComponent {
        ingredienti: string = ""
        idCategorie: number = 0
      
-     ricetta: Ricette ={
-       id: 0,
-       titolo: '',
-       quantitaPersone: 0,
-       preparazione: '',
-       ingredienti: '',
-       idCategorie: 0
-     }
      creazioneRicetta(){
+     let ricetta = new Ricette()
       const titolo = document.getElementById(
         'titolo'
       ) as HTMLInputElement | null;
@@ -45,11 +38,11 @@ export class CreazioneRicettaComponent {
       ) as HTMLInputElement | null;
       
 
-      this.ricetta.titolo = titolo?.value;
-      this.ricetta.preparazione = descrizione?.value;
-      this.ricetta.ingredienti = ingredienti?.value;
-      this.service.ricette.push(this.ricetta);
+      ricetta.titolo = titolo?.value;
+      ricetta.preparazione = descrizione?.value;
+      ricetta.ingredienti = ingredienti?.value;
+      //this.service.ricette.push(this.ricetta);
+      this.service.crezioneRicetta(ricetta).subscribe();
       this.router.navigate(['Homepage']);
-      
     }
 }

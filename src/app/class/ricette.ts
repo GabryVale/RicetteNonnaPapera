@@ -4,7 +4,7 @@ export class Ricette{
     quantitaPersone: number
     preparazione: any
     ingredienti: any
-    idCategorie: number
+    categoria: any
 
     constructor(){
         this.id = 0,
@@ -12,6 +12,9 @@ export class Ricette{
         this.quantitaPersone = 0,
         this.preparazione = "",
         this.ingredienti = "",
-        this.idCategorie = 0
+        this.categoria = {
+            id : 1,
+            categoria : ""
+        }
     }
 }
