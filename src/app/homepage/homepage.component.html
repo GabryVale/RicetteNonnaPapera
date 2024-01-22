@@ -1,39 +1,56 @@
-<div style="background-color: rgb(215, 215, 215); height: 673px;">
-    <div class="display">
-        <div>
-            <mat-card class="example-card">
-                <mat-card-header>
-                    <mat-card-title>Primi Piatti</mat-card-title>
-                </mat-card-header>
-                <img (click)="primiPiatti()" mat-card-image src="assets/Calamarata-primi.jpg">
-                <!--<mat-card-actions>
+<div style="background-color: rgb(215, 215, 215); height: 1000px;">
+    <div>
+        <h2 style="padding: 15px;">Categoria piatto:</h2>
+        <div class="display">
+            <div>
+                <mat-card class="example-card">
+                    <mat-card-header>
+                        <mat-card-title>Primi Piatti</mat-card-title>
+                    </mat-card-header>
+                    <img (click)="primiPiatti()" mat-card-image src="assets/Calamarata-primi.jpg">
+                    <!--<mat-card-actions>
                     <button mat-button style="color: rgb(255, 255, 255); background-color: rgb(0, 0, 0);"
                         (click)="primiPiatti()">Select</button>
                 </mat-card-actions>-->
-            </mat-card>
-        </div>
-        <div>
-            <mat-card class="example-card">
-                <mat-card-header>
-                    <mat-card-title>Secondi Piatti</mat-card-title>
-                </mat-card-header>
-                <img (click)="secondiPiatti()" mat-card-image src="assets/secondi-piatti.jpg">
-                <!--<mat-card-actions>
+                </mat-card>
+            </div>
+            <div>
+                <mat-card class="example-card">
+                    <mat-card-header>
+                        <mat-card-title>Secondi Piatti</mat-card-title>
+                    </mat-card-header>
+                    <img (click)="secondiPiatti()" mat-card-image src="assets/secondi-piatti.jpg">
+                    <!--<mat-card-actions>
                 <button mat-button style="color: rgb(255, 255, 255); background-color: rgb(0, 0, 0);"
                         (click)="secondiPiatti()">Select</button>
                 </mat-card-actions>-->
-            </mat-card>
-        </div>
-        <div>
-            <mat-card class="example-card">
-                <mat-card-header>
-                    <mat-card-title>Contorni</mat-card-title>
-                </mat-card-header>
-                <img (click)="contorni()" mat-card-image src="assets/Contorni-piatti.jpg">
-                <!--<mat-card-actions>
+                </mat-card>
+            </div>
+            <div>
+                <mat-card class="example-card">
+                    <mat-card-header>
+                        <mat-card-title>Contorni</mat-card-title>
+                    </mat-card-header>
+                    <img (click)="contorni()" mat-card-image src="assets/Contorni-piatti.jpg">
+                    <!--<mat-card-actions>
                 <button mat-button style="color: rgb(255, 255, 255); background-color: rgb(0, 0, 0);"
                         (click)="contorni()">Select</button>
                 </mat-card-actions>-->
+                </mat-card>
+            </div>
+        </div>
+    </div>
+    <h2 style="padding: 15px;">Tutte le ricette:</h2>
+    <div class="display">
+        <div *ngFor="let ricetta of ricette" >
+            <mat-card class="example">
+                <mat-card-header>
+                    <mat-card-title>{{ricetta.titolo}}</mat-card-title>
+                </mat-card-header>
+                <img style="height: 266px; width: 350ppx;" *ngIf="ricetta.titolo == 'pasta al sugo'" mat-card-image src="assets/penne.jpg">
+                <img style="height: 266px; width: 350ppx;" *ngIf="ricetta.titolo == 'roast beef'" mat-card-image src="assets/roast.jpg">
+                <img style="height: 266px; width: 350px;" *ngIf="ricetta.titolo == 'pppppp'" mat-card-image src="assets/spaghetti.jpg">
+                <img style="height: 266px; width: 350px;" *ngIf="ricetta.titolo == 'pasta'" mat-card-image src="assets/pasta.jpg">
             </mat-card>
         </div>
     </div>

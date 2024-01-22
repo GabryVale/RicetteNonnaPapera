@@ -7,6 +7,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ServiceService } from '../service.ts/service.service';
+import { Ricette } from '../class/ricette';
 
 @Component({
   selector: 'app-homepage',
@@ -17,12 +18,20 @@ import { ServiceService } from '../service.ts/service.service';
 })
 export class HomepageComponent {
   tipoPagina: string= "";
+  ricette: Ricette[] = []
   constructor(private router: Router, private route: ActivatedRoute, private service: ServiceService){
 
   }
   
   ngOnInit(){
-    
+    this.service.getDati().subscribe((res) => {
+     this.ricette = JSON.parse(res);
+    })
+
+    // this.service.getListaRicette().subscribe((res)=>{
+    //   this.ricette=res;
+    // })
+    console.log(this.ricette)
     if(localStorage.getItem("login") == "true"){
       this.service.isLogged = true;
     }

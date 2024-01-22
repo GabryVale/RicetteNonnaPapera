@@ -1,18 +1,24 @@
 import { Injectable } from '@angular/core';
 import { Ricette } from '../class/ricette';
-import { Observable, of } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { Observable, map, of } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+ const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json'
+  })
+}
 @Injectable({
   providedIn: 'root'
 })
+
 export class ServiceService {
 
   constructor(private http: HttpClient) { }
   isAdmin: boolean = false;
   isLogged: boolean = false;
   form: boolean = false;
-  apiUrl: string = 'https://60d1-151-84-203-176.ngrok-free.app/';
+  apiUrl: string = 'https://ad72-151-84-203-176.ngrok-free.app/';
   //  ricette: Ricette [] = [
   //   {
   //     id: 0,
@@ -67,8 +73,11 @@ export class ServiceService {
   //   }
   //  ]
 
+
+  //ric: Ricette[]=[{"id":1,"titolo":"pasta al sugo","quantitaPersone":1,"preparazione":"descr","ingredienti":"pasta, salsa","categoria":{"id":1,"categoria":"primo"}},{"id":2,"titolo":"roast beef","quantitaPersone":1,"preparazione":"descr","ingredienti":"carne","categoria":{"id":2,"categoria":"secondo"}},{"id":3,"titolo":"pppppp","quantitaPersone":1,"preparazione":"adedmin","ingredienti":"pasta","categoria":{"id":1,"categoria":"primo"}},{"id":4,"titolo":"pasta","quantitaPersone":1,"preparazione":"adedmin","ingredienti":"pasta","categoria":{"id":1,"categoria":"primo"}}]
+
    getDati(): Observable <any>{
-    return this.http.get(this.apiUrl + "api/ricette/lista");
+    return this.http.get(this.apiUrl + "api/ricette/lista", {responseType: 'text'});
    }
 
    getDetailPage(id: number): Observable <any>{
@@ -80,7 +89,7 @@ export class ServiceService {
    }
 
    crezioneRicetta(ricetta: any){
-     return this.http.post(this.apiUrl + "api/ricette/post", ricetta);
+     return this.http.post(this.apiUrl + "api/ricette/crea-ricetta", ricetta);
    }
 
    delete(id: any){
@@ -88,7 +97,7 @@ export class ServiceService {
    }
 
   //  getListaRicette(): Observable <any>{
-  //   return of (this.ricette);
+  //   return of (this.ric);
   //  }
 
   //  getDettaglioRicette(): Observable <any>{

@@ -14,13 +14,7 @@ export class CreazioneRicettaComponent {
      constructor(private service: ServiceService, private router: Router){
 
      }
-
-     id: number = 0
-       tit: string = " "
-       quantitaPersone: number = 0
-       preparazione: string = ""
-       ingredienti: string = ""
-       idCategorie: number = 0
+     
      
      creazioneRicetta(){
      let ricetta = new Ricette()
@@ -41,7 +35,7 @@ export class CreazioneRicettaComponent {
       ricetta.titolo = titolo?.value;
       ricetta.preparazione = descrizione?.value;
       ricetta.ingredienti = ingredienti?.value;
-      //this.service.ricette.push(this.ricetta);
+      //this.service.ric.push(ricetta);
       this.service.crezioneRicetta(ricetta).subscribe();
       this.router.navigate(['Homepage']);
     }

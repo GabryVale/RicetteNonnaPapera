@@ -27,8 +27,12 @@ export class PageRicettaComponent {
 
   ngOnInit(){
     this.service.getDati().subscribe((res)=>
-     this.dettaglioRicette = res
+     this.dettaglioRicette = JSON.parse(res)
     )
+
+    // this.service.getListaRicette().subscribe((res)=>{
+    //   this.dettaglioRicette=res;
+    // })
 
     this.tipoPiatto = this.route!.snapshot.params['tipoPagina'];
     
