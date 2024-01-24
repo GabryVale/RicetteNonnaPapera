@@ -11,12 +11,18 @@
     </div>
 </div>-->
 
-<div class="display" *ngFor="let ricetta of listaRicette">
+
     <span>
-        <mat-card class="example-card" style="cursor: pointer;">
+        <mat-card class="example-card" style="cursor: pointer;" style="background-color: rgb(215, 215, 215);">
             <mat-card-header>
                 <mat-card-title>{{ricetta.titolo}}</mat-card-title>
             </mat-card-header> 
+            <mat-card-content>
+                <img  style="height: 266px; width: 350ppx;" *ngIf="ricetta.titolo == 'pasta al sugo'" mat-card-image src="assets/penne.jpg">
+                <img  style="height: 266px; width: 350ppx;" *ngIf="ricetta.titolo == 'roast beef'" mat-card-image src="assets/roast.jpg">
+                <img  style="height: 266px; width: 350px;" *ngIf="ricetta.titolo == 'pppppp'" mat-card-image src="assets/spaghetti.jpg">
+                <img  style="height: 266px; width: 350px;" *ngIf="ricetta.titolo == 'pasta'" mat-card-image src="assets/pasta.jpg">
+            </mat-card-content>
             <mat-card-content>
                 <p>
                     {{ricetta.preparazione}}
@@ -27,6 +33,10 @@
                     {{ricetta.ingredienti}}
                 </p>
             </mat-card-content>
+            <mat-card-content>
+                <p>
+                    {{ricetta.quantitaPersone}}
+                </p>
+            </mat-card-content>
         </mat-card>
     </span>
-</div>

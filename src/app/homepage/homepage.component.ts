@@ -9,6 +9,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ServiceService } from '../service.ts/service.service';
 import { Ricette } from '../class/ricette';
 
+
+
 @Component({
   selector: 'app-homepage',
   standalone: true,
@@ -17,25 +19,32 @@ import { Ricette } from '../class/ricette';
   styleUrl: './homepage.component.css'
 })
 export class HomepageComponent {
-  tipoPagina: string= "";
+  tipoPagina: string = "";
   ricette: Ricette[] = []
-  constructor(private router: Router, private route: ActivatedRoute, private service: ServiceService){
+  dettaglioRicette: Ricette[] = []
+  obj: any;
+  pageable: any
+  pageSize: number = 0
+  cont: number = 0
+  constructor(private router: Router, private route: ActivatedRoute, private service: ServiceService) {
 
   }
-  
-  ngOnInit(){
-    this.service.getDati().subscribe((res) => {
-     this.ricette = JSON.parse(res);
-    })
 
-    // this.service.getListaRicette().subscribe((res)=>{
-    //   this.ricette=res;
-    // })
-    console.log(this.ricette)
-    if(localStorage.getItem("login") == "true"){
+  ngOnInit() {
+   
+    this.service.getDati().subscribe((res) => {
+      this.obj = JSON.parse(res)
+
+    })
+    this.pageSize = this.obj.pageable.pageSize;
+    this.pageable = this.obj.pageable
+    this.ricette = this.obj.content
+
+    this.ricette = this.ricette.filter((res)=> res.id == 1 || res.id == 2)
+    if (localStorage.getItem("login") == "true") {
       this.service.isLogged = true;
     }
-    else{
+    else {
       this.service.isLogged = false;
     }
   }
@@ -53,4 +62,25 @@ export class HomepageComponent {
     this.router.navigate(['Homepage/Contorni'])
   }
 
+  dettaglio(id: number) {
+    this.router.navigate(['Homepage/Primi-Piatti/' + id]);
+  }
+
+  nextPage() {
+    this.service.getDati().subscribe((res) => {
+      this.obj = JSON.parse(res)
+
+    })
+    this.ricette = this.obj.content
+    this.ricette = this.ricette.filter((res)=> res.id== 3 || res.id == 4)
+  }
+
+  lastPage() {
+    this.service.getDati().subscribe((res) => {
+      this.obj = JSON.parse(res)
+
+    })
+  this.ricette = this.obj.content
+  this.ricette = this.ricette.filter((res)=> res.id== 1 || res.id == 2)
+  }
 }

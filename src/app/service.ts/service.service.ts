@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Ricette } from '../class/ricette';
 import { Observable, map, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { User } from '../class/user';
 
  const httpOptions = {
   headers: new HttpHeaders({
@@ -18,7 +19,7 @@ export class ServiceService {
   isAdmin: boolean = false;
   isLogged: boolean = false;
   form: boolean = false;
-  apiUrl: string = 'https://ad72-151-84-203-176.ngrok-free.app/';
+  apiUrl: string = 'http://localhost:8080/';
   //  ricette: Ricette [] = [
   //   {
   //     id: 0,
@@ -81,19 +82,23 @@ export class ServiceService {
    }
 
    getDetailPage(id: number): Observable <any>{
-    return this.http.get(this.apiUrl + "api/ricette/get/" + id)
+    return this.http.get(this.apiUrl + "api/ricette/get/" + id, {responseType: 'text'})
    }
 
    ricerca(titolo: any): Observable <any>{
-    return this.http.get(this.apiUrl + "api/ricette/search" + titolo);
+    return this.http.get(this.apiUrl + "api/ricette/search" + titolo, {responseType: 'text'});
    }
 
    crezioneRicetta(ricetta: any){
-     return this.http.post(this.apiUrl + "api/ricette/crea-ricetta", ricetta);
+     return this.http.post(this.apiUrl + "api/ricette/crea-ricetta", ricetta, {responseType: 'text'});
    }
 
    delete(id: any){
      return this.http.delete(this.apiUrl + "api/ricette/delete", id);
+   }
+
+   login(user: any){
+    return this.http.get(this.apiUrl + "api/auth/signin", user)
    }
 
   //  getListaRicette(): Observable <any>{

@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { ServiceService } from '../service.ts/service.service';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class NavbarComponent {
   tipoPagina : string = "";
   
 
-  constructor(private router: Router, private route: ActivatedRoute, public service: ServiceService) {
+  constructor(private router: Router, private route: ActivatedRoute, public service: ServiceService, public dialog: MatDialog, ) {
   }
 
   ngOnInit() { 

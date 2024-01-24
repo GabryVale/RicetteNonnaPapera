@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ServiceService } from '../service.ts/service.service';
-import { Ricette } from '../class/ricette';
+import { Categoria, Ricette } from '../class/ricette';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -15,36 +15,30 @@ import { MatToolbarModule } from '@angular/material/toolbar';
   styleUrl: './page-ricetta.component.css'
 })
 export class PageRicettaComponent {
-  tipoPiatto!: string;
+  id!: any;
 
   
-  listaRicette: Ricette[] = [];
-  dettaglioRicette: Ricette[]=[];
+  ricetta: Ricette = {
+    id: 0,
+    titolo: undefined,
+    quantitaPersone: 0,
+    preparazione: undefined,
+    ingredienti: undefined,
+    categoria: new Categoria()
+  };
 
   constructor(private service: ServiceService, private route: ActivatedRoute){
 
   }
 
   ngOnInit(){
-    this.service.getDati().subscribe((res)=>
-     this.dettaglioRicette = JSON.parse(res)
-    )
-
     // this.service.getListaRicette().subscribe((res)=>{
     //   this.dettaglioRicette=res;
     // })
-
-    this.tipoPiatto = this.route!.snapshot.params['tipoPagina'];
     
-    if (this.tipoPiatto == "Primi-Piatti") {
-      this.listaRicette = this.dettaglioRicette.filter((res) => res.categoria.id == 1)
-    }
-    if (this.tipoPiatto == "Secondi-Piatti") {
-      this.listaRicette = this.dettaglioRicette.filter((res) => res.categoria.id == 2)
-    }
-    if (this.tipoPiatto == "Contorni") {
-      this.listaRicette = this.dettaglioRicette.filter((res) => res.categoria.id == 3)
+    this.id = this.route!.snapshot.params['id'];
+    this.service.getDetailPage(this.id).subscribe((res)=> this.ricetta = JSON.parse(res));
     }
   }
 
-}
+

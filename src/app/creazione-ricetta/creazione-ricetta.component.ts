@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Ricette } from '../class/ricette';
 import { ServiceService } from '../service.ts/service.service';
 import { Router } from '@angular/router';
+import { Ricetta } from '../class/ricetta';
 
 @Component({
   selector: 'app-creazione-ricetta',
@@ -17,15 +18,15 @@ export class CreazioneRicettaComponent {
      
      
      creazioneRicetta(){
-     let ricetta = new Ricette()
+     let ricetta = new Ricetta()
       const titolo = document.getElementById(
         'titolo'
       ) as HTMLInputElement | null;
-      const descrizione = document.getElementById(
-        'descrizione',
+      const preparazione = document.getElementById(
+        'preparazione',
       ) as HTMLInputElement | null;
-      const step = document.getElementById(
-        'step',
+      const quantita = document.getElementById(
+        'quantita persone',
       ) as HTMLInputElement | null;
       const ingredienti = document.getElementById(
         'ingredienti',
@@ -33,10 +34,13 @@ export class CreazioneRicettaComponent {
       
 
       ricetta.titolo = titolo?.value;
-      ricetta.preparazione = descrizione?.value;
+      ricetta.preparazione = preparazione?.value;
+      ricetta.quantitaPersone = quantita?.value;
       ricetta.ingredienti = ingredienti?.value;
       //this.service.ric.push(ricetta);
-      this.service.crezioneRicetta(ricetta).subscribe();
+      this.service.crezioneRicetta(ricetta).subscribe((res)=> {
+        
+      });
       this.router.navigate(['Homepage']);
     }
 }

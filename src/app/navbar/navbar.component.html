@@ -10,8 +10,21 @@
         </button>-->
     <button *ngIf="this.service.isAdmin && this.service.isLogged" mat-button (click)="aggiungiRicetta()">Aggiungi ricetta</button>    
     <button *ngIf="!this.service.isLogged" mat-button (click)="LogIn()">Log In</button>
-    <button *ngIf="this.service.isLogged" mat-button (click)="LogOut()">Log Out</button>
+    <button *ngIf="this.service.isLogged" mat-button (click)="dialog.showModal()">Log Out</button>
   </mat-toolbar>
+
+
+  <dialog #dialog>
+    <div>
+      sicuro di uscire?
+    </div>
+    <div>
+      <button (click)="dialog.close()">no</button>
+      <div>
+        <button (click)="LogOut()">si</button>
+      </div>
+    </div>
+  </dialog>
 
 
 <!--<div class="search-container">

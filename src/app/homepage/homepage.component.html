@@ -41,17 +41,22 @@
         </div>
     </div>
     <h2 style="padding: 15px;">Tutte le ricette:</h2>
-    <div class="display">
+    <div class="display2">
         <div *ngFor="let ricetta of ricette" >
             <mat-card class="example">
                 <mat-card-header>
                     <mat-card-title>{{ricetta.titolo}}</mat-card-title>
                 </mat-card-header>
-                <img style="height: 266px; width: 350ppx;" *ngIf="ricetta.titolo == 'pasta al sugo'" mat-card-image src="assets/penne.jpg">
-                <img style="height: 266px; width: 350ppx;" *ngIf="ricetta.titolo == 'roast beef'" mat-card-image src="assets/roast.jpg">
-                <img style="height: 266px; width: 350px;" *ngIf="ricetta.titolo == 'pppppp'" mat-card-image src="assets/spaghetti.jpg">
-                <img style="height: 266px; width: 350px;" *ngIf="ricetta.titolo == 'pasta'" mat-card-image src="assets/pasta.jpg">
+                <img (click)="dettaglio(ricetta.id)" style="height: 266px; width: 350ppx;" *ngIf="ricetta.titolo == 'pasta al sugo'" mat-card-image src="assets/penne.jpg">
+                <img (click)="dettaglio(ricetta.id)" style="height: 266px; width: 350ppx;" *ngIf="ricetta.titolo == 'roast beef'" mat-card-image src="assets/roast.jpg">
+                <img (click)="dettaglio(ricetta.id)" style="height: 266px; width: 350px;" *ngIf="ricetta.titolo == 'pppppp'" mat-card-image src="assets/spaghetti.jpg">
+                <img (click)="dettaglio(ricetta.id)" style="height: 266px; width: 350px;" *ngIf="ricetta.titolo == 'pasta'" mat-card-image src="assets/pasta.jpg">
             </mat-card>
         </div>
     </div>
+    <div style="display: flex; justify-content: end;">
+    <div (click)="lastPage()" style="padding: auto; margin-top: 100px; border-radius: 8px; background-color: rgb(145, 134, 134);"><button style="color: black;" mat-button>last-page</button></div>
+    <div (click)="nextPage()" style="padding: auto; margin-top: 100px; border-radius: 8px;"><button style="color: black;" mat-button>next-page</button></div>
+    </div>
 </div>
+

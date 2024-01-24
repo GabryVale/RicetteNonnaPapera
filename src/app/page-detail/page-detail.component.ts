@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { ServiceService } from '../service.ts/service.service';
-import { Ricette } from '../class/ricette';
+import { Categoria, Ricette } from '../class/ricette';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
@@ -11,7 +11,6 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { AsyncPipe } from '@angular/common';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { map, startWith } from 'rxjs';
 
 
 @Component({
@@ -26,6 +25,14 @@ export class PageDetailComponent {
 
   ricette: Ricette[] = [];
   listaRicette: Ricette[] = [];
+  ricercaRicetta: Ricette = {
+    id: 0,
+    titolo: undefined,
+    quantitaPersone: 0,
+    preparazione: undefined,
+    ingredienti: undefined,
+    categoria: new Categoria()
+  }
 
   constructor(private route: ActivatedRoute, public service: ServiceService, public router: Router) {
 
@@ -34,6 +41,8 @@ export class PageDetailComponent {
   myControl = new FormControl('');
   options: string[] = ["rigatoni", "calamarata"];
   filteredOptions: any;
+  cerca: boolean = false
+  obj: any
 
 
 
@@ -41,13 +50,9 @@ export class PageDetailComponent {
   ngOnInit() {
     this.tipoPiatto = this.route!.snapshot.params['tipoPagina'];
     this.service.getDati().subscribe(
-      (res) => this.ricette = JSON.parse(res)
+      (res) => this.obj = JSON.parse(res)
     )
-
-    // this.service.getListaRicette().subscribe((res)=>{
-    //   this.ricette=res;
-    // })
-
+    this.ricette = this.obj.content;
     if (this.tipoPiatto == "Primi-Piatti") {
       this.listaRicette = this.ricette.filter((res) => res.categoria.id == 1)
     }
@@ -60,50 +65,41 @@ export class PageDetailComponent {
   }
 
 
-  dettaglioRicette(ricetta: string) {
+  dettaglioRicette(titolo: string, id: number) {
 
     this.tipoPiatto = this.route!.snapshot.params['tipoPagina'];
     
     if (this.tipoPiatto == "Primi-Piatti") {
-      this.listaRicette = this.ricette.filter((res)=> res.titolo == ricetta);
-      this.router.navigate(['Homepage/Primi-Piatti/1'])
+      this.router.navigate(['Homepage/Primi-Piatti/'+ id])
     }
     if (this.tipoPiatto == "Secondi-Piatti") {
-      this.listaRicette = this.ricette.filter((res)=> res.titolo == ricetta);
-      this.router.navigate(['Homepage/Secondi-Piatti/2'])
+      this.router.navigate(['Homepage/Secondi-Piatti/'+ id])
     }
     if (this.tipoPiatto == "Contorni") {
-      this.listaRicette = this.ricette.filter((res)=> res.titolo == ricetta);
-      this.router.navigate(['Homepage/Contorni/3'])
+      this.router.navigate(['Homepage/Contorni/'+ id])
     }
   }
 
   ricerca(){
+    this.cerca = true;
     this.tipoPiatto = this.route!.snapshot.params['tipoPagina'];
     const titolo = document.getElementById(
       'cerca'
     ) as HTMLInputElement | null;
     this.service.ricerca(titolo?.value).subscribe((res)=>{
-      this.ricette = JSON.parse(res);
+      this.ricercaRicetta = JSON.parse(res);
+      
     });
-
-    if (this.tipoPiatto == "Primi-Piatti") {
-      this.listaRicette = this.ricette.filter((res) => res.categoria.id == 1)
-    }
-    if (this.tipoPiatto == "Secondi-Piatti") {
-      this.listaRicette = this.ricette.filter((res) => res.categoria.id == 2)
-    }
-    if (this.tipoPiatto == "Contorni") {
-      this.listaRicette = this.ricette.filter((res) => res.categoria.id == 3)
-    }
+    console.log(titolo?.value)
+    localStorage.setItem('ricerca', JSON.stringify(this.ricercaRicetta));
   }
 
-  cancella(ricetta: Ricette) {
-    const index = this.ricette.indexOf(ricetta);
-    if (index > -1) {
+  cancella(id: number) {
+    
       //this.ricette.splice(index, 1);
-      this.service.delete(index).subscribe();
-    }
+      console.log(id)
+      this.service.delete(id).subscribe();
+    
     this.service.getDati().subscribe(
       (res) => this.ricette = JSON.parse(res)
     )
@@ -115,11 +111,9 @@ export class PageDetailComponent {
 
     if (this.tipoPiatto == "Primi-Piatti") {
       this.listaRicette = this.ricette.filter((res) => res.categoria.id == 1)
-
     }
     if (this.tipoPiatto == "Secondi-Piatti") {
       this.listaRicette = this.ricette.filter((res) => res.categoria.id == 2)
-
     }
     if (this.tipoPiatto == "Contorni") {
       this.listaRicette = this.ricette.filter((res) => res.categoria.id == 3)

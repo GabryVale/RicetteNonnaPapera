@@ -11,12 +11,13 @@ import { PageRicettaComponent } from './page-ricetta/page-ricetta.component';
 import { CreazioneRicettaComponent } from './creazione-ricetta/creazione-ricetta.component';
 import { HttpClientModule } from '@angular/common/http';
 
+
 @Component({
     selector: 'app-root',
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.css',
-    imports: [CommonModule, RouterOutlet, NavbarComponent,LoginComponent, PageDetailComponent, HomepageComponent, PageRicettaComponent, CreazioneRicettaComponent, HttpClientModule]
+    imports: [CommonModule, RouterOutlet, NavbarComponent, LoginComponent, PageDetailComponent, HomepageComponent, PageRicettaComponent, CreazioneRicettaComponent, HttpClientModule]
 })
 export class AppComponent {
 
