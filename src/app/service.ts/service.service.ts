@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Ricette } from '../class/ricette';
-import { Observable, map, of } from 'rxjs';
+import { Observable, catchError, map, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../class/user';
 
@@ -85,8 +85,8 @@ export class ServiceService {
     return this.http.get(this.apiUrl + "api/ricette/get/" + id, {responseType: 'text'})
    }
 
-   ricerca(titolo: any): Observable <any>{
-    return this.http.get(this.apiUrl + "api/ricette/search" + titolo, {responseType: 'text'});
+   ricerca(titolo: string): Observable <any>{
+    return this.http.get(this.apiUrl + "api/ricette/search?titolo="+ titolo);
    }
 
    crezioneRicetta(ricetta: any){
@@ -98,7 +98,7 @@ export class ServiceService {
    }
 
    login(user: any){
-    return this.http.get(this.apiUrl + "api/auth/signin", user)
+    return this.http.post(this.apiUrl + "api/auth/signin", user)
    }
 
   //  getListaRicette(): Observable <any>{

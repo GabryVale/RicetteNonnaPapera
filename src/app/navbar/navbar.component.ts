@@ -19,6 +19,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class NavbarComponent {
   tipoPagina : string = "";
+  tasto: boolean= true
   
 
   constructor(private router: Router, private route: ActivatedRoute, public service: ServiceService, public dialog: MatDialog, ) {
@@ -40,10 +41,14 @@ export class NavbarComponent {
     }
   }
   LogOut() {
+    this.tasto = true
     localStorage.setItem("login", "false");
     localStorage.setItem("admin", "false");
     this.service.isLogged = false;
     this.service.isAdmin = false;
+    this.router.navigate(['Homepage']);
+    this.tasto= false
+
   }
   LogIn() {
     this.router.navigate(['Login'])

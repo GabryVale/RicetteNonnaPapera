@@ -31,11 +31,7 @@ export class PageRicettaComponent {
 
   }
 
-  ngOnInit(){
-    // this.service.getListaRicette().subscribe((res)=>{
-    //   this.dettaglioRicette=res;
-    // })
-    
+  ngOnInit(){  
     this.id = this.route!.snapshot.params['id'];
     this.service.getDetailPage(this.id).subscribe((res)=> this.ricetta = JSON.parse(res));
     }

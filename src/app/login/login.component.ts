@@ -3,6 +3,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router } from '@angular/router';
 import { User } from '../class/user';
 import { ServiceService } from '../service.ts/service.service';
+import { error } from 'console';
 
 @Component({
   selector: 'app-login',
@@ -41,8 +42,12 @@ export class LoginComponent {
     console.log(this.user)
     
 
-    this.service.login(this.user).subscribe();
-
+    this.service.login(this.user).subscribe((res)=> {
+       this.router.navigate(['Homepage']);
+    },(error)=> {console.log(error)
+      localStorage.setItem("error", JSON.stringify(error))
+    }
+    );
 
     // this.user.forEach((res) => {
     //   if (res.key == "admin") {

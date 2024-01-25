@@ -25,14 +25,7 @@ export class PageDetailComponent {
 
   ricette: Ricette[] = [];
   listaRicette: Ricette[] = [];
-  ricercaRicetta: Ricette = {
-    id: 0,
-    titolo: undefined,
-    quantitaPersone: 0,
-    preparazione: undefined,
-    ingredienti: undefined,
-    categoria: new Categoria()
-  }
+  ricercaRicetta: Ricette[] = [];
 
   constructor(private route: ActivatedRoute, public service: ServiceService, public router: Router) {
 
@@ -41,65 +34,81 @@ export class PageDetailComponent {
   myControl = new FormControl('');
   options: string[] = ["rigatoni", "calamarata"];
   filteredOptions: any;
-  cerca: boolean = false
+  cerca: boolean = false;
   obj: any
+  lista: string = ""
+  titolo: string = ""
 
 
 
 
   ngOnInit() {
-    this.tipoPiatto = this.route!.snapshot.params['tipoPagina'];
-    this.service.getDati().subscribe(
-      (res) => this.obj = JSON.parse(res)
-    )
-    this.ricette = this.obj.content;
-    if (this.tipoPiatto == "Primi-Piatti") {
-      this.listaRicette = this.ricette.filter((res) => res.categoria.id == 1)
-    }
-    if (this.tipoPiatto == "Secondi-Piatti") {
-      this.listaRicette = this.ricette.filter((res) => res.categoria.id == 2)
-    }
-    if (this.tipoPiatto == "Contorni") {
-      this.listaRicette = this.ricette.filter((res) => res.categoria.id == 3)
-    }
+    this.service.getDati().subscribe((res) => {
+      this.obj = JSON.parse(res)
+      this.ricette = this.obj.content
+      this.tipoPiatto = this.route!.snapshot.params['tipoPagina'];
+
+      if (this.tipoPiatto == "Primi-Piatti") {
+        this.listaRicette = this.ricette.filter((res) => res.categoria.id == 1)
+      }
+      if (this.tipoPiatto == "Secondi-Piatti") {
+        this.listaRicette = this.ricette.filter((res) => res.categoria.id == 2)
+      }
+      if (this.tipoPiatto == "Contorni") {
+        this.listaRicette = this.ricette.filter((res) => res.categoria.id == 3)
+      }
+    })
   }
 
 
   dettaglioRicette(titolo: string, id: number) {
 
     this.tipoPiatto = this.route!.snapshot.params['tipoPagina'];
-    
+
     if (this.tipoPiatto == "Primi-Piatti") {
-      this.router.navigate(['Homepage/Primi-Piatti/'+ id])
+      this.router.navigate(['Homepage/Primi-Piatti/' + id])
     }
     if (this.tipoPiatto == "Secondi-Piatti") {
-      this.router.navigate(['Homepage/Secondi-Piatti/'+ id])
+      this.router.navigate(['Homepage/Secondi-Piatti/' + id])
     }
     if (this.tipoPiatto == "Contorni") {
-      this.router.navigate(['Homepage/Contorni/'+ id])
+      this.router.navigate(['Homepage/Contorni/' + id])
     }
   }
 
-  ricerca(){
+  ricerca() {
     this.cerca = true;
     this.tipoPiatto = this.route!.snapshot.params['tipoPagina'];
     const titolo = document.getElementById(
       'cerca'
     ) as HTMLInputElement | null;
-    this.service.ricerca(titolo?.value).subscribe((res)=>{
-      this.ricercaRicetta = JSON.parse(res);
-      
-    });
-    console.log(titolo?.value)
-    localStorage.setItem('ricerca', JSON.stringify(this.ricercaRicetta));
+   this.ricette.find((res)=> res.titolo == 'pasta');
+   this.titolo = JSON.stringify(titolo?.value);
+    // this.service.ricerca(this.titolo.toString()).subscribe((res) => {
+    //   this.ricercaRicetta = JSON.parse(res);
+    //   console.log(this.ricercaRicetta)
+    // });
+      this.service.getDati().subscribe((res) => {
+      this.obj = JSON.parse(res)
+      this.ricette = this.obj.content
+      if(this.tipoPiatto == "Primi-Piatti"){
+         this.ricercaRicetta = this.ricette.filter((res)=> res.titolo == titolo?.value && res.categoria.id == 1)
+      }
+      if(this.tipoPiatto == "Secondi-Piatti"){
+        this.ricercaRicetta = this.ricette.filter((res)=> res.titolo == titolo?.value && res.categoria.id == 2)
+     }
+     if(this.tipoPiatto == "Contorni"){
+      this.ricercaRicetta = this.ricette.filter((res)=> res.titolo == titolo?.value && res.categoria.id == 3)
+     }
+    })
   }
 
   cancella(id: number) {
-    
-      //this.ricette.splice(index, 1);
-      console.log(id)
-      this.service.delete(id).subscribe();
-    
+
+    //this.ricette.splice(index, 1);
+    console.log(id)
+    this.service.delete(id).subscribe();
+
     this.service.getDati().subscribe(
       (res) => this.ricette = JSON.parse(res)
     )

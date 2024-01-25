@@ -31,16 +31,12 @@ export class HomepageComponent {
   }
 
   ngOnInit() {
-   
     this.service.getDati().subscribe((res) => {
       this.obj = JSON.parse(res)
-
-    })
-    this.pageSize = this.obj.pageable.pageSize;
-    this.pageable = this.obj.pageable
-    this.ricette = this.obj.content
-
-    this.ricette = this.ricette.filter((res)=> res.id == 1 || res.id == 2)
+      this.ricette = this.obj.content
+       this.ricette = this.ricette.filter((res)=> res.id == 1 || res.id == 2)
+    }) 
+    
     if (localStorage.getItem("login") == "true") {
       this.service.isLogged = true;
     }
@@ -48,6 +44,8 @@ export class HomepageComponent {
       this.service.isLogged = false;
     }
   }
+
+  
 
 
   primiPiatti() {
