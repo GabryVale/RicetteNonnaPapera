@@ -3,11 +3,11 @@
 </div>
 <div class="login-container">
     <form>
-    <input type="text" #cerca ngModel name="cerca" id="cerca" placeholder="cerca">
-    <span><button (click)="ricerca()"  type="submit" style="background-color: black; color: white;">ricerca</button></span>
+    <input type="text" class="inp" #cerca ngModel name="cerca" id="cerca" placeholder="cerca">
+    <span><button class="but" (click)="ricerca()"  type="submit">ricerca</button></span>
 </form>
 </div>
-<div *ngIf="!cerca" >
+<div *ngIf="!search" >
 <div  class="display" *ngFor="let ricetta of listaRicette">
     <span>
         <mat-card class="example-card" style="cursor: pointer;">
@@ -31,7 +31,7 @@
 </div>
 </div>
 
-<div *ngIf="cerca" class="display">
+<div *ngIf="search" class="display">
     <span>
         <mat-card class="example-card" style="cursor: pointer;">
             <mat-card-header>

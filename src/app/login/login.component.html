@@ -1,9 +1,9 @@
 <div class="login-container">
-    <form>
+    <form [formGroup]="form">
       <label for="email">Username:</label>
-      <input type="text" required #email type="text" ngModel  name="email" id="email" placeholder="email">
+      <input required type="text" #email type="text" formControlName="email"   id="email" placeholder="email">
       <label for="password">Password:</label>
-      <input required  type="password" ngModel name="password" id="password" placeholder="password">
+      <input required  type="password" formControlName="password" name="password" id="password" placeholder="password">
       <button (click)="login()" type="submit">Login</button>
     </form>
 </div>

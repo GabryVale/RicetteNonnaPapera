@@ -9,10 +9,10 @@ export class Categoria{
 }
 export class Ricette {
     id: number
-    titolo: any
+    titolo: string
     quantitaPersone: number
-    preparazione: any
-    ingredienti: any
+    preparazione: string
+    ingredienti: string
     categoria: Categoria
 
     constructor(){

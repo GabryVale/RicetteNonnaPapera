@@ -90,7 +90,13 @@ export class ServiceService {
    }
 
    crezioneRicetta(ricetta: any){
-     return this.http.post(this.apiUrl + "api/ricette/crea-ricetta", ricetta, {responseType: 'text'});
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Bearer': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiaWF0IjoxNzA2NTM4NzIzLCJleHAiOjE3MDY2MjUxMjN9.eItLXLBktFRRP9vyERqyfWpLuUcE3gVwyX1t1iLbYgw'
+      })
+    };
+     return this.http.post(this.apiUrl + "api/ricette/crea-ricetta", ricetta, httpOptions);
    }
 
    delete(id: any){
@@ -98,7 +104,15 @@ export class ServiceService {
    }
 
    login(user: any){
-    return this.http.post(this.apiUrl + "api/auth/signin", user)
+    // let headers= new HttpHeaders()
+    // headers = headers.set('Content-Type', 'application/json');
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      })
+    };
+    return this.http.post(this.apiUrl + "api/auth/signin",  user, httpOptions)
    }
 
   //  getListaRicette(): Observable <any>{

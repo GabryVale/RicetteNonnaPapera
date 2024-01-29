@@ -18,37 +18,52 @@ import { MatDialog } from '@angular/material/dialog';
   imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatMenuModule, CommonModule, MatCardModule],
 })
 export class NavbarComponent {
-  tipoPagina : string = "";
-  tasto: boolean= true
+  user: any
+  roles: string[]=[];
   
 
-  constructor(private router: Router, private route: ActivatedRoute, public service: ServiceService, public dialog: MatDialog, ) {
+  constructor(private router: Router, public service: ServiceService, public dialog: MatDialog, ) {
   }
 
   ngOnInit() { 
-    if(localStorage.getItem("login") == "false"){
+    if(localStorage.getItem("user")){
+      this.service.isLogged = true;
+      this.user = localStorage.getItem("user");
+      this.user = JSON.parse(this.user);
+      this.roles = this.user.roles;
+      this.roles.forEach((res)=> {
+        if(res == "ROLE_ADMIN"){
+          this.service.isAdmin = true;
+        }
+        else{
+          this.service.isAdmin = false;
+        }
+      })
+    }
+    else{
       this.service.isLogged = false;
     }
-    else{
-      this.service.isLogged = true;
-    }
 
-    if(localStorage.getItem("admin") == "false"){
-      this.service.isAdmin = false;
-    }
-    else{
-      this.service.isAdmin = true;
-    }
+    // if(localStorage.getItem("admin") == "false"){
+    //   this.service.isAdmin = false;
+    // }
+    // else{
+    //   this.service.isAdmin = true;
+    // }
   }
   LogOut() {
-    this.tasto = true
-    localStorage.setItem("login", "false");
-    localStorage.setItem("admin", "false");
-    this.service.isLogged = false;
-    this.service.isAdmin = false;
-    this.router.navigate(['Homepage']);
-    this.tasto= false
-
+    // this.tasto = true
+    // localStorage.setItem("login", "false");
+    // localStorage.setItem("admin", "false");
+    // this.service.isLogged = false;
+    // this.service.isAdmin = false;
+    // this.router.navigate(['Homepage']);
+    // this.tasto= false
+    if(localStorage.getItem("user")){
+      localStorage.removeItem("user");
+      localStorage.removeItem("JwtAccess-Token");
+      this.service.isLogged = false;
+    }
   }
   LogIn() {
     this.router.navigate(['Login'])

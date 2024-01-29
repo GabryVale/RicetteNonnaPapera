@@ -37,12 +37,12 @@ export class HomepageComponent {
        this.ricette = this.ricette.filter((res)=> res.id == 1 || res.id == 2)
     }) 
     
-    if (localStorage.getItem("login") == "true") {
-      this.service.isLogged = true;
-    }
-    else {
-      this.service.isLogged = false;
-    }
+    // if (localStorage.getItem("login") == "true") {
+    //   this.service.isLogged = true;
+    // }
+    // else {
+    //   this.service.isLogged = false;
+    // }
   }
 
   

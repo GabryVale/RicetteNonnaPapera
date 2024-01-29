@@ -5,10 +5,10 @@ export class Categ{
     }
 }
 export class Ricetta {
-    titolo: any
-    quantitaPersone: any
-    preparazione: any
-    ingredienti: any
+    titolo: string
+    quantitaPersone: number
+    preparazione?: string
+    ingredienti?: string
     categoria: Categ
 
     constructor(){

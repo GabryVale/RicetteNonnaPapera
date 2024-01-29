@@ -31,10 +31,8 @@ export class PageDetailComponent {
 
   }
 
-  myControl = new FormControl('');
-  options: string[] = ["rigatoni", "calamarata"];
   filteredOptions: any;
-  cerca: boolean = false;
+  search: boolean = false;
   obj: any
   lista: string = ""
   titolo: string = ""
@@ -43,6 +41,7 @@ export class PageDetailComponent {
 
 
   ngOnInit() {
+    this.search = false
     this.service.getDati().subscribe((res) => {
       this.obj = JSON.parse(res)
       this.ricette = this.obj.content
@@ -77,28 +76,43 @@ export class PageDetailComponent {
   }
 
   ricerca() {
-    this.cerca = true;
-    this.tipoPiatto = this.route!.snapshot.params['tipoPagina'];
+   
     const titolo = document.getElementById(
       'cerca'
     ) as HTMLInputElement | null;
-   this.ricette.find((res)=> res.titolo == 'pasta');
    this.titolo = JSON.stringify(titolo?.value);
     // this.service.ricerca(this.titolo.toString()).subscribe((res) => {
     //   this.ricercaRicetta = JSON.parse(res);
     //   console.log(this.ricercaRicetta)
     // });
       this.service.getDati().subscribe((res) => {
+      this.search = true;
+      this.tipoPiatto = this.route!.snapshot.params['tipoPagina'];
       this.obj = JSON.parse(res)
       this.ricette = this.obj.content
       if(this.tipoPiatto == "Primi-Piatti"){
-         this.ricercaRicetta = this.ricette.filter((res)=> res.titolo == titolo?.value && res.categoria.id == 1)
+        this.ricercaRicetta = [];
+         this.ricercaRicetta = this.ricette.filter((res)=> res.titolo == titolo?.value && res.categoria.id == 1) 
+         if(!this.ricercaRicetta){
+          alert("nessuna ricetta trovata in primi piatti");
+        } 
       }
+        
       if(this.tipoPiatto == "Secondi-Piatti"){
-        this.ricercaRicetta = this.ricette.filter((res)=> res.titolo == titolo?.value && res.categoria.id == 2)
+        this.ricercaRicetta = [];
+        this.ricercaRicetta = this.ricette.filter((res)=> res.titolo == titolo?.value && res.categoria.id == 2)  
+     }else{
+      if(!this.ricercaRicetta){
+        alert("nessuna ricetta trovata in secondi piatti");
+      } 
      }
      if(this.tipoPiatto == "Contorni"){
+      this.ricercaRicetta = [];
       this.ricercaRicetta = this.ricette.filter((res)=> res.titolo == titolo?.value && res.categoria.id == 3)
+     }else{
+      if(!this.ricercaRicetta){
+       alert("nessuna ricetta trovata in contorni");
+      } 
      }
     })
   }
@@ -106,7 +120,6 @@ export class PageDetailComponent {
   cancella(id: number) {
 
     //this.ricette.splice(index, 1);
-    console.log(id)
     this.service.delete(id).subscribe();
 
     this.service.getDati().subscribe(

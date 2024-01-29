@@ -20,10 +20,10 @@ export class PageRicettaComponent {
   
   ricetta: Ricette = {
     id: 0,
-    titolo: undefined,
+    titolo: "",
     quantitaPersone: 0,
-    preparazione: undefined,
-    ingredienti: undefined,
+    preparazione: "",
+    ingredienti: "",
     categoria: new Categoria()
   };
 

@@ -1,9 +1,9 @@
 export class User{
-    usernameOrEmail: any
-    password: any
+    username: string
+    password: string
 
     constructor(){
-        this.usernameOrEmail = '',
+        this.username = '',
         this.password = ''
     }
 }

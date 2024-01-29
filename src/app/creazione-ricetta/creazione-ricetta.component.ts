@@ -3,42 +3,37 @@ import { Ricette } from '../class/ricette';
 import { ServiceService } from '../service.ts/service.service';
 import { Router } from '@angular/router';
 import { Ricetta } from '../class/ricetta';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators }   from '@angular/forms';
 
 @Component({
   selector: 'app-creazione-ricetta',
   standalone: true,
-  imports: [],
+  imports: [FormsModule, ReactiveFormsModule],
   templateUrl: './creazione-ricetta.component.html',
   styleUrl: './creazione-ricetta.component.css'
 })
 export class CreazioneRicettaComponent {
-     constructor(private service: ServiceService, private router: Router){
-
+     constructor(private service: ServiceService, private router: Router, private fb:FormBuilder){
+      this.form = this.fb.group({
+        titolo: ['',Validators.required],
+        preparazione: ['',Validators.required],
+        quantita: ['',Validators.required],
+        ingredienti: ['',Validators.required]
+    });
      }
      
-     
+     form!: FormGroup;
      creazioneRicetta(){
      let ricetta = new Ricetta()
-      const titolo = document.getElementById(
-        'titolo'
-      ) as HTMLInputElement | null;
-      const preparazione = document.getElementById(
-        'preparazione',
-      ) as HTMLInputElement | null;
-      const quantita = document.getElementById(
-        'quantita persone',
-      ) as HTMLInputElement | null;
-      const ingredienti = document.getElementById(
-        'ingredienti',
-      ) as HTMLInputElement | null;
       
+  
 
-      ricetta.titolo = titolo?.value;
-      ricetta.preparazione = preparazione?.value;
-      ricetta.quantitaPersone = quantita?.value;
-      ricetta.ingredienti = ingredienti?.value;
+      ricetta.titolo = this.form.value.titolo;
+      ricetta.preparazione = this.form.value.preparazione;
+      ricetta.quantitaPersone = this.form.value.quantita;
+      ricetta.ingredienti = this.form.value;
       //this.service.ric.push(ricetta);
-      this.service.crezioneRicetta(ricetta).subscribe((res)=> {
+      this.service.crezioneRicetta(JSON.stringify(ricetta)).subscribe((res)=> {
         
       });
       this.router.navigate(['Homepage']);
