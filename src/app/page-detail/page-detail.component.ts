@@ -38,8 +38,6 @@ export class PageDetailComponent {
   titolo: string = ""
 
 
-
-
   ngOnInit() {
     this.search = false
     this.service.getDati().subscribe((res) => {
@@ -76,69 +74,66 @@ export class PageDetailComponent {
   }
 
   ricerca() {
-   
     const titolo = document.getElementById(
       'cerca'
     ) as HTMLInputElement | null;
-   this.titolo = JSON.stringify(titolo?.value);
+    this.titolo = JSON.stringify(titolo?.value);
     // this.service.ricerca(this.titolo.toString()).subscribe((res) => {
     //   this.ricercaRicetta = JSON.parse(res);
     //   console.log(this.ricercaRicetta)
     // });
-      this.service.getDati().subscribe((res) => {
+    this.service.getDati().subscribe((res) => {
       this.search = true;
       this.tipoPiatto = this.route!.snapshot.params['tipoPagina'];
       this.obj = JSON.parse(res)
       this.ricette = this.obj.content
-      if(this.tipoPiatto == "Primi-Piatti"){
+      if (this.tipoPiatto == "Primi-Piatti") {
         this.ricercaRicetta = [];
-         this.ricercaRicetta = this.ricette.filter((res)=> res.titolo == titolo?.value && res.categoria.id == 1) 
-         if(!this.ricercaRicetta){
+        this.ricercaRicetta = this.ricette.filter((res) => res.titolo == titolo?.value && res.categoria.id == 1)
+        if (!this.ricercaRicetta) {
           alert("nessuna ricetta trovata in primi piatti");
-        } 
+        }
       }
-        
-      if(this.tipoPiatto == "Secondi-Piatti"){
+
+      if (this.tipoPiatto == "Secondi-Piatti") {
         this.ricercaRicetta = [];
-        this.ricercaRicetta = this.ricette.filter((res)=> res.titolo == titolo?.value && res.categoria.id == 2)  
-     }else{
-      if(!this.ricercaRicetta){
-        alert("nessuna ricetta trovata in secondi piatti");
-      } 
-     }
-     if(this.tipoPiatto == "Contorni"){
-      this.ricercaRicetta = [];
-      this.ricercaRicetta = this.ricette.filter((res)=> res.titolo == titolo?.value && res.categoria.id == 3)
-     }else{
-      if(!this.ricercaRicetta){
-       alert("nessuna ricetta trovata in contorni");
-      } 
-     }
+        this.ricercaRicetta = this.ricette.filter((res) => res.titolo == titolo?.value && res.categoria.id == 2)
+      } else {
+        if (!this.ricercaRicetta) {
+          alert("nessuna ricetta trovata in secondi piatti");
+        }
+      }
+      if (this.tipoPiatto == "Contorni") {
+        this.ricercaRicetta = [];
+        this.ricercaRicetta = this.ricette.filter((res) => res.titolo == titolo?.value && res.categoria.id == 3)
+      } else {
+        if (!this.ricercaRicetta) {
+          alert("nessuna ricetta trovata in contorni");
+        }
+      }
     })
   }
 
   cancella(id: number) {
+    this.service.delete(id).subscribe(() => {
+      this.service.getDati().subscribe((res) => {
+        this.obj = JSON.parse(res)
+        this.ricette = this.obj.content
+        this.tipoPiatto = this.route!.snapshot.params['tipoPagina'];
 
-    //this.ricette.splice(index, 1);
-    this.service.delete(id).subscribe();
-
-    this.service.getDati().subscribe(
-      (res) => this.ricette = JSON.parse(res)
-    )
-
-    // this.service.getListaRicette().subscribe((res)=>{
-    //   this.ricette=res;
-    // })
-    this.tipoPiatto = this.route!.snapshot.params['tipoPagina'];
-
-    if (this.tipoPiatto == "Primi-Piatti") {
-      this.listaRicette = this.ricette.filter((res) => res.categoria.id == 1)
-    }
-    if (this.tipoPiatto == "Secondi-Piatti") {
-      this.listaRicette = this.ricette.filter((res) => res.categoria.id == 2)
-    }
-    if (this.tipoPiatto == "Contorni") {
-      this.listaRicette = this.ricette.filter((res) => res.categoria.id == 3)
-    }
+        if (this.tipoPiatto == "Primi-Piatti") {
+          this.listaRicette = this.ricette.filter((res) => res.categoria.id == 1)
+        }
+        if (this.tipoPiatto == "Secondi-Piatti") {
+          this.listaRicette = this.ricette.filter((res) => res.categoria.id == 2)
+        }
+        if (this.tipoPiatto == "Contorni") {
+          this.listaRicette = this.ricette.filter((res) => res.categoria.id == 3)
+        }
+      })
+    }, () => {
+      alert("errore");
+    });
+     alert("ricetta eliminata");
   }
 }

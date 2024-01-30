@@ -27,6 +27,7 @@ export class LoginComponent {
 
   form!: FormGroup;
   token: any;
+  roles: string[]=[]
 
   constructor(private router: Router, private service: ServiceService, private fb:FormBuilder) {
     this.form = this.fb.group({
@@ -58,6 +59,20 @@ user: User = {
       localStorage.setItem("user",JSON.stringify(this.token));
       localStorage.setItem("JwtAccess-Token",JSON.stringify(this.token.accessToken));
       this.service.isLogged = true;
+      this.roles = this.token.roles;
+      this.roles.forEach((res)=>{
+        if(res == "ROLE_ADMIN"){
+          this.service.isAdmin = true;
+        }
+        else{
+          this.service.isAdmin = false;
+        } 
+      })
+      if(this.service.isAdmin){
+        alert("ti sei loggato com admin!");
+      }else{
+        alert("ti sei loggato come user!");
+      }
       this.router.navigate(['Homepage']);
     },()=> {
          alert("credenziali errate!");

@@ -4,7 +4,7 @@ import { Observable, catchError, map, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../class/user';
 
- const httpOptions = {
+const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json'
   })
@@ -14,7 +14,8 @@ import { User } from '../class/user';
 })
 
 export class ServiceService {
-
+  token: any = ""
+  tokenString: string = "";
   constructor(private http: HttpClient) { }
   isAdmin: boolean = false;
   isLogged: boolean = false;
@@ -77,43 +78,52 @@ export class ServiceService {
 
   //ric: Ricette[]=[{"id":1,"titolo":"pasta al sugo","quantitaPersone":1,"preparazione":"descr","ingredienti":"pasta, salsa","categoria":{"id":1,"categoria":"primo"}},{"id":2,"titolo":"roast beef","quantitaPersone":1,"preparazione":"descr","ingredienti":"carne","categoria":{"id":2,"categoria":"secondo"}},{"id":3,"titolo":"pppppp","quantitaPersone":1,"preparazione":"adedmin","ingredienti":"pasta","categoria":{"id":1,"categoria":"primo"}},{"id":4,"titolo":"pasta","quantitaPersone":1,"preparazione":"adedmin","ingredienti":"pasta","categoria":{"id":1,"categoria":"primo"}}]
 
-   getDati(): Observable <any>{
-    return this.http.get(this.apiUrl + "api/ricette/lista", {responseType: 'text'});
-   }
+  getDati(): Observable<any> {
+    return this.http.get(this.apiUrl + "api/ricette/lista", { responseType: 'text' });
+  }
 
-   getDetailPage(id: number): Observable <any>{
-    return this.http.get(this.apiUrl + "api/ricette/get/" + id, {responseType: 'text'})
-   }
+  getDetailPage(id: number): Observable<any> {
+    return this.http.get(this.apiUrl + "api/ricette/get/" + id, { responseType: 'text' })
+  }
 
-   ricerca(titolo: string): Observable <any>{
-    return this.http.get(this.apiUrl + "api/ricette/search?titolo="+ titolo);
-   }
+  ricerca(titolo: string): Observable<any> {
+    return this.http.get(this.apiUrl + "api/ricette/search?titolo=" + titolo);
+  }
 
-   crezioneRicetta(ricetta: any){
+  crezioneRicetta(ricetta: any) {
+    this.token = localStorage.getItem("JwtAccess-Token");
+    this.tokenString = JSON.parse(this.token)
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        'Bearer': 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiaWF0IjoxNzA2NTM4NzIzLCJleHAiOjE3MDY2MjUxMjN9.eItLXLBktFRRP9vyERqyfWpLuUcE3gVwyX1t1iLbYgw'
+        'Authorization': 'Bearer ' + this.tokenString
       })
     };
-     return this.http.post(this.apiUrl + "api/ricette/crea-ricetta", ricetta, httpOptions);
-   }
+    return this.http.post(this.apiUrl + "api/ricette/crea-ricetta", ricetta, httpOptions);
+  }
 
-   delete(id: any){
-     return this.http.delete(this.apiUrl + "api/ricette/delete", id);
-   }
+  delete(id: any) {
+    this.token = localStorage.getItem("JwtAccess-Token");
+    this.tokenString = JSON.parse(this.token)
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.tokenString
+      })
+    };
+    return this.http.delete(this.apiUrl + "api/ricette/delete/" + id, httpOptions);
+  }
 
-   login(user: any){
+  login(user: any) {
     // let headers= new HttpHeaders()
     // headers = headers.set('Content-Type', 'application/json');
-
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       })
     };
-    return this.http.post(this.apiUrl + "api/auth/signin",  user, httpOptions)
-   }
+    return this.http.post(this.apiUrl + "api/auth/signin", user, httpOptions)
+  }
 
   //  getListaRicette(): Observable <any>{
   //   return of (this.ric);
