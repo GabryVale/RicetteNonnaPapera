@@ -8,13 +8,14 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ServiceService } from '../service.ts/service.service';
 import { Ricette } from '../class/ricette';
+import { PaginatorComponent } from '../paginator/paginator.component';
 
 
 
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatMenuModule, CommonModule, MatCardModule],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatMenuModule, CommonModule, MatCardModule, PaginatorComponent],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.css'
 })
@@ -31,11 +32,6 @@ export class HomepageComponent {
   }
 
   ngOnInit() {
-    this.service.getDati().subscribe((res) => {
-      this.obj = JSON.parse(res)
-      this.ricette = this.obj.content
-       this.ricette = this.ricette.filter((res)=> res.id == 1 || res.id == 2)
-    }) 
     
     // if (localStorage.getItem("login") == "true") {
     //   this.service.isLogged = true;
@@ -64,21 +60,4 @@ export class HomepageComponent {
     this.router.navigate(['Homepage/Primi-Piatti/' + id]);
   }
 
-  nextPage() {
-    this.service.getDati().subscribe((res) => {
-      this.obj = JSON.parse(res)
-
-    })
-    this.ricette = this.obj.content
-    this.ricette = this.ricette.filter((res)=> res.id== 3 || res.id == 4)
-  }
-
-  lastPage() {
-    this.service.getDati().subscribe((res) => {
-      this.obj = JSON.parse(res)
-
-    })
-  this.ricette = this.obj.content
-  this.ricette = this.ricette.filter((res)=> res.id== 1 || res.id == 2)
-  }
 }

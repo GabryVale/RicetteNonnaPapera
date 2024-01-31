@@ -11,6 +11,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { AsyncPipe } from '@angular/common';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DialogComponent } from '../dialog/dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -26,8 +28,9 @@ export class PageDetailComponent {
   ricette: Ricette[] = [];
   listaRicette: Ricette[] = [];
   ricercaRicetta: Ricette[] = [];
+  popup: boolean = false
 
-  constructor(private route: ActivatedRoute, public service: ServiceService, public router: Router) {
+  constructor(private route: ActivatedRoute, public service: ServiceService, public router: Router, public dialog: MatDialog) {
 
   }
 
@@ -36,6 +39,7 @@ export class PageDetailComponent {
   obj: any
   lista: string = ""
   titolo: string = ""
+  dialogRef: any
 
 
   ngOnInit() {
@@ -134,6 +138,20 @@ export class PageDetailComponent {
     }, () => {
       alert("errore");
     });
-     alert("ricetta eliminata");
+    alert("ricetta eliminata");
   }
+
+  openDialog(ricetta: any, id: number) {
+    this.service.ricettaSelected = ricetta;
+    this.service.idRicetta = id;
+    this.service.dialog = this.dialogRef;
+    this.dialogRef = this.dialog.open(DialogComponent, {
+      height: '580px',
+      width: '600px',
+    });
+    this.dialogRef.afterClosed().subscribe((result: any) => {
+      console.log('The dialog was closed', result);
+    });
+  }
+
 }

@@ -3,6 +3,7 @@ import { Ricette } from '../class/ricette';
 import { Observable, catchError, map, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../class/user';
+import { Ricetta } from '../class/ricetta';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -14,6 +15,9 @@ const httpOptions = {
 })
 
 export class ServiceService {
+  ricettaSelected: Ricetta | undefined
+  idRicetta: number=0
+  dialog: any
   token: any = ""
   tokenString: string = "";
   constructor(private http: HttpClient) { }
@@ -123,6 +127,18 @@ export class ServiceService {
       })
     };
     return this.http.post(this.apiUrl + "api/auth/signin", user, httpOptions)
+  }
+
+  edit(ricetta: any){
+    this.token = localStorage.getItem("JwtAccess-Token");
+    this.tokenString = JSON.parse(this.token)
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.tokenString
+      })
+    };
+    return this.http.put(this.apiUrl+ "api/ricette/update/"+this.idRicetta, ricetta, httpOptions);
   }
 
   //  getListaRicette(): Observable <any>{

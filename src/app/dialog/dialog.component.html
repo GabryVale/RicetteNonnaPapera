@@ -1,0 +1,15 @@
+<div class="login-container">
+    <form [formGroup]="form">
+      <label style="color: white;" for="titolo">titolo:</label>
+      <input type="text" required  type="text" formControlName="titolo"  name="titolo" id="titolo" placeholder="titolo">
+      <label style="color: white;" for="preparazione">preparazione:</label>
+      <input  required type="text" name="preparazione" formControlName="preparazione" id="preparazione" placeholder="descrizione">
+      <label style="color: white;" for="quantita persone">quantità persone:</label>
+      <input required type="text"  name="quantita persone" formControlName="quantita" id="quantita persone" placeholder="step da fare">
+      <label style="color: white;" for="ingredienti">ingredienti:</label>
+      <input required type="text" ngModel name="ingredienti" formControlName="ingredienti" id="ingredienti" placeholder="ingredienti">
+      <label style="color: white;" for="categoria">Categoria:</label>
+      <input required type="text" ngModel name="categoria" formControlName="categoria" id="categoria" placeholder="categoria">
+      <button type="submit" (click)="edit()">Modifica</button>
+    </form>
+</div>
