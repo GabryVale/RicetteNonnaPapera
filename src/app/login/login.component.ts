@@ -69,7 +69,7 @@ user: User = {
         } 
       })
       if(this.service.isAdmin){
-        alert("ti sei loggato com admin!");
+        alert("ti sei loggato come admin!");
       }else{
         alert("ti sei loggato come user!");
       }
