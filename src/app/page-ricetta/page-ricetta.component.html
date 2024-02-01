@@ -1,44 +1,238 @@
-<!--<div *ngFor="let ricetta of listaRicette" style="padding: 15px;">
-    <h2 style="color: rgb(59, 58, 58);">{{ricetta.titolo}}</h2>
-    <div>
-        {{ricetta.preparazione}}
-    </div>
-    <div>{{ricetta.ingredienti}}</div>
-    <div>
-        <img style="height: 400px; width: 600px; border-radius: 5px;" *ngIf="tipoPiatto == 'Primi-Piatti' " mat-card-image src="assets/rigatoni.png">
-        <img style="height: 400px; width: 600px; border-radius: 5px;" *ngIf="tipoPiatto == 'Secondi-Piatti' " mat-card-image src="assets/Orata-al-forno.jpg">
-        <img style="height: 400px; width: 600px; border-radius: 5px;" *ngIf="tipoPiatto == 'Contorni' " mat-card-image src="assets/Patate-al-forno.jpg">
-    </div>
-</div>-->
+<span>
+    <mat-card class="example-card" style="cursor: pointer;" style="background-color: rgb(215, 215, 215);">
+        <mat-card-header>
+            <mat-card-title style="font-size: 25px;">{{ricetta.titolo}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div style="display: flex;">
+                <div>
+                    <img style="height: 266px; width: 350ppx;" *ngIf="ricetta.titolo == 'Pasta al sugo'" mat-card-image
+                        src="assets/penne.jpg">
+                </div>
+                <div style="padding: 10px; margin-left: 40px; margin-right:80px;"
+                    *ngIf="ricetta.titolo == 'Pasta al sugo'">
+                    <h2>Descrizione:</h2>
+                    <p>Un piatto simbolo della cucina italiana, con i tipici ingredienti del Bel Paese: pasta al
+                        pomodoro e basilico. La pasta al pomodoro sono un'istituzione, una ricetta semplice ma
+                        tutt'altro che banale. Soggetta ad infinite varianti per trovare l'equilibrio perfetto di
+                        sapori, la giusta cremosità e dolcezza, partendo già dalla scelta del tipo di pomodoro, da
+                        utilizzare per realizzare il sugo. Questo classico primo piatto è un vero banco di prova per chi
+                        ama prepararlo in casa, ma anche per gli chef stellati che serbano gelosamente i segreti delle
+                        loro versioni perfette e a volte creano delle irresistibili versioni gourmet, come i paccheri ai
+                        3 pomodori per esempio! Eccoci ai fornelli insieme a voi per suggerirvi la nostra ricetta di
+                        questo classico intramontabile: una cottura lenta e dolce dei pomodori pelati e il profumo delle
+                        foglioline di basilico fresche sono tra i suggerimenti per un sicuro successo! Sicuramente
+                        ricorderete la famosa scena del film "Miseria e Nobiltà", quando Felice Sciosciammocca e gli
+                        altri componenti della famiglia si fiondano sul piatto da portata e iniziano ad afferrare la
+                        pasta
+                        al pomodoro con le mani... ecco, siamo certi che con la nostra versione sarete tentati
+                        di fare altrettanto! Buon appetito!</p>
+                    <div
+                        style="padding: 10px; margin-right:80px; position: relative; right: 30px; display: flex; bottom: 15px;">
+                        <div>
+                            <mat-card-content style="display: flex;">
+                                <div>
+                                    <h2>Quantità Persone:</h2>
+                                </div>
+                                <div style="position: relative; top: 7px; left: 25px; font-size: 30px;">
+                                    {{ricetta.quantitaPersone}}
+                                </div>
+                            </mat-card-content>
+                        </div>
+                        <div style="margin-left: 35px;">
+                            <mat-card-content style="display: flex;">
+                                <div>
+                                    <h2>Ingredienti:</h2>
+                                </div>
+                                <p style="position: relative; top: 7px; left: 25px;">
+                                    {{ricetta.ingredienti}}
+                                </p>
+                            </mat-card-content>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="display: flex;">
+                <div style="margin-right: 10px;">
+                    <img style="height: 266px; width: 350ppx;" *ngIf="ricetta.titolo == 'Roast beef'" mat-card-image
+                        src="assets/roast.jpg">
+                </div>
+                <div style="padding: 10px; margin-left: 40px; margin-right:80px;"
+                    *ngIf="ricetta.titolo == 'Roast beef'">
+                    <h2>Descrizione:</h2>
+                    <p>Che carne si usa per fare il roast beef? Che differenza c'è tra arrosto e roast beef? A queste
+                        frequenti domande abbiamo la risposta: la ricetta del roast beef classico cucinato dallo chef
+                        stellato Claudio Sadler. Tutti i segreti per realizzare un roast beef perfetto a partire dalla
+                        legatura della carne. Si passa poi alla scelta del pezzo migliore, la cottura al cuore
+                        impeccabile (ovviamente in crosta di sale), con l'aiuto prezioso di una sonda, per lasciarlo
+                        succulento all'interno e allo stesso tempo cotto al punto giusto esternamente. Questo secondo
+                        piatto è ricco di sapore, un classico e una pietra miliare della cucina tradizionale da
+                        preparare per cene speciali o grandi occasioni, da inserire per esempio nel menù di Natale o
+                        Capodanno. Sarà impossibile non desiderare una tenerissima fetta di questo roast beef classico
+                        una volta che il profumo si sarà diffuso in cucina... soprattutto se lo accompagnerete anche voi
+                        con patate al cartoccio, cipolle al forno e una delicata sour cream fatta in casa!</p>
+                    <div
+                        style="padding: 10px; margin-right:80px; position: relative; right: 30px; display: flex; bottom: 15px;">
+                        <div>
+                            <mat-card-content style="display: flex;">
+                                <div>
+                                    <h2>Quantità Persone:</h2>
+                                </div>
+                                <div style="position: relative; top: 7px; left: 25px; font-size: 30px;">
+                                    {{ricetta.quantitaPersone}}
+                                </div>
+                            </mat-card-content>
+                        </div>
+                        <div style="margin-left: 35px;">
+                            <mat-card-content style="display: flex;">
+                                <div>
+                                    <h2>Ingredienti:</h2>
+                                </div>
+                                <p style="position: relative; top: 7px; left: 25px;">
+                                    {{ricetta.ingredienti}}
+                                </p>
+                            </mat-card-content>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="display: flex;">
+                <div>
+                    <img style="height: 266px; width: 350px;" *ngIf="ricetta.titolo == 'Spaghetti al pesto'" mat-card-image
+                        src="assets/pasta.jpg">
+                </div>
+                <div style="padding: 10px; margin-left: 40px; margin-right:80px;" *ngIf="ricetta.titolo == 'Spaghetti al pesto'">
+                    <h2>Descrizione:</h2>
+                    <p>Avete voglia di un piatto fresco e profumato perfetto per il vostro menù? Allora le bavette al
+                        pesto sono una ricetta classica, quella che stavate cercando! Il pesto, caposaldo della cucina
+                        ligure, è una salsa molto versatile e sempre molto apprezzata sulla tavola, che può essere
+                        utilizzata per realizzare ottimi primi, come le lasagne, e impreziosire piatti di pasta con il
+                        suo gusto ricco e inconfondibile. Il pesto sprigiona tutta la bontà e la freschezza racchiusa
+                        nelle foglie di basilico, creando un condimento cremoso che esalta i buoni sapori e i colori
+                        della cucina mediterranea!</p>
+                    <div
+                        style="padding: 10px; margin-right:80px; position: relative; right: 30px; display: flex; bottom: 15px;">
+                        <div>
+                            <mat-card-content style="display: flex;">
+                                <div>
+                                    <h2>Quantità Persone:</h2>
+                                </div>
+                                <div style="position: relative; top: 7px; left: 25px; font-size: 30px;">
+                                    {{ricetta.quantitaPersone}}
+                                </div>
+                            </mat-card-content>
+                        </div>
+                        <div style="margin-left: 35px;">
+                            <mat-card-content style="display: flex;">
+                                <div>
+                                    <h2>Ingredienti:</h2>
+                                </div>
+                                <p style="position: relative; top: 7px; left: 25px;">
+                                    {{ricetta.ingredienti}}
+                                </p>
+                            </mat-card-content>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="display: flex;">
+                <div>
+                    <img style="height: 266px; width: 350px;" *ngIf="ricetta.titolo == 'Tiramisù'" mat-card-image
+                        src="assets/Tiramisu.png">
+                </div>
+                <div style="padding: 10px; margin-left: 40px; margin-right:80px;" *ngIf="ricetta.titolo == 'Tiramisù'">
+                    <h2>Descrizione:</h2>
+                    <p>Il tiramisù è uno dei capisaldi della cucina italiana, uno dei dolci al cucchiaio più amati e
+                        realizzati in tutto il mondo. Le origini del tiramisù sono molto incerte e diverse città ne
+                        rivendicano la paternità. Ciò di cui siamo certi è che dal 1980 in poi, anno in cui questo
+                        termine venne inserito nel vocabolario italiano, il tiramisù ha avuto un successo enorme! Ad
+                        oggi è tra le parole italiane più conosciute all'estero. Ma cosa rende il tiramisù così
+                        speciale? Sicuramente amiamo il fatto che sia molto semplice da preparare, la sua crema al
+                        mascarpone è irresistibile, così gustosa e vellutata, intervellata da strati di savoiardi
+                        inzuppati nel caffè! C'è chi ama aromatizzare la bagna con il marsala e chi invece preferisce
+                        utilizzare altri liquori, ma noi lo amiamo così, in purezza e vi proponiamo la versione più
+                        classica, perfetta per ogni occasione!
+                        Anche se non abbiamo scoperto chi sia per certo l'inventore del tiramisù nella versione attuale,
+                        individuato da alcuni in Ado Campeol (il proprietario del conosciuto e storico locale "Il
+                        Becchiere" di Treviso), condividiamo con voi la nostra ricetta per uno tra i più buoni tiramisù
+                        che abbiate mai assaggiato! Preparatelo anche voi e fateci sapere!</p>
+                    <div
+                        style="padding: 10px; margin-right:80px; position: relative; right: 30px; display: flex; bottom: 15px;">
+                        <div>
+                            <mat-card-content style="display: flex;">
+                                <div>
+                                    <h2>Quantità Persone:</h2>
+                                </div>
+                                <div style="position: relative; top: 7px; left: 25px; font-size: 30px;">
+                                    {{ricetta.quantitaPersone}}
+                                </div>
+                            </mat-card-content>
+                        </div>
+                        <div style="margin-left: 35px;">
+                            <mat-card-content style="display: flex;">
+                                <div>
+                                    <h2>Ingredienti:</h2>
+                                </div>
+                                <p style="position: relative; top: 7px; left: 25px;">
+                                    {{ricetta.ingredienti}}
+                                </p>
+                            </mat-card-content>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="display: flex;">
+                <div style="margin-right: 10px;">
+                    <img style="height: 266px; width: 350px;" *ngIf="ricetta.titolo == 'Polpette'" mat-card-image
+                        src="assets/polpette.png">
+                </div>
+                <div style="padding: 10px; margin-left: 40px; margin-right:80px;" *ngIf="ricetta.titolo == 'Polpette'">
+                    <h2>Descrizione:</h2>
+                    <p>Le polpette di pane in padella sono un'idea sfiziosa per riciclare il pane avanzato creando dei
+                        bocconcini appetitosi con un cuore filante irresistibile. Come la maggior parte delle polpette,
+                        anche queste hanno una base costituita da pane raffermo, precedentemente ammorbidito con latte e
+                        uova, che viene arricchita con altri ingredienti come prezzemolo fresco, aglio e formaggio.
+                        Questa miscela viene lavorata con cura per ottenere delle polpette di pane compatte e saporite
+                        da farcire con cubetti di fontina, una piacevole sorpresa da scoprire al primo morso. Servite le
+                        polpette di pane in padella con una salsa di pomodoro fresco, una maionese fatta in casa o un
+                        contorno di insalata croccante, saranno un delizioso antipasto veg e antispreco!</p>
 
+                    <div
+                        style="padding: 10px; margin-right:80px; position: relative; right: 30px; display: flex; bottom: 15px;">
+                        <div>
+                            <mat-card-content style="display: flex;">
+                                <div>
+                                    <h2>Quantità Persone:</h2>
+                                </div>
+                                <div style="position: relative; top: 7px; left: 25px; font-size: 30px;">
+                                    {{ricetta.quantitaPersone}}
+                                </div>
+                            </mat-card-content>
+                        </div>
+                        <div style="margin-left: 35px;">
+                            <mat-card-content style="display: flex;">
+                                <div>
+                                    <h2>Ingredienti:</h2>
+                                </div>
+                                <p style="position: relative; top: 7px; left: 25px;">
+                                    {{ricetta.ingredienti}}
+                                </p>
+                            </mat-card-content>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </mat-card-content>
 
-    <span>
-        <mat-card class="example-card" style="cursor: pointer;" style="background-color: rgb(215, 215, 215);">
-            <mat-card-header>
-                <mat-card-title>{{ricetta.titolo}}</mat-card-title>
-            </mat-card-header> 
-            <mat-card-content>
-                <img  style="height: 266px; width: 350ppx;" *ngIf="ricetta.titolo == 'pasta al sugo'" mat-card-image src="assets/penne.jpg">
-                <img  style="height: 266px; width: 350ppx;" *ngIf="ricetta.titolo == 'roast beef'" mat-card-image src="assets/roast.jpg">
-                <img  style="height: 266px; width: 350px;" *ngIf="ricetta.titolo == 'pppppp'" mat-card-image src="assets/spaghetti.jpg">
-                <img  style="height: 266px; width: 350px;" *ngIf="ricetta.titolo == 'pasta'" mat-card-image src="assets/pasta.jpg">
-                <img  style="height: 266px; width: 350px;" *ngIf="ricetta.titolo == 'tiramisù'" mat-card-image src="assets/Tiramisu.png">
-                <img  style="height: 266px; width: 350px;" *ngIf="ricetta.titolo == 'polpette'" mat-card-image src="assets/polpette.png">
-            </mat-card-content>
-            <mat-card-content>
-                <p>
-                    {{ricetta.preparazione}}
-                </p>
-            </mat-card-content>
-            <mat-card-content>
-                <p>
-                    {{ricetta.ingredienti}}
-                </p>
-            </mat-card-content>
-            <mat-card-content>
-                <p>
-                    {{ricetta.quantitaPersone}}
-                </p>
-            </mat-card-content>
-        </mat-card>
-    </span>
+        <mat-card-content>
+            <div style="font-size: 15px;">
+                <h2>
+                     Preparazione:
+                </h2>
+            </div>
+            <div style="padding: 5px; font-size: 15px;">
+                {{ricetta.preparazione}}
+            </div>
+        </mat-card-content>
+    </mat-card>
+</span>

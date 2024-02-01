@@ -14,17 +14,16 @@
             <mat-card-header>
                 <mat-card-title>{{ricetta.titolo}}</mat-card-title>
             </mat-card-header>
-            <img (click)="dettaglioRicette(ricetta.titolo, ricetta.id)" style="height: 266px; width: 350ppx;" *ngIf="ricetta.titolo == 'pasta al sugo'" mat-card-image src="assets/penne.jpg">
-            <img (click)="dettaglioRicette(ricetta.titolo, ricetta.id)" style="height: 266px; width: 350ppx;" *ngIf="ricetta.titolo == 'roast beef'" mat-card-image src="assets/roast.jpg">
-            <img (click)="dettaglioRicette(ricetta.titolo, ricetta.id)" style="height: 266px; width: 350ppx;" *ngIf="ricetta.titolo == 'pppppp'" mat-card-image src="assets/spaghetti.jpg">
-            <img (click)="dettaglioRicette(ricetta.titolo, ricetta.id)" style="height: 266px; width: 350ppx;" *ngIf="ricetta.titolo == 'pasta'" mat-card-image src="assets/pasta.jpg"> 
-            <img (click)="dettaglioRicette(ricetta.titolo, ricetta.id)" style="height: 266px; width: 350ppx;" *ngIf="ricetta.titolo == 'tiramisù'" mat-card-image src="assets/Tiramisu.png"> 
-            <img (click)="dettaglioRicette(ricetta.titolo, ricetta.id)" style="height: 266px; width: 350ppx;" *ngIf="ricetta.titolo == 'polpette'" mat-card-image src="assets/polpette.png"> 
-            <mat-card-content>
+            <img (click)="dettaglioRicette(ricetta.titolo, ricetta.id)" style="height: 266px; width: 350ppx;" *ngIf="ricetta.titolo == 'Pasta al sugo'" mat-card-image src="assets/penne.jpg">
+            <img (click)="dettaglioRicette(ricetta.titolo, ricetta.id)" style="height: 266px; width: 350ppx;" *ngIf="ricetta.titolo == 'Roast beef'" mat-card-image src="assets/roast.jpg">
+            <img (click)="dettaglioRicette(ricetta.titolo, ricetta.id)" style="height: 266px; width: 350ppx;" *ngIf="ricetta.titolo == 'Spaghetti al pesto'" mat-card-image src="assets/pasta.jpg"> 
+            <img (click)="dettaglioRicette(ricetta.titolo, ricetta.id)" style="height: 266px; width: 350ppx;" *ngIf="ricetta.titolo == 'Tiramisù'" mat-card-image src="assets/Tiramisu.png"> 
+            <img (click)="dettaglioRicette(ricetta.titolo, ricetta.id)" style="height: 266px; width: 350ppx;" *ngIf="ricetta.titolo == 'Polpette'" mat-card-image src="assets/polpette.png"> 
+            <!--<mat-card-content>
                 <p>
                     {{ricetta.preparazione}}
                 </p>
-            </mat-card-content>
+            </mat-card-content>-->
             <mat-card-actions>
                 <button *ngIf="this.service.isAdmin" style="color: black; background-color: rgb(181, 40, 40);"  mat-button (click)="cancella(ricetta.id)">Cancella</button>
                 <button *ngIf="this.service.isAdmin" style="color: black; background-color: rgb(246, 213, 48); margin-left: 5px;"  mat-button (click)="openDialog(ricetta, ricetta.id)">Modifica</button>
@@ -40,20 +39,20 @@
             <mat-card-header>
                 <mat-card-title>{{ricercaRicetta[0].titolo}}</mat-card-title>
             </mat-card-header>
-            <img (click)="dettaglioRicette(ricercaRicetta[0].titolo, ricercaRicetta[0].id)" style="height: 266px; width: 350ppx;"  *ngIf="ricercaRicetta[0].titolo == 'pasta al sugo'" mat-card-image src="assets/penne.jpg">
-            <img (click)="dettaglioRicette(ricercaRicetta[0].titolo, ricercaRicetta[0].id)" style="height: 266px; width: 350ppx;" *ngIf="ricercaRicetta[0].titolo == 'roast beef'" mat-card-image src="assets/roast.jpg">
-            <img (click)="dettaglioRicette(ricercaRicetta[0].titolo, ricercaRicetta[0].id)" style="height: 266px; width: 350ppx;" *ngIf="ricercaRicetta[0].titolo == 'pppppp'" mat-card-image src="assets/spaghetti.jpg">
-            <img (click)="dettaglioRicette(ricercaRicetta[0].titolo, ricercaRicetta[0].id)" style="height: 266px; width: 350ppx;" *ngIf="ricercaRicetta[0].titolo == 'pasta'" mat-card-image src="assets/pasta.jpg">
-            <img (click)="dettaglioRicette(ricercaRicetta[0].titolo, ricercaRicetta[0].id)" style="height: 266px; width: 350ppx;" *ngIf="ricercaRicetta[0].titolo == 'tiramisù'" mat-card-image src="assets/Tiramisu.png"> 
-            <img (click)="dettaglioRicette(ricercaRicetta[0].titolo, ricercaRicetta[0].id)" style="height: 266px; width: 350ppx;" *ngIf="ricercaRicetta[0].titolo == 'polpette'" mat-card-image src="assets/polpette.png">  
+            <img (click)="dettaglioRicette(ricercaRicetta[0].titolo, ricercaRicetta[0].id)" style="height: 266px; width: 350ppx;"  *ngIf="ricercaRicetta[0].titolo == 'Pasta al sugo'" mat-card-image src="assets/penne.jpg">
+            <img (click)="dettaglioRicette(ricercaRicetta[0].titolo, ricercaRicetta[0].id)" style="height: 266px; width: 350ppx;" *ngIf="ricercaRicetta[0].titolo == 'Roast beef'" mat-card-image src="assets/roast.jpg">
+            <img (click)="dettaglioRicette(ricercaRicetta[0].titolo, ricercaRicetta[0].id)" style="height: 266px; width: 350ppx;" *ngIf="ricercaRicetta[0].titolo == 'Spaghetti al pesto'" mat-card-image src="assets/pasta.jpg">
+            <img (click)="dettaglioRicette(ricercaRicetta[0].titolo, ricercaRicetta[0].id)" style="height: 266px; width: 350ppx;" *ngIf="ricercaRicetta[0].titolo == 'Tiramisù'" mat-card-image src="assets/Tiramisu.png"> 
+            <img (click)="dettaglioRicette(ricercaRicetta[0].titolo, ricercaRicetta[0].id)" style="height: 266px; width: 350ppx;" *ngIf="ricercaRicetta[0].titolo == 'Polpette'" mat-card-image src="assets/polpette.png">  
             
-            <mat-card-content>
+           <!-- <mat-card-content>
                 <p>
                     {{ricercaRicetta[0].preparazione}}
                 </p>
-            </mat-card-content>
+            </mat-card-content>-->
             <mat-card-actions>
-                <button *ngIf="this.service.isAdmin" style="color: black; background-color: rgb(181, 40, 40);"  mat-button (click)="cancella(ricercaRicetta[0].id)">Cancella Ricetta</button>
+                <button *ngIf="this.service.isAdmin" style="color: black; background-color: rgb(181, 40, 40);"  mat-button (click)="cancella(ricercaRicetta[0].id)">Cancella</button>
+                <button *ngIf="this.service.isAdmin" style="color: black; background-color: rgb(246, 213, 48); margin-left: 5px;"  mat-button (click)="openDialog(ricercaRicetta[0], ricercaRicetta[0].id)">Modifica</button>
             </mat-card-actions>
         </mat-card>
     </span>
