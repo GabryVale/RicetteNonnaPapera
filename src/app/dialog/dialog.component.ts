@@ -50,7 +50,6 @@ export class DialogComponent {
     this.service.edit(JSON.stringify(ricetta)).subscribe(()=>{
       alert("ricetta modificata!");
       this.dialogRef.close();
-     this.router.navigate(['Homepage']);
     },()=>{
       alert("errore");
     });

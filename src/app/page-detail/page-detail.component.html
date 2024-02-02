@@ -2,8 +2,8 @@
     <h1>{{tipoPiatto}}</h1>
 </div>
 <div class="login-container">
-    <form>
-    <input type="text" class="inp" #cerca ngModel name="cerca" id="cerca" placeholder="cerca">
+    <form [formGroup]="form">
+    <input type="text" class="inp" #cerca formControlName="cerca" name="cerca" id="cerca" placeholder="cerca">
     <span><button class="but" (click)="ricerca()"  type="submit">ricerca</button></span>
     </form>
 </div>
@@ -11,22 +11,27 @@
 <div  class="display" *ngFor="let ricetta of listaRicette">
     <span>
         <mat-card class="example-card" style="cursor: pointer;">
-            <mat-card-header>
+            <mat-card-header (click)="dettaglioRicette(ricetta.titolo, ricetta.id)">
                 <mat-card-title>{{ricetta.titolo}}</mat-card-title>
             </mat-card-header>
-            <img (click)="dettaglioRicette(ricetta.titolo, ricetta.id)" style="height: 266px; width: 350ppx;" *ngIf="ricetta.titolo == 'Pasta al sugo'" mat-card-image src="assets/penne.jpg">
-            <img (click)="dettaglioRicette(ricetta.titolo, ricetta.id)" style="height: 266px; width: 350ppx;" *ngIf="ricetta.titolo == 'Roast beef'" mat-card-image src="assets/roast.jpg">
-            <img (click)="dettaglioRicette(ricetta.titolo, ricetta.id)" style="height: 266px; width: 350ppx;" *ngIf="ricetta.titolo == 'Spaghetti al pesto'" mat-card-image src="assets/pasta.jpg"> 
-            <img (click)="dettaglioRicette(ricetta.titolo, ricetta.id)" style="height: 266px; width: 350ppx;" *ngIf="ricetta.titolo == 'Tiramisù'" mat-card-image src="assets/Tiramisu.png"> 
-            <img (click)="dettaglioRicette(ricetta.titolo, ricetta.id)" style="height: 266px; width: 350ppx;" *ngIf="ricetta.titolo == 'Polpette'" mat-card-image src="assets/polpette.png"> 
+              <mat-card-content>
+                <!--<img style="height: 266px; width: 350ppx;" *ngIf="ricetta.titolo == 'Pasta al sugo'" mat-card-image src="assets/penne.jpg">
+                <img style="height: 266px; width: 350ppx;" *ngIf="ricetta.titolo == 'Roast beef'" mat-card-image src="assets/roast.jpg">
+                <img style="height: 266px; width: 350ppx;" *ngIf="ricetta.titolo == 'Spaghetti al pesto'" mat-card-image src="assets/pasta.jpg"> 
+                <img style="height: 266px; width: 350ppx;" *ngIf="ricetta.titolo == 'Tiramisù'" mat-card-image src="assets/Tiramisu.png"> 
+                <img style="height: 266px; width: 350ppx;" *ngIf="ricetta.titolo == 'Polpette'" mat-card-image src="assets/polpette.png"> -->
+              </mat-card-content>
+                
             <!--<mat-card-content>
                 <p>
                     {{ricetta.preparazione}}
                 </p>
             </mat-card-content>-->
             <mat-card-actions>
-                <button *ngIf="this.service.isAdmin" style="color: black; background-color: rgb(181, 40, 40);"  mat-button (click)="cancella(ricetta.id)">Cancella</button>
+                <button *ngIf="this.service.isAdmin" style="color: black; background-color: rgb(181, 40, 40);"  mat-button (click)="openDialogDelete(ricetta.id)">Cancella</button>
                 <button *ngIf="this.service.isAdmin" style="color: black; background-color: rgb(246, 213, 48); margin-left: 5px;"  mat-button (click)="openDialog(ricetta, ricetta.id)">Modifica</button>
+                <img *ngIf="this.service.isLogged" style="color: black;  margin-left: 20px; height: 20px; width: 20px;"  src="assets/icon.png">
+                <!--<img *ngIf="this.service.isLogged" style="color: black;  margin-left: 20px; height: 20px; width: 20px;"  mat-button src="assets/icon2.png">-->
             </mat-card-actions>
         </mat-card>
     </span>
@@ -35,15 +40,15 @@
 
 <div *ngIf="search" class="display">
     <span>
-        <mat-card class="example-card" style="cursor: pointer;">
+        <mat-card class="example-card" style="cursor: pointer;" (click)="dettaglioRicette(ricercaRicetta[0].titolo, ricercaRicetta[0].id)">
             <mat-card-header>
                 <mat-card-title>{{ricercaRicetta[0].titolo}}</mat-card-title>
             </mat-card-header>
-            <img (click)="dettaglioRicette(ricercaRicetta[0].titolo, ricercaRicetta[0].id)" style="height: 266px; width: 350ppx;"  *ngIf="ricercaRicetta[0].titolo == 'Pasta al sugo'" mat-card-image src="assets/penne.jpg">
-            <img (click)="dettaglioRicette(ricercaRicetta[0].titolo, ricercaRicetta[0].id)" style="height: 266px; width: 350ppx;" *ngIf="ricercaRicetta[0].titolo == 'Roast beef'" mat-card-image src="assets/roast.jpg">
-            <img (click)="dettaglioRicette(ricercaRicetta[0].titolo, ricercaRicetta[0].id)" style="height: 266px; width: 350ppx;" *ngIf="ricercaRicetta[0].titolo == 'Spaghetti al pesto'" mat-card-image src="assets/pasta.jpg">
-            <img (click)="dettaglioRicette(ricercaRicetta[0].titolo, ricercaRicetta[0].id)" style="height: 266px; width: 350ppx;" *ngIf="ricercaRicetta[0].titolo == 'Tiramisù'" mat-card-image src="assets/Tiramisu.png"> 
-            <img (click)="dettaglioRicette(ricercaRicetta[0].titolo, ricercaRicetta[0].id)" style="height: 266px; width: 350ppx;" *ngIf="ricercaRicetta[0].titolo == 'Polpette'" mat-card-image src="assets/polpette.png">  
+            <img style="height: 266px; width: 350ppx;"  *ngIf="ricercaRicetta[0].titolo == 'Pasta al sugo'" mat-card-image src="assets/penne.jpg">
+            <img style="height: 266px; width: 350ppx;" *ngIf="ricercaRicetta[0].titolo == 'Roast beef'" mat-card-image src="assets/roast.jpg">
+            <img style="height: 266px; width: 350ppx;" *ngIf="ricercaRicetta[0].titolo == 'Spaghetti al pesto'" mat-card-image src="assets/pasta.jpg">
+            <img style="height: 266px; width: 350ppx;" *ngIf="ricercaRicetta[0].titolo == 'Tiramisù'" mat-card-image src="assets/Tiramisu.png"> 
+            <img style="height: 266px; width: 350ppx;" *ngIf="ricercaRicetta[0].titolo == 'Polpette'" mat-card-image src="assets/polpette.png">  
             
            <!-- <mat-card-content>
                 <p>
@@ -51,8 +56,10 @@
                 </p>
             </mat-card-content>-->
             <mat-card-actions>
-                <button *ngIf="this.service.isAdmin" style="color: black; background-color: rgb(181, 40, 40);"  mat-button (click)="cancella(ricercaRicetta[0].id)">Cancella</button>
+                <button *ngIf="this.service.isAdmin" style="color: black; background-color: rgb(181, 40, 40);"  mat-button (click)="openDialogDelete(ricercaRicetta[0].id)">Cancella</button>
                 <button *ngIf="this.service.isAdmin" style="color: black; background-color: rgb(246, 213, 48); margin-left: 5px;"  mat-button (click)="openDialog(ricercaRicetta[0], ricercaRicetta[0].id)">Modifica</button>
+                <img *ngIf="this.service.isLogged" style="color: black;  margin-left: 20px; height: 20px; width: 20px;"  mat-button (click)="openDialog(ricercaRicetta, ricercaRicetta[0].id)" src="assets/icon.png">
+                <!--<img *ngIf="this.service.isLogged" style="color: black;  margin-left: 20px; height: 20px; width: 20px;"  mat-button (click)="openDialog(ricercaRicetta, ricercaRicetta[0].id)" src="assets/icon2.png">-->
             </mat-card-actions>
         </mat-card>
     </span>

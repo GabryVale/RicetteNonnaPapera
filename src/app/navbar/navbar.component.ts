@@ -64,6 +64,7 @@ export class NavbarComponent {
       localStorage.removeItem("JwtAccess-Token");
       this.service.isLogged = false;
       this.service.isAdmin = false;
+      this.router.navigate(['Homepage']);
     }
   }
   LogIn() {

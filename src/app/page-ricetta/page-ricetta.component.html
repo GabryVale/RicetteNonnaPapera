@@ -1,7 +1,13 @@
 <span>
     <mat-card class="example-card" style="cursor: pointer;" style="background-color: rgb(215, 215, 215);">
-        <mat-card-header>
+        <mat-card-header style="display: flex; justify-content: space-between;">
+            <div style="position: fixed;">
             <mat-card-title style="font-size: 25px;">{{ricetta.titolo}}</mat-card-title>
+            </div>
+            <div>
+                <button *ngIf="this.service.isAdmin" style="color: black; background-color: rgb(181, 40, 40);"  mat-button (click)="openDialogDelete(ricetta.id)">Cancella</button>
+                <button *ngIf="this.service.isAdmin" style="color: black; background-color: rgb(246, 213, 48); margin-left: 5px;"  mat-button (click)="openDialog(ricetta, ricetta.id)">Modifica</button>
+            </div>
         </mat-card-header>
         <mat-card-content>
             <div style="display: flex;">
@@ -98,10 +104,11 @@
             </div>
             <div style="display: flex;">
                 <div>
-                    <img style="height: 266px; width: 350px;" *ngIf="ricetta.titolo == 'Spaghetti al pesto'" mat-card-image
-                        src="assets/pasta.jpg">
+                    <img style="height: 266px; width: 350px;" *ngIf="ricetta.titolo == 'Spaghetti al pesto'"
+                        mat-card-image src="assets/pasta.jpg">
                 </div>
-                <div style="padding: 10px; margin-left: 40px; margin-right:80px;" *ngIf="ricetta.titolo == 'Spaghetti al pesto'">
+                <div style="padding: 10px; margin-left: 40px; margin-right:80px;"
+                    *ngIf="ricetta.titolo == 'Spaghetti al pesto'">
                     <h2>Descrizione:</h2>
                     <p>Avete voglia di un piatto fresco e profumato perfetto per il vostro menù? Allora le bavette al
                         pesto sono una ricetta classica, quella che stavate cercando! Il pesto, caposaldo della cucina
@@ -114,6 +121,9 @@
                         style="padding: 10px; margin-right:80px; position: relative; right: 30px; display: flex; bottom: 15px;">
                         <div>
                             <mat-card-content style="display: flex;">
+                                <div>
+                                    <img style="height: 10px; width: 10px;" src="assets/icon3.png">
+                                </div>
                                 <div>
                                     <h2>Quantità Persone:</h2>
                                 </div>
@@ -222,12 +232,41 @@
                     </div>
                 </div>
             </div>
+            <div style="display: flex;">
+                <div style="padding: 10px; margin-left: 40px; margin-right:80px;"
+                    *ngIf="ricetta.titolo != 'Pasta al sugo' && ricetta.titolo != 'Tiramisù' && ricetta.titolo != 'Roast beef' && ricetta.titolo != 'Spaghetti al pesto' && ricetta.titolo != 'Polpette'">
+                    
+                    <div
+                        style="padding: 10px; margin-right:80px; position: relative; right: 30px; display: flex; bottom: 15px;">
+                        <div>
+                            <mat-card-content style="display: flex;">
+                                <div>
+                                    <h2>Quantità Persone:</h2>
+                                </div>
+                                <div style="position: relative; top: 7px; left: 25px; font-size: 30px;">
+                                    {{ricetta.quantitaPersone}}
+                                </div>
+                            </mat-card-content>
+                        </div>
+                        <div style="margin-left: 35px;">
+                            <mat-card-content style="display: flex;">
+                                <div>
+                                    <h2>Ingredienti:</h2>
+                                </div>
+                                <p style="position: relative; top: 7px; left: 25px;">
+                                    {{ricetta.ingredienti}}
+                                </p>
+                            </mat-card-content>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </mat-card-content>
 
         <mat-card-content>
             <div style="font-size: 15px;">
                 <h2>
-                     Preparazione:
+                    Preparazione:
                 </h2>
             </div>
             <div style="padding: 5px; font-size: 15px;">

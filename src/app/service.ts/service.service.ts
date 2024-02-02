@@ -16,6 +16,7 @@ const httpOptions = {
 
 export class ServiceService {
   ricettaSelected: Ricetta | undefined
+  idRicettaDelete: number=0
   idRicetta: number=0
   dialog: any
   token: any = ""
@@ -91,7 +92,15 @@ export class ServiceService {
   }
 
   ricerca(titolo: string): Observable<any> {
-    return this.http.get(this.apiUrl + "api/ricette/search?titolo=" + titolo);
+    this.token = localStorage.getItem("JwtAccess-Token");
+    this.tokenString = JSON.parse(this.token)
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.tokenString
+      })
+    };
+    return this.http.get(this.apiUrl + "api/ricette/search" + titolo, httpOptions);
   }
 
   crezioneRicetta(ricetta: any) {

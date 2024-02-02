@@ -1,15 +1,15 @@
 <div class="login-container">
     <form [formGroup]="form">
       <label for="titolo">titolo:</label>
-      <input type="text" required #email type="text" formControlName="titolo"  name="titolo" id="titolo" placeholder="titolo">
+      <input required type="text" formControlName="titolo"  name="titolo" id="titolo" placeholder="titolo">
       <label for="preparazione">preparazione:</label>
       <input required type="text" name="preparazione" formControlName="preparazione" id="preparazione" placeholder="descrizione">
       <label for="quantita persone">quantità persone:</label>
       <input required type="text"  name="quantita persone" formControlName="quantita" id="quantita persone" placeholder="step da fare">
       <label for="ingredienti">ingredienti:</label>
-      <input required type="text" ngModel name="ingredienti" formControlName="ingredienti" id="ingredienti" placeholder="ingredienti">
+      <input required type="text"  name="ingredienti" formControlName="ingredienti" id="ingredienti" placeholder="ingredienti">
       <label for="categoria">Categoria:</label>
-      <input required type="text" ngModel name="categoria" formControlName="categoria" id="categoria" placeholder="categoria">
+      <input required type="text"  name="categoria" formControlName="categoria" id="categoria" placeholder="categoria">
       <button type="submit" (click)="creazioneRicetta()">Aggiungi ricetta</button>
     </form>
 </div>

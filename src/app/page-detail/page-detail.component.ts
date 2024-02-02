@@ -10,9 +10,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { AsyncPipe } from '@angular/common';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DialogComponent } from '../dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { DialogDeleteComponent } from '../dialog-delete/dialog-delete.component';
 
 
 @Component({
@@ -29,17 +30,20 @@ export class PageDetailComponent {
   listaRicette: Ricette[] = [];
   ricercaRicetta: Ricette[] = [];
   popup: boolean = false
+  form: FormGroup
 
-  constructor(private route: ActivatedRoute, public service: ServiceService, public router: Router, public dialog: MatDialog) {
-
+  constructor(private route: ActivatedRoute, public service: ServiceService, public router: Router, public dialog: MatDialog, private fb: FormBuilder) {
+    this.form = this.fb.group({
+      cerca: ['',Validators.required],
+  });
   }
 
-  filteredOptions: any;
   search: boolean = false;
   obj: any
   lista: string = ""
   titolo: string = ""
   dialogRef: any
+  dialogRefDelete: any
 
 
   ngOnInit() {
@@ -78,48 +82,61 @@ export class PageDetailComponent {
   }
 
   ricerca() {
-    const titolo = document.getElementById(
-      'cerca'
-    ) as HTMLInputElement | null;
-    this.titolo = JSON.stringify(titolo?.value);
+    this.titolo = this.form.value.cerca;
+    if(this.titolo){
+      this.service.ricerca(this.titolo).subscribe((res)=>{
+      this.listaRicette = JSON.parse(res);
+    });
+    }
+    
+    //this.titolo = JSON.stringify(titolo?.value);
     // this.service.ricerca(this.titolo.toString()).subscribe((res) => {
     //   this.ricercaRicetta = JSON.parse(res);
     //   console.log(this.ricercaRicetta)
     // });
-    this.service.getDati().subscribe((res) => {
-      this.search = true;
-      this.tipoPiatto = this.route!.snapshot.params['tipoPagina'];
-      this.obj = JSON.parse(res)
-      this.ricette = this.obj.content
-      if (this.tipoPiatto == "Primi-Piatti") {
-        this.ricercaRicetta = [];
-        this.ricercaRicetta = this.ricette.filter((res) => res.titolo == titolo?.value && res.categoria.id == 1)
-        if (!this.ricercaRicetta) {
-          alert("nessuna ricetta trovata in primi piatti");
-        }
-      }
+    // this.service.getDati().subscribe((res) => {
+    //   this.search = true;
+    //   this.tipoPiatto = this.route!.snapshot.params['tipoPagina'];
+    //   this.obj = JSON.parse(res)
+    //   this.ricette = this.obj.content
+    //   if (this.tipoPiatto == "Primi-Piatti") {
+    //     this.ricercaRicetta = [];
+    //     this.ricercaRicetta = this.ricette.filter((res) => res.titolo == titolo?.value && res.categoria.id == 1)
+    //     if (!this.ricercaRicetta) {
+    //       alert("nessuna ricetta trovata in primi piatti");
+    //     }
+    //   }
 
-      if (this.tipoPiatto == "Secondi-Piatti") {
-        this.ricercaRicetta = [];
-        this.ricercaRicetta = this.ricette.filter((res) => res.titolo == titolo?.value && res.categoria.id == 2)
-      } else {
-        if (!this.ricercaRicetta) {
-          alert("nessuna ricetta trovata in secondi piatti");
-        }
-      }
-      if (this.tipoPiatto == "Contorni") {
-        this.ricercaRicetta = [];
-        this.ricercaRicetta = this.ricette.filter((res) => res.titolo == titolo?.value && res.categoria.id == 3)
-      } else {
-        if (!this.ricercaRicetta) {
-          alert("nessuna ricetta trovata in contorni");
-        }
-      }
-    })
+    //   if (this.tipoPiatto == "Secondi-Piatti") {
+    //     this.ricercaRicetta = [];
+    //     this.ricercaRicetta = this.ricette.filter((res) => res.titolo == titolo?.value && res.categoria.id == 2)
+    //   } else {
+    //     if (!this.ricercaRicetta) {
+    //       alert("nessuna ricetta trovata in secondi piatti");
+    //     }
+    //   }
+    //   if (this.tipoPiatto == "Contorni") {
+    //     this.ricercaRicetta = [];
+    //     this.ricercaRicetta = this.ricette.filter((res) => res.titolo == titolo?.value && res.categoria.id == 3)
+    //   } else {
+    //     if (!this.ricercaRicetta) {
+    //       alert("nessuna ricetta trovata in contorni");
+    //     }
+    //   }
+    // })
   }
 
-  cancella(id: number) {
-    this.service.delete(id).subscribe(() => {
+  
+
+  openDialog(ricetta: any, id: number) {
+    this.service.ricettaSelected = ricetta;
+    this.service.idRicetta = id;
+    this.service.dialog = this.dialogRef;
+    this.dialogRef = this.dialog.open(DialogComponent, {
+      height: '580px',
+      width: '600px',
+    });
+    this.dialogRef.afterClosed().subscribe((result: any) => {
       this.service.getDati().subscribe((res) => {
         this.obj = JSON.parse(res)
         this.ricette = this.obj.content
@@ -135,23 +152,33 @@ export class PageDetailComponent {
           this.listaRicette = this.ricette.filter((res) => res.categoria.id == 3)
         }
       })
-    }, () => {
-      alert("errore");
     });
-    alert("ricetta eliminata");
   }
 
-  openDialog(ricetta: any, id: number) {
-    this.service.ricettaSelected = ricetta;
-    this.service.idRicetta = id;
-    this.service.dialog = this.dialogRef;
-    this.dialogRef = this.dialog.open(DialogComponent, {
+
+  openDialogDelete(id: number) {
+    this.service.idRicettaDelete = id;
+    this.service.dialog = this.dialogRefDelete;
+    this.dialogRef = this.dialog.open(DialogDeleteComponent, {
       height: '580px',
       width: '600px',
     });
     this.dialogRef.afterClosed().subscribe((result: any) => {
-      console.log('The dialog was closed', result);
+      this.service.getDati().subscribe((res) => {
+        this.obj = JSON.parse(res)
+        this.ricette = this.obj.content
+        this.tipoPiatto = this.route!.snapshot.params['tipoPagina'];
+
+        if (this.tipoPiatto == "Primi-Piatti") {
+          this.listaRicette = this.ricette.filter((res) => res.categoria.id == 1)
+        }
+        if (this.tipoPiatto == "Secondi-Piatti") {
+          this.listaRicette = this.ricette.filter((res) => res.categoria.id == 2)
+        }
+        if (this.tipoPiatto == "Contorni") {
+          this.listaRicette = this.ricette.filter((res) => res.categoria.id == 3)
+        }
+      })
     });
   }
-
 }
