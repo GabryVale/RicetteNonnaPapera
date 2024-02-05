@@ -1,15 +1,23 @@
 <div class="login-container">
     <form [formGroup]="form">
-      <label style="color: white;" for="titolo">titolo:</label>
+      <label style="color: white;" for="titolo">Titolo:</label>
       <input required  type="text" formControlName="titolo"  name="titolo" id="titolo" placeholder="titolo">
-      <label style="color: white;" for="preparazione">preparazione:</label>
+      <label style="color: white;" for="preparazione">Preparazione:</label>
       <input  required type="text" name="preparazione" formControlName="preparazione" id="preparazione" placeholder="descrizione">
-      <label style="color: white;" for="quantita persone">quantità persone:</label>
+      <label style="color: white;" for="quantita persone">Quantità persone:</label>
       <input required type="text"  name="quantita persone" formControlName="quantita" id="quantita persone" placeholder="persone">
-      <label style="color: white;" for="ingredienti">ingredienti:</label>
+      <label style="color: white;" for="ingredienti">Ingredienti:</label>
       <input required type="text" name="ingredienti" formControlName="ingredienti" id="ingredienti" placeholder="ingredienti">
       <label style="color: white;" for="categoria">Categoria:</label>
-      <input required type="text" name="categoria" formControlName="categoria" id="categoria" placeholder="categoria">
+    <!--<input required type="text"  name="categoria" formControlName="categoria" id="categoria" placeholder="categoria">-->
+    <mat-form-field>
+      <mat-label for="categoria">Categorie</mat-label>
+      <mat-select formControlName="categoria">
+        @for (categoria of listaCategorie; track categoria) {
+        <mat-option [value]="categoria.categoria">{{categoria.categoria}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
       <button type="submit" (click)="edit()">Modifica</button>
     </form>
 </div>

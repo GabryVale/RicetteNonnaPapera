@@ -104,8 +104,8 @@ export class PageRicettaComponent {
     this.service.idRicettaDelete = id;
     this.service.dialog = this.dialogRefDelete;
     this.dialogRef = this.dialog.open(DialogDeleteComponent, {
-      height: '580px',
-      width: '600px',
+      height: '300px',
+      width: '350px',
     });
     this.dialogRef.afterClosed().subscribe((result: any) => {
       this.router.navigate(['Homepage']);

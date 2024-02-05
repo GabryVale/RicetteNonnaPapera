@@ -31,11 +31,13 @@ export class PageDetailComponent {
   ricercaRicetta: Ricette[] = [];
   popup: boolean = false
   form: FormGroup
+  error: boolean = false;
+  like: boolean = false;
 
   constructor(private route: ActivatedRoute, public service: ServiceService, public router: Router, public dialog: MatDialog, private fb: FormBuilder) {
     this.form = this.fb.group({
-      cerca: ['',Validators.required],
-  });
+      cerca: ['', Validators.required],
+    });
   }
 
   search: boolean = false;
@@ -44,6 +46,7 @@ export class PageDetailComponent {
   titolo: string = ""
   dialogRef: any
   dialogRefDelete: any
+  messageError: string = "nessuna ricetta trovata"
 
 
   ngOnInit() {
@@ -83,12 +86,15 @@ export class PageDetailComponent {
 
   ricerca() {
     this.titolo = this.form.value.cerca;
-    if(this.titolo){
-      this.service.ricerca(this.titolo).subscribe((res)=>{
-      this.listaRicette = JSON.parse(res);
-    });
+    if (this.titolo) {
+      this.service.ricerca(this.titolo).subscribe((res) => {
+        this.listaRicette = res;
+        if(this.listaRicette.length < 1)
+        this.error = true;
+      });
+      
     }
-    
+
     //this.titolo = JSON.stringify(titolo?.value);
     // this.service.ricerca(this.titolo.toString()).subscribe((res) => {
     //   this.ricercaRicetta = JSON.parse(res);
@@ -126,14 +132,14 @@ export class PageDetailComponent {
     // })
   }
 
-  
+
 
   openDialog(ricetta: any, id: number) {
     this.service.ricettaSelected = ricetta;
     this.service.idRicetta = id;
     this.service.dialog = this.dialogRef;
     this.dialogRef = this.dialog.open(DialogComponent, {
-      height: '580px',
+      height: '600px',
       width: '600px',
     });
     this.dialogRef.afterClosed().subscribe((result: any) => {
@@ -160,8 +166,8 @@ export class PageDetailComponent {
     this.service.idRicettaDelete = id;
     this.service.dialog = this.dialogRefDelete;
     this.dialogRef = this.dialog.open(DialogDeleteComponent, {
-      height: '580px',
-      width: '600px',
+      height: '300px',
+      width: '350px',
     });
     this.dialogRef.afterClosed().subscribe((result: any) => {
       this.service.getDati().subscribe((res) => {
@@ -181,4 +187,22 @@ export class PageDetailComponent {
       })
     });
   }
+
+
+  // listaPreferiti(){
+  //   this.service.listaPreferiti().subscribe((res)=>{
+  //     this.obj = res.content
+  //   });
+  // }
+
+  listaPreferitiAdd(id: number){
+    this.service.addRicettaPreferiti(id).subscribe(()=>{
+      this.like = true;
+    });
+  }
+
+  // deletePreferiti(){
+  //   this.service.deleteRicettaPreferiti()
+  // }
+
 }

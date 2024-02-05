@@ -5,18 +5,22 @@ import { ServiceService } from '../service.ts/service.service';
 import { Ricetta } from '../class/ricetta';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { Categorie } from '../class/categorie';
 
 
 
 @Component({
   selector: 'app-dialog',
   standalone: true,
-  imports: [MatDialogModule,FormsModule, ReactiveFormsModule, CommonModule],
+  imports: [MatDialogModule,FormsModule, ReactiveFormsModule, CommonModule, MatFormFieldModule, MatSelectModule],
   providers:[],
   templateUrl: './dialog.component.html',
   styleUrl: './dialog.component.css'
 })
 export class DialogComponent {
+  listaCategorie: Categorie[] = [];
   form!: FormGroup;
   constructor(public dialogRef: MatDialogRef<DialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, private fb: FormBuilder, public service: ServiceService, private router: Router){
@@ -29,6 +33,11 @@ export class DialogComponent {
   });
   }
 
+  ngOnInit(){
+    this.service.listaCategorie().subscribe((res)=>{
+     this.listaCategorie = JSON.parse(res);
+    })
+  }
 
   edit(){
     let ricetta = new Ricetta()

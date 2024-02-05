@@ -4,15 +4,19 @@ import { ServiceService } from '../service.ts/service.service';
 import { Router } from '@angular/router';
 import { Ricetta } from '../class/ricetta';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { Categorie } from '../class/categorie';
 
 @Component({
   selector: 'app-creazione-ricetta',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, MatFormFieldModule, MatSelectModule],
   templateUrl: './creazione-ricetta.component.html',
   styleUrl: './creazione-ricetta.component.css'
 })
 export class CreazioneRicettaComponent {
+  listaCategorie: Categorie [] =[];
   constructor(private service: ServiceService, private router: Router, private fb: FormBuilder) {
     this.form = this.fb.group({
       titolo: ['', Validators.required],
@@ -21,6 +25,12 @@ export class CreazioneRicettaComponent {
       ingredienti: ['', Validators.required],
       categoria: ['', Validators.required]
     });
+  }
+
+  ngOnInit(){
+    this.service.listaCategorie().subscribe((res)=>{
+     this.listaCategorie = JSON.parse(res);
+    })
   }
 
   form!: FormGroup;
@@ -45,7 +55,7 @@ export class CreazioneRicettaComponent {
     this.service.crezioneRicetta(JSON.stringify(ricetta)).subscribe(()=>{
       alert("ricetta creata!");
     },()=> {
-      alert("errore");
+      alert("compilare correttamente i campi");
     });
     this.router.navigate(['Homepage']);
   }

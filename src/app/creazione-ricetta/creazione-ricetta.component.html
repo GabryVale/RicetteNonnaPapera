@@ -1,15 +1,26 @@
 <div class="login-container">
-    <form [formGroup]="form">
-      <label for="titolo">titolo:</label>
-      <input required type="text" formControlName="titolo"  name="titolo" id="titolo" placeholder="titolo">
-      <label for="preparazione">preparazione:</label>
-      <input required type="text" name="preparazione" formControlName="preparazione" id="preparazione" placeholder="descrizione">
-      <label for="quantita persone">quantità persone:</label>
-      <input required type="text"  name="quantita persone" formControlName="quantita" id="quantita persone" placeholder="step da fare">
-      <label for="ingredienti">ingredienti:</label>
-      <input required type="text"  name="ingredienti" formControlName="ingredienti" id="ingredienti" placeholder="ingredienti">
-      <label for="categoria">Categoria:</label>
-      <input required type="text"  name="categoria" formControlName="categoria" id="categoria" placeholder="categoria">
-      <button type="submit" (click)="creazioneRicetta()">Aggiungi ricetta</button>
-    </form>
+  <form [formGroup]="form">
+    <label for="titolo">Titolo:</label>
+    <input required type="text" formControlName="titolo" name="titolo" id="titolo" placeholder="titolo">
+    <label for="preparazione">Preparazione:</label>
+    <input required type="text" name="preparazione" formControlName="preparazione" id="preparazione"
+      placeholder="descrizione">
+    <label for="quantita persone">Quantità persone:</label>
+    <input required type="text" name="quantita persone" formControlName="quantita" id="quantita persone"
+      placeholder="step da fare">
+    <label for="ingredienti">Ingredienti:</label>
+    <input required type="text" name="ingredienti" formControlName="ingredienti" id="ingredienti"
+      placeholder="ingredienti">
+    <label for="categoria">Categoria:</label>
+    <!--<input required type="text"  name="categoria" formControlName="categoria" id="categoria" placeholder="categoria">-->
+    <mat-form-field>
+      <mat-label>Categorie</mat-label>
+      <mat-select formControlName="categoria">
+        @for (categoria of listaCategorie; track categoria) {
+        <mat-option [value]="categoria.categoria">{{categoria.categoria}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <button type="submit" (click)="creazioneRicetta()">Aggiungi ricetta</button>
+  </form>
 </div>
