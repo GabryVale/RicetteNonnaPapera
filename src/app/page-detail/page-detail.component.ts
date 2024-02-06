@@ -29,6 +29,7 @@ export class PageDetailComponent {
   ricette: Ricette[] = [];
   listaRicette: Ricette[] = [];
   ricercaRicetta: Ricette[] = [];
+  listaPref: Ricette[] = [];
   popup: boolean = false
   form: FormGroup
   error: boolean = false;
@@ -42,11 +43,16 @@ export class PageDetailComponent {
 
   search: boolean = false;
   obj: any
+  objPreferiti: any
   lista: string = ""
   titolo: string = ""
   dialogRef: any
   dialogRefDelete: any
   messageError: string = "nessuna ricetta trovata"
+  liked: boolean = false;
+  str: string = ""
+  dialogRefLista: any
+  list: boolean = false;
 
 
   ngOnInit() {
@@ -85,6 +91,7 @@ export class PageDetailComponent {
   }
 
   ricerca() {
+    this.error = false
     this.titolo = this.form.value.cerca;
     if (this.titolo) {
       this.service.ricerca(this.titolo).subscribe((res) => {
@@ -94,42 +101,6 @@ export class PageDetailComponent {
       });
       
     }
-
-    //this.titolo = JSON.stringify(titolo?.value);
-    // this.service.ricerca(this.titolo.toString()).subscribe((res) => {
-    //   this.ricercaRicetta = JSON.parse(res);
-    //   console.log(this.ricercaRicetta)
-    // });
-    // this.service.getDati().subscribe((res) => {
-    //   this.search = true;
-    //   this.tipoPiatto = this.route!.snapshot.params['tipoPagina'];
-    //   this.obj = JSON.parse(res)
-    //   this.ricette = this.obj.content
-    //   if (this.tipoPiatto == "Primi-Piatti") {
-    //     this.ricercaRicetta = [];
-    //     this.ricercaRicetta = this.ricette.filter((res) => res.titolo == titolo?.value && res.categoria.id == 1)
-    //     if (!this.ricercaRicetta) {
-    //       alert("nessuna ricetta trovata in primi piatti");
-    //     }
-    //   }
-
-    //   if (this.tipoPiatto == "Secondi-Piatti") {
-    //     this.ricercaRicetta = [];
-    //     this.ricercaRicetta = this.ricette.filter((res) => res.titolo == titolo?.value && res.categoria.id == 2)
-    //   } else {
-    //     if (!this.ricercaRicetta) {
-    //       alert("nessuna ricetta trovata in secondi piatti");
-    //     }
-    //   }
-    //   if (this.tipoPiatto == "Contorni") {
-    //     this.ricercaRicetta = [];
-    //     this.ricercaRicetta = this.ricette.filter((res) => res.titolo == titolo?.value && res.categoria.id == 3)
-    //   } else {
-    //     if (!this.ricercaRicetta) {
-    //       alert("nessuna ricetta trovata in contorni");
-    //     }
-    //   }
-    // })
   }
 
 
@@ -165,11 +136,11 @@ export class PageDetailComponent {
   openDialogDelete(id: number) {
     this.service.idRicettaDelete = id;
     this.service.dialog = this.dialogRefDelete;
-    this.dialogRef = this.dialog.open(DialogDeleteComponent, {
+    this.dialogRefDelete = this.dialog.open(DialogDeleteComponent, {
       height: '300px',
       width: '350px',
     });
-    this.dialogRef.afterClosed().subscribe((result: any) => {
+    this.dialogRefDelete.afterClosed().subscribe((result: any) => {
       this.service.getDati().subscribe((res) => {
         this.obj = JSON.parse(res)
         this.ricette = this.obj.content
@@ -185,24 +156,38 @@ export class PageDetailComponent {
           this.listaRicette = this.ricette.filter((res) => res.categoria.id == 3)
         }
       })
+      alert("ricetta aliminata")
     });
   }
 
 
-  // listaPreferiti(){
-  //   this.service.listaPreferiti().subscribe((res)=>{
-  //     this.obj = res.content
-  //   });
-  // }
+  listaPreferiti(){
+    this.list = true
+    this.service.listaPreferiti().subscribe((res)=>{
+      this.objPreferiti = res 
+      this.like = true
+      if(this.objPreferiti.length < 1){
+        this.error = true;
+      }  
+      });    
+  }
 
   listaPreferitiAdd(id: number){
-    this.service.addRicettaPreferiti(id).subscribe(()=>{
-      this.like = true;
-    });
+    this.service.addRicettaPreferiti(id).subscribe(()=>{});
+    alert("ricetta aggiunta alla lista preferiti");
   }
 
-  // deletePreferiti(){
-  //   this.service.deleteRicettaPreferiti()
-  // }
-
+  deletePreferiti(id: number){
+    this.service.idRicettaDeleteLista = id;
+    this.service.dialog = this.dialogRefLista;
+    this.dialogRefLista = this.dialog.open(DialogDeleteComponent, {
+      height: '300px',
+      width: '350px',
+    });
+    this.dialogRefLista.afterClosed().subscribe((result: any) => {
+       this.listaPreferiti();
+       alert("ricetta tolta dalla lista preferiti")
+    });
+    
+  }
 }

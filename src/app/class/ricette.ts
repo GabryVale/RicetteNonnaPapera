@@ -14,6 +14,7 @@ export class Ricette {
     preparazione: string
     ingredienti: string
     categoria: Categoria
+    image: string
 
     constructor(){
         this.id = 0,
@@ -25,5 +26,6 @@ export class Ricette {
             id : 0,
             categoria : ""
         }
+        this.image = ""
     }
 }

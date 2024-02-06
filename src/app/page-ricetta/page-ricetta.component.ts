@@ -36,7 +36,8 @@ export class PageRicettaComponent {
     quantitaPersone: 0,
     preparazione: "",
     ingredienti: "",
-    categoria: new Categoria()
+    categoria: new Categoria(),
+    image: ""
   };
   dialogRefDelete: any;
 

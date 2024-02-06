@@ -7,7 +7,7 @@
       placeholder="descrizione">
     <label for="quantita persone">Quantità persone:</label>
     <input required type="text" name="quantita persone" formControlName="quantita" id="quantita persone"
-      placeholder="step da fare">
+      placeholder="quantità persone">
     <label for="ingredienti">Ingredienti:</label>
     <input required type="text" name="ingredienti" formControlName="ingredienti" id="ingredienti"
       placeholder="ingredienti">
@@ -21,6 +21,12 @@
         }
       </mat-select>
     </mat-form-field>
+    <label for="image">inserisci un imagine per la ricetta:</label>
+    <div>
+      <!--<input type="file" formControlName="image" (change)="onFileSelected($event)">
+      <button (click)="onUpload()">Upload</button>-->
+      <input type="file" formControlName="image" (change)="handleFileInput($event)">
+    </div>
     <button type="submit" (click)="creazioneRicetta()">Aggiungi ricetta</button>
   </form>
 </div>

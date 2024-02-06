@@ -11,7 +11,8 @@ import { Ricetta } from '../class/ricetta';
 
 export class ServiceService {
   ricettaSelected: Ricetta | undefined
-  idRicettaDelete: number=0
+  idRicettaDelete: number = 0
+  idRicettaDeleteLista: number = 0
   idRicetta: number=0
   dialog: any
   token: any = ""
