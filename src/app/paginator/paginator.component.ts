@@ -29,7 +29,6 @@ export class PaginatorComponent {
   }
 
   ngOnInit() {
-    this.ricettePaginator.length = 2;
     this.service.getDati().subscribe((res) => {
       this.obj = JSON.parse(res)
       this.ricette = this.obj.content
@@ -43,6 +42,7 @@ export class PaginatorComponent {
   }
 
   handlePageEvent(e: PageEvent) {
+    
     this.pageEvent = e;
     this.pageIndex = e.pageIndex;
 

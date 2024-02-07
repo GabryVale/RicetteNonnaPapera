@@ -8,6 +8,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { ServiceService } from '../service.ts/service.service';
 import { MatDialog } from '@angular/material/dialog';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Ricette } from '../class/ricette';
 
 
 @Component({
@@ -15,14 +17,24 @@ import { MatDialog } from '@angular/material/dialog';
   standalone: true,
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatMenuModule, CommonModule, MatCardModule],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatMenuModule, CommonModule, MatCardModule, FormsModule, ReactiveFormsModule],
 })
 export class NavbarComponent {
   user: any
   roles: string[]=[];
-  
+  form: FormGroup
 
-  constructor(private router: Router, public service: ServiceService, public dialog: MatDialog, ) {
+  ricette: Ricette[] = []
+  titolo: string = ""
+  error: boolean = false
+  search: boolean = false
+  objPreferiti: any;
+  like: boolean = false;
+
+  constructor(private router: Router, public service: ServiceService, public dialog: MatDialog, private fb: FormBuilder) {
+    this.form = this.fb.group({
+      cerca: ['', Validators.required],
+    });
   }
 
   ngOnInit() { 
@@ -44,13 +56,33 @@ export class NavbarComponent {
       this.service.isLogged = false;
     }
 
-    // if(localStorage.getItem("admin") == "false"){
-    //   this.service.isAdmin = false;
-    // }
-    // else{
-    //   this.service.isAdmin = true;
-    // }
   }
+
+  listaPreferiti(){
+    this.service.listaPreferiti().subscribe((res)=>{
+      this.service.listaPrefe = res 
+      this.service.like = true
+      if(this.objPreferiti.length < 1){
+        this.error = true;
+      }  
+      });    
+  }
+
+
+  ricerca() {
+    this.error = false
+    this.titolo = this.form.value.cerca;
+    if (this.titolo) {
+      this.service.ricerca(this.titolo).subscribe((res) => {
+        this.ricette = res;
+        if(this.ricette.length < 1)
+        this.error = true;
+        this.service.errorNav = this.error
+      });
+    }
+  }
+
+
   LogOut() {
     // this.tasto = true
     // localStorage.setItem("login", "false");

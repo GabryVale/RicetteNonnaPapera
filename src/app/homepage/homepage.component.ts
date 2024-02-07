@@ -9,6 +9,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ServiceService } from '../service.ts/service.service';
 import { Ricette } from '../class/ricette';
 import { PaginatorComponent } from '../paginator/paginator.component';
+import { DialogComponent } from '../dialog/dialog.component';
+import { DialogDeleteComponent } from '../dialog-delete/dialog-delete.component';
 
 
 
@@ -22,13 +24,26 @@ import { PaginatorComponent } from '../paginator/paginator.component';
 export class HomepageComponent {
   tipoPagina: string = "";
   ricette: Ricette[] = []
-  dettaglioRicette: Ricette[] = []
+  
   obj: any;
   pageable: any
   pageSize: number = 0
   cont: number = 0
-  constructor(private router: Router, private route: ActivatedRoute, private service: ServiceService) {
+  titolo: string = ""
+  messageError: string = "nessuna ricetta trovata"
+  error: boolean = false;
+  searchNav: boolean = true;
+  dialogRef: any;
+  dialog: any;
+  tipoPiatto: any;
+  listaRicette: Ricette[] = [];
+  dialogRefDelete: any;
+  ricettePrefe: any
+  dialogRefLista: any;
 
+
+  constructor(private router: Router, private route: ActivatedRoute, public service: ServiceService) {
+    
   }
 
   ngOnInit() {
@@ -39,10 +54,10 @@ export class HomepageComponent {
     // else {
     //   this.service.isLogged = false;
     // }
+    
+    this.searchNav = this.service.searchNav;
+    this.ricette = this.service.ricetteTrovate
   }
-
-  
-
 
   primiPiatti() {
     this.router.navigate(['Homepage/Primi-Piatti'])
@@ -60,4 +75,93 @@ export class HomepageComponent {
     this.router.navigate(['Homepage/Primi-Piatti/' + id]);
   }
 
+
+  openDialog(ricetta: any, id: number) {
+    this.service.ricettaSelected = ricetta;
+    this.service.idRicetta = id;
+    this.service.dialog = this.dialogRef;
+    this.dialogRef = this.dialog.open(DialogComponent, {
+      height: '600px',
+      width: '600px',
+    });
+    this.dialogRef.afterClosed().subscribe((result: any) => {
+      this.service.getDati().subscribe((res) => {
+        this.obj = JSON.parse(res)
+        this.ricette = this.obj.content
+        this.tipoPiatto = this.route!.snapshot.params['tipoPagina'];
+
+        if (this.tipoPiatto == "Primi-Piatti") {
+          this.listaRicette = this.ricette.filter((res) => res.categoria.id == 1)
+        }
+        if (this.tipoPiatto == "Secondi-Piatti") {
+          this.listaRicette = this.ricette.filter((res) => res.categoria.id == 2)
+        }
+        if (this.tipoPiatto == "Contorni") {
+          this.listaRicette = this.ricette.filter((res) => res.categoria.id == 3)
+        }
+      })
+    });
+  }
+
+
+  openDialogDelete(id: number) {
+    this.service.idRicettaDelete = id;
+    this.service.dialog = this.dialogRefDelete;
+    this.dialogRefDelete = this.dialog.open(DialogDeleteComponent, {
+      height: '300px',
+      width: '350px',
+    });
+    this.dialogRefDelete.afterClosed().subscribe((result: any) => {
+      this.service.getDati().subscribe((res) => {
+        this.obj = JSON.parse(res)
+        this.ricette = this.obj.content
+        this.tipoPiatto = this.route!.snapshot.params['tipoPagina'];
+
+        if (this.tipoPiatto == "Primi-Piatti") {
+          this.listaRicette = this.ricette.filter((res) => res.categoria.id == 1)
+        }
+        if (this.tipoPiatto == "Secondi-Piatti") {
+          this.listaRicette = this.ricette.filter((res) => res.categoria.id == 2)
+        }
+        if (this.tipoPiatto == "Contorni") {
+          this.listaRicette = this.ricette.filter((res) => res.categoria.id == 3)
+        }
+      })
+      alert("ricetta aliminata")
+    });
+  }
+
+  dettaglioRicette(titolo: string, id: number) {
+
+    this.tipoPiatto = this.route!.snapshot.params['tipoPagina'];
+
+    if (this.tipoPiatto == "Primi-Piatti") {
+      this.router.navigate(['Homepage/Primi-Piatti/' + id])
+    }
+    if (this.tipoPiatto == "Secondi-Piatti") {
+      this.router.navigate(['Homepage/Secondi-Piatti/' + id])
+    }
+    if (this.tipoPiatto == "Contorni") {
+      this.router.navigate(['Homepage/Contorni/' + id])
+    }
+  }
+
+  deletePreferiti(id: number){
+    this.service.idRicettaDeleteLista = id;
+    this.service.dialog = this.dialogRefLista;
+    this.dialogRefLista = this.dialog.open(DialogDeleteComponent, {
+      height: '300px',
+      width: '350px',
+    });
+    this.dialogRefLista.afterClosed().subscribe((result: any) => {
+       this.listaPreferiti();
+       alert("ricetta tolta dalla lista preferiti")
+    });
+    
+  }
+  listaPreferiti() {
+    throw new Error('Method not implemented.');
+  }
+
+  
 }

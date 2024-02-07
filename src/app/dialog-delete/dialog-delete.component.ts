@@ -31,9 +31,10 @@ export class DialogDeleteComponent {
 
     cancellaPreferiti() {
       this.id = this.service.idRicettaDeleteLista
-       this.service.deleteRicettaPreferiti(this.id).subscribe(() => {  
+       this.service.deleteRicettaPreferiti(this.id).subscribe(() => { 
        });
        this.dialogRef.close();
+       alert("ricetta tolta dalla lista preferiti") 
      }
  
 

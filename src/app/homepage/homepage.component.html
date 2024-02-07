@@ -40,5 +40,34 @@
             </div>
         </div>
     </div>
-   <app-paginator></app-paginator>
+    <app-paginator></app-paginator>
 </div>
+
+<!-- <div *ngIf=" this.service.like && !error">
+    <div class="display" *ngFor="let ricetta of this.service.listaPrefe">
+        <span>
+            <mat-card class="example-card" style="cursor: pointer;">
+                <mat-card-header (click)="dettaglioRicette(ricetta.titolo, ricetta.id)">
+                    <mat-card-title>{{ricetta.titolo}}</mat-card-title>
+                </mat-card-header>
+
+
+                <img style="height: 266px; width: 350ppx;" mat-card-image src="{{ricetta.image}}">
+
+
+                <mat-card-actions>
+                    <button *ngIf="this.service.isAdmin" style="color: black; background-color: rgb(181, 40, 40);"
+                        mat-button (click)="openDialogDelete(ricetta.id)">Cancella</button>
+                    <button *ngIf="this.service.isAdmin"
+                        style="color: black; background-color: rgb(246, 213, 48); margin-left: 5px;" mat-button
+                        (click)="openDialog(ricetta, ricetta.id)">Modifica</button>
+                    <div>
+                        <button mat-button (click)="deletePreferiti(ricetta.id)"
+                            *ngIf="this.service.isLogged && !this.service.isAdmin" class="but">Elimina dalla
+                            lista</button>
+                    </div>
+                </mat-card-actions>
+            </mat-card>
+        </span>
+    </div>
+</div> -->

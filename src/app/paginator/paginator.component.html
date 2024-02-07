@@ -5,11 +5,7 @@
                 <mat-card-header>
                     <mat-card-title style="color: whitesmoke;">{{ricetta?.titolo}}</mat-card-title>
                 </mat-card-header>
-                <img (click)="dettaglio(ricetta.id)" style="height: 266px; width: 350ppx;" *ngIf="ricetta?.titolo == 'Pasta al sugo'" mat-card-image src="assets/penne.jpg">
-                <img (click)="dettaglio(ricetta.id)" style="height: 266px; width: 350ppx;" *ngIf="ricetta?.titolo == 'Roast beef'" mat-card-image src="assets/roast.jpg">
-                <img (click)="dettaglio(ricetta.id)" style="height: 266px; width: 350px;" *ngIf="ricetta?.titolo == 'Spaghetti al pesto'" mat-card-image src="assets/pasta.jpg">
-                <img (click)="dettaglio(ricetta.id)" style="height: 266px; width: 350px;" *ngIf="ricetta?.titolo == 'Tiramisù'" mat-card-image src="assets/Tiramisu.png">
-                <img (click)="dettaglio(ricetta.id)" style="height: 266px; width: 350px;" *ngIf="ricetta?.titolo == 'Polpette'" mat-card-image src="assets/polpette.png">
+                <img (click)="dettaglio(ricetta.id)" style="height: 266px; width: 350ppx;"  mat-card-image src="{{ricetta?.image}}">
             </mat-card>
         </div>
     </div>

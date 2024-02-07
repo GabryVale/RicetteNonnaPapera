@@ -14,6 +14,7 @@ import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, 
 import { DialogComponent } from '../dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogDeleteComponent } from '../dialog-delete/dialog-delete.component';
+import { Ricetta } from '../class/ricetta';
 
 
 @Component({
@@ -53,6 +54,8 @@ export class PageDetailComponent {
   str: string = ""
   dialogRefLista: any
   list: boolean = false;
+  likeIcon: number[] = []
+  preferiti: Ricetta[]=[]
 
 
   ngOnInit() {
@@ -71,7 +74,7 @@ export class PageDetailComponent {
       if (this.tipoPiatto == "Contorni") {
         this.listaRicette = this.ricette.filter((res) => res.categoria.id == 3)
       }
-    })
+    })    
   }
 
 
@@ -96,10 +99,18 @@ export class PageDetailComponent {
     if (this.titolo) {
       this.service.ricerca(this.titolo).subscribe((res) => {
         this.listaRicette = res;
+        if(this.tipoPiatto == "Primi-Piatti"){
+          this.listaRicette = this.listaRicette.filter((res)=> res.categoria.categoria == "primo")
+        }
+        if(this.tipoPiatto == "Secondi-Piatti"){
+          this.listaRicette = this.listaRicette.filter((res)=> res.categoria.categoria == "secondo")
+        }
+        if(this.tipoPiatto == "Contorni"){
+          this.listaRicette = this.listaRicette.filter((res)=> res.categoria.categoria == "dolce")
+        } 
         if(this.listaRicette.length < 1)
         this.error = true;
       });
-      
     }
   }
 
@@ -177,6 +188,7 @@ export class PageDetailComponent {
     alert("ricetta aggiunta alla lista preferiti");
   }
 
+
   deletePreferiti(id: number){
     this.service.idRicettaDeleteLista = id;
     this.service.dialog = this.dialogRefLista;
@@ -186,7 +198,6 @@ export class PageDetailComponent {
     });
     this.dialogRefLista.afterClosed().subscribe((result: any) => {
        this.listaPreferiti();
-       alert("ricetta tolta dalla lista preferiti")
     });
     
   }

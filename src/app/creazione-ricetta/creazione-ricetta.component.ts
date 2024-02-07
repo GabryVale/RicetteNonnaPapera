@@ -20,6 +20,8 @@ export class CreazioneRicettaComponent {
   selectedFile: File | null = null;
   base64String: string |undefined = ""
   file : Blob | undefined
+
+  //stringa: string = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4QBsRXhpZgAASUkqAAgAAAADADEBAgAHAAAAMgAAABICAwACAAAAAgACAGmHBAABAAAAOgAAAAAAAABHb29nbGUAAAMAAJAHAAQAAAAwMjIwAqAEAAEAAADcBQAAA6AEAAEAAABlBAAAAAAAAP"
   constructor(private service: ServiceService, private router: Router, private fb: FormBuilder) {
     this.form = this.fb.group({
       titolo: ['', [Validators.required, Validators.minLength(4)]],
@@ -32,42 +34,25 @@ export class CreazioneRicettaComponent {
   }
 
 
-  onUpload(): void {
-    if (this.selectedFile) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.base64String = reader.result?.toString().split(',')[1];
-        this.uploadFile(this.base64String);
-      };
-      reader.readAsDataURL(this.selectedFile);
-    }
-  }
-
-  uploadFile(base64String: string | undefined): void {
-    this.form.value.image = base64String;
-  }
-
   handleFileInput(event: any) {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = (e: any) => {
         const base64Image = e.target.result as string;
-        console.log(base64Image); // Here you get the base64 encoded string
-        this.form.value.image = base64Image; 
+        //console.log(base64Image);
+        this.form.value.image = base64Image;
       };
       reader.readAsDataURL(file);
     }
-  }
-
-  onFileSelected(event: any): void {
-    this.selectedFile = event.target.files[0];
   }
 
   ngOnInit(){
     this.service.listaCategorie().subscribe((res)=>{
      this.listaCategorie = JSON.parse(res);
     })
+
+    //console.log("stringa: "+this.stringa.length)
   }
 
   form!: FormGroup;

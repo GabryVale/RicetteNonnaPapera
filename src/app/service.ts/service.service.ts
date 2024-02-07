@@ -22,6 +22,12 @@ export class ServiceService {
   isLogged: boolean = false;
   form: boolean = false;
   apiUrl: string = 'http://localhost:8080/';
+  searchNav: boolean = false
+  ricetteTrovate: Ricette[] = [];
+  errorNav: boolean = false;
+  like: boolean = false;
+  list: boolean = false
+  listaPrefe: any
   
   getDati(): Observable<any> {
     return this.http.get(this.apiUrl + "api/ricette/lista", { responseType: 'text' });

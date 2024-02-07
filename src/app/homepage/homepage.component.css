@@ -40,4 +40,21 @@
     padding: 15px;
   }
   
+  .but {
+    background-color: #040404;
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 28px;
+  }
+
+  .inp{
+    padding: 15px;
+    margin-bottom: 16px;
+    height: 15px;
+    margin-left: 15px;
+    border-radius: 5px;
+  }
   

@@ -18,6 +18,12 @@
         }
       </mat-select>
     </mat-form-field>
+    <label for="image">inserisci un imagine per la ricetta:</label>
+    <div>
+      <!--<input type="file" formControlName="image" (change)="onFileSelected($event)">
+      <button (click)="onUpload()">Upload</button>-->
+      <input type="file" formControlName="image" (change)="handleFileInput($event)">
+    </div>
       <button type="submit" (click)="edit()">Modifica</button>
     </form>
 </div>

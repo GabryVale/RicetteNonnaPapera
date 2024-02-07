@@ -29,7 +29,8 @@ export class DialogComponent {
     preparazione:  new FormControl(this.service.ricettaSelected?.preparazione, Validators.required),
     quantita:  new FormControl(this.service.ricettaSelected?.quantitaPersone, Validators.required),
     ingredienti:  new FormControl(this.service.ricettaSelected?.ingredienti, Validators.required),
-    categoria:  new FormControl(this.service.ricettaSelected?.categoria.categoria, Validators.required)
+    categoria:  new FormControl(this.service.ricettaSelected?.categoria.categoria, Validators.required),
+    image:  new FormControl(this.service.ricettaSelected?.image, Validators.required)
   });
   }
 
@@ -46,6 +47,7 @@ export class DialogComponent {
     ricetta.quantitaPersone = this.form.value.quantita;
     ricetta.ingredienti = this.form.value.ingredienti;
     ricetta.categoria.categoria = this.form.value.categoria;
+    ricetta.image = this.form.value.image;
 
     if (this.form.value.categoria == "primo") {
       ricetta.categoria.id = 1;
@@ -62,5 +64,18 @@ export class DialogComponent {
     },()=>{
       alert("errore");
     });
+  }
+
+  handleFileInput(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        const base64Image = e.target.result as string;
+        //console.log(base64Image);
+        this.form.value.image = base64Image;
+      };
+      reader.readAsDataURL(file);
+    }
   }
 }

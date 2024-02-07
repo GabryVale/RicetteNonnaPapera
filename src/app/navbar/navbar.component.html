@@ -1,7 +1,26 @@
 
 <mat-toolbar>
+  
     <span style="cursor: pointer;" (click)="homepage()">homepage</span>
     <span class="example-spacer"></span>
+
+    <!-- <div *ngIf="!this.service.isAdmin && this.service.isLogged">
+      <button class="but" style="position: relative; bottom: 15px;" type="submit" (click)="listaPreferiti()">Lista Preferiti</button>
+  </div> -->
+   
+    <!--<div class="login-container" style="position: relative; right: 1025px; bottom: 5px;">
+      <form [formGroup]="form">
+          <div style="display: flex; align-items: baseline;">
+              <div>
+                  <input formControlName="cerca" type="text" class="inp" #cerca formControlName="cerca" name="cerca" id="cerca"
+                      placeholder="cerca">
+              </div>
+              <div style="position: relative; left: 48px;">
+                  <button class="but" (click)="ricerca()" type="submit">ricerca</button>
+              </div>
+          </div>
+      </form>
+  </div>-->
     <!--<button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
           <mat-icon>favorite</mat-icon>
         </button>
