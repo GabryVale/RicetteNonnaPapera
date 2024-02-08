@@ -14,7 +14,7 @@ import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, 
 import { DialogComponent } from '../dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogDeleteComponent } from '../dialog-delete/dialog-delete.component';
-import { Ricetta } from '../class/ricetta';
+import { Categ, Ricetta } from '../class/ricetta';
 
 
 @Component({
@@ -55,7 +55,10 @@ export class PageDetailComponent {
   dialogRefLista: any
   list: boolean = false;
   likeIcon: number[] = []
-  preferiti: Ricetta[]=[]
+  preferiti: Ricetta[] = []
+  returnTrue: boolean = true
+  returnFalse: boolean = false
+  controlloRicette: Ricette[] = []
 
 
   ngOnInit() {
@@ -74,7 +77,12 @@ export class PageDetailComponent {
       if (this.tipoPiatto == "Contorni") {
         this.listaRicette = this.ricette.filter((res) => res.categoria.id == 3)
       }
-    })    
+    })
+
+    this.service.listaPreferiti().subscribe((res) => {
+      this.objPreferiti = res
+      this.controlloRicette = this.objPreferiti;
+    });
   }
 
 
@@ -99,17 +107,17 @@ export class PageDetailComponent {
     if (this.titolo) {
       this.service.ricerca(this.titolo).subscribe((res) => {
         this.listaRicette = res;
-        if(this.tipoPiatto == "Primi-Piatti"){
-          this.listaRicette = this.listaRicette.filter((res)=> res.categoria.categoria == "primo")
+        if (this.tipoPiatto == "Primi-Piatti") {
+          this.listaRicette = this.listaRicette.filter((res) => res.categoria.categoria == "primo")
         }
-        if(this.tipoPiatto == "Secondi-Piatti"){
-          this.listaRicette = this.listaRicette.filter((res)=> res.categoria.categoria == "secondo")
+        if (this.tipoPiatto == "Secondi-Piatti") {
+          this.listaRicette = this.listaRicette.filter((res) => res.categoria.categoria == "secondo")
         }
-        if(this.tipoPiatto == "Contorni"){
-          this.listaRicette = this.listaRicette.filter((res)=> res.categoria.categoria == "dolce")
-        } 
-        if(this.listaRicette.length < 1)
-        this.error = true;
+        if (this.tipoPiatto == "Contorni") {
+          this.listaRicette = this.listaRicette.filter((res) => res.categoria.categoria == "dolce")
+        }
+        if (this.listaRicette.length < 1)
+          this.error = true;
       });
     }
   }
@@ -167,38 +175,49 @@ export class PageDetailComponent {
           this.listaRicette = this.ricette.filter((res) => res.categoria.id == 3)
         }
       })
-      alert("ricetta aliminata")
     });
   }
 
 
-  listaPreferiti(){
+  listaPreferiti() {
     this.list = true
-    this.service.listaPreferiti().subscribe((res)=>{
-      this.objPreferiti = res 
+    this.service.listaPreferiti().subscribe((res) => {
+      this.objPreferiti = res
       this.like = true
-      if(this.objPreferiti.length < 1){
+      if (this.objPreferiti.length < 1) {
         this.error = true;
-      }  
-      });    
+      }
+    });
   }
 
-  listaPreferitiAdd(id: number){
-    this.service.addRicettaPreferiti(id).subscribe(()=>{});
+  listaPreferitiAdd(id: number) {
+    this.service.addRicettaPreferiti(id).subscribe(() => { });
     alert("ricetta aggiunta alla lista preferiti");
   }
 
 
-  deletePreferiti(id: number){
+  deletePreferiti(id: number) {
     this.service.idRicettaDeleteLista = id;
     this.service.dialog = this.dialogRefLista;
     this.dialogRefLista = this.dialog.open(DialogDeleteComponent, {
       height: '300px',
       width: '350px',
     });
-    this.dialogRefLista.afterClosed().subscribe((result: any) => {
-       this.listaPreferiti();
-    });
-    
+  }
+
+ ret: Ricette | undefined
+ controllo: boolean = false
+  
+ 
+  controllaIcon(ricetta: Ricette): boolean {
+    this.ret = this.controlloRicette.find((res)=>res.id == ricetta.id)
+    if(this.ret){
+      this.service.controllo = true
+      return this.service.controllo
+    }else{
+      this.service.controllo = false
+      return this.service.controllo
+    }
+     
   }
 }

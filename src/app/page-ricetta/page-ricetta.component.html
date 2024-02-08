@@ -13,7 +13,7 @@
             <div style="display: flex;">
                 <div>
                     <img style="height: 266px; width: 350ppx;" *ngIf="ricetta.titolo == 'Pasta al sugo'" mat-card-image
-                        src="assets/penne.jpg">
+                        src="{{ricetta.image}}">
                 </div>
                 <div style="padding: 10px; margin-left: 40px; margin-right:80px;"
                     *ngIf="ricetta.titolo == 'Pasta al sugo'">
@@ -61,7 +61,7 @@
             <div style="display: flex;">
                 <div style="margin-right: 10px;">
                     <img style="height: 266px; width: 350ppx;" *ngIf="ricetta.titolo == 'Roast beef'" mat-card-image
-                        src="assets/roast.jpg">
+                        src="{{ricetta.image}}">
                 </div>
                 <div style="padding: 10px; margin-left: 40px; margin-right:80px;"
                     *ngIf="ricetta.titolo == 'Roast beef'">
@@ -104,11 +104,11 @@
             </div>
             <div style="display: flex;">
                 <div>
-                    <img style="height: 266px; width: 350px;" *ngIf="ricetta.titolo == 'Spaghetti al pesto'"
-                        mat-card-image src="assets/pasta.jpg">
+                    <img style="height: 266px; width: 350px;" *ngIf="ricetta.titolo == 'Pasta al pesto'"
+                        mat-card-image src="{{ricetta.image}}">
                 </div>
                 <div style="padding: 10px; margin-left: 40px; margin-right:80px;"
-                    *ngIf="ricetta.titolo == 'Spaghetti al pesto'">
+                    *ngIf="ricetta.titolo == 'Pasta al pesto'">
                     <h2>Descrizione:</h2>
                     <p>Avete voglia di un piatto fresco e profumato perfetto per il vostro menù? Allora le bavette al
                         pesto sono una ricetta classica, quella che stavate cercando! Il pesto, caposaldo della cucina
@@ -122,7 +122,7 @@
                         <div>
                             <mat-card-content style="display: flex;">
                                 <div>
-                                    <img style="height: 10px; width: 10px;" src="assets/icon3.png">
+                                    <img style="height: 10px; width: 10px;" >
                                 </div>
                                 <div>
                                     <h2>Quantità Persone:</h2>
@@ -148,7 +148,7 @@
             <div style="display: flex;">
                 <div>
                     <img style="height: 266px; width: 350px;" *ngIf="ricetta.titolo == 'Tiramisù'" mat-card-image
-                        src="assets/Tiramisu.png">
+                        src="{{ricetta.image}}">
                 </div>
                 <div style="padding: 10px; margin-left: 40px; margin-right:80px;" *ngIf="ricetta.titolo == 'Tiramisù'">
                     <h2>Descrizione:</h2>
@@ -194,7 +194,7 @@
             <div style="display: flex;">
                 <div style="margin-right: 10px;">
                     <img style="height: 266px; width: 350px;" *ngIf="ricetta.titolo == 'Polpette'" mat-card-image
-                        src="assets/polpette.png">
+                        src="{{ricetta.image}}">
                 </div>
                 <div style="padding: 10px; margin-left: 40px; margin-right:80px;" *ngIf="ricetta.titolo == 'Polpette'">
                     <h2>Descrizione:</h2>
@@ -232,7 +232,7 @@
                     </div>
                 </div>
             </div>
-            <div style="display: flex;">
+            <!-- <div style="display: flex;">
                 <div style="padding: 10px; margin-left: 40px; margin-right:80px;"
                     *ngIf="ricetta.titolo != 'Pasta al sugo' && ricetta.titolo != 'Tiramisù' && ricetta.titolo != 'Roast beef' && ricetta.titolo != 'Spaghetti al pesto' && ricetta.titolo != 'Polpette'">
                     
@@ -260,7 +260,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </mat-card-content>
 
         <mat-card-content>

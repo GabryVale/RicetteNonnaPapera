@@ -28,6 +28,7 @@ export class ServiceService {
   like: boolean = false;
   list: boolean = false
   listaPrefe: any
+  controllo: boolean = false
   
   getDati(): Observable<any> {
     return this.http.get(this.apiUrl + "api/ricette/lista", { responseType: 'text' });

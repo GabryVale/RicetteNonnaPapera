@@ -1,5 +1,27 @@
-<div style="background-color: rgb(215, 215, 215); height: 1000px;">
-    <div>
+<div style="background-color: rgb(215, 215, 215); height: 1091px;">
+    <div style="display: flex;">
+        <div>
+            <form [formGroup]="form">
+                <div style="display: flex; align-items: baseline;">
+                    <div>
+                        <input formControlName="cerca" type="text" class="inp" #cerca formControlName="cerca"
+                            name="cerca" id="cerca" placeholder="cerca">
+                    </div>
+                    <div style="position: relative; left: 48px;">
+                        <button class="but" (click)="ricerca()" type="submit">ricerca</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div *ngIf="!this.service.isAdmin && this.service.isLogged">
+            <button class="but" style="position: relative; left: 70px;" type="submit" (click)="listaPreferiti()">Lista
+                Preferiti</button>
+        </div>
+    </div>
+
+
+    <div *ngIf="!this.service.list && !this.service.like">
         <h2 style="padding: 15px;">Categoria piatto:</h2>
         <div class="display">
             <div>
@@ -39,35 +61,86 @@
                 </mat-card>
             </div>
         </div>
+        <app-paginator></app-paginator>
     </div>
-    <app-paginator></app-paginator>
+    <div *ngIf=" this.service.list && !this.service.like">
+        <h2>Ricerca ricette:</h2>
+        <div *ngIf="error" style="padding: 15px;">
+            <h2>{{this.messageError}}</h2>
+        </div>
+        <div *ngFor="let ricetta of this.ricettePrefe">
+            <div style="display: flex; justify-content: flex-start; padding: 15px;">
+                <div>
+                    <mat-card class="example-card" style="cursor: pointer;">
+                        <mat-card-header (click)="dettaglioRicette(ricetta.titolo, ricetta.id)">
+                            <mat-card-title>{{ricetta.titolo}}</mat-card-title>
+                        </mat-card-header>
+
+
+                        <img style="height: 266px; width: 350ppx;" mat-card-image src="{{ricetta.image}}">
+
+
+                        <mat-card-actions>
+                            <button *ngIf="this.service.isAdmin"
+                                style="color: black; background-color: rgb(181, 40, 40);" mat-button
+                                (click)="openDialogDelete(ricetta.id)">Cancella</button>
+                            <button *ngIf="this.service.isAdmin"
+                                style="color: black; background-color: rgb(246, 213, 48); margin-left: 5px;" mat-button
+                                (click)="openDialog(ricetta, ricetta.id)">Modifica</button>
+                            <!-- <div>
+                                <button mat-button (click)="deletePreferiti(ricetta.id)"
+                                    *ngIf="this.service.isLogged && !this.service.isAdmin" class="but">Elimina dalla
+                                    lista</button>
+                            </div> -->
+                            <div (click)="deletePreferiti(ricetta.id)" *ngIf="this.service.isLogged && !this.service.isAdmin" >
+                                <img 
+                                    style="color: black;  margin-left: 20px; height: 20px; width: 20px;" src="assets/icon.png">
+                            </div>
+                        </mat-card-actions>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div *ngIf=" this.service.like && !this.service.list">
+        <h2>Ricerca ricette:</h2>
+        <div *ngIf="error" style="padding: 15px;">
+            <h2>{{this.messageError}}</h2>
+        </div>
+        <div *ngFor="let ricetta of this.service.listaPrefe">
+            <div style="display: flex; justify-content: flex-start; padding: 15px;">
+                <div>
+                    <mat-card class="example-card" style="cursor: pointer;">
+                        <mat-card-header (click)="dettaglioRicette(ricetta.titolo, ricetta.id)">
+                            <mat-card-title>{{ricetta.titolo}}</mat-card-title>
+                        </mat-card-header>
+
+
+                        <img style="height: 266px; width: 350ppx;" mat-card-image src="{{ricetta.image}}">
+
+
+                        <mat-card-actions>
+                            <button *ngIf="this.service.isAdmin"
+                                style="color: black; background-color: rgb(181, 40, 40);" mat-button
+                                (click)="openDialogDelete(ricetta.id)">Cancella</button>
+                            <button *ngIf="this.service.isAdmin"
+                                style="color: black; background-color: rgb(246, 213, 48); margin-left: 5px;" mat-button
+                                (click)="openDialog(ricetta, ricetta.id)">Modifica</button>
+                            <!-- <div>
+                                <button mat-button (click)="deletePreferiti(ricetta.id)"
+                                    *ngIf="this.service.isLogged && !this.service.isAdmin" class="but">Elimina dalla
+                                    lista</button>
+                            </div> -->
+                            <div (click)="deletePreferiti(ricetta.id)" *ngIf="this.service.isLogged && !this.service.isAdmin" >
+                                <img 
+                                    style="color: black;  margin-left: 20px; height: 20px; width: 20px;" src="assets/icon.png">
+                            </div>
+                        </mat-card-actions>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
-<!-- <div *ngIf=" this.service.like && !error">
-    <div class="display" *ngFor="let ricetta of this.service.listaPrefe">
-        <span>
-            <mat-card class="example-card" style="cursor: pointer;">
-                <mat-card-header (click)="dettaglioRicette(ricetta.titolo, ricetta.id)">
-                    <mat-card-title>{{ricetta.titolo}}</mat-card-title>
-                </mat-card-header>
-
-
-                <img style="height: 266px; width: 350ppx;" mat-card-image src="{{ricetta.image}}">
-
-
-                <mat-card-actions>
-                    <button *ngIf="this.service.isAdmin" style="color: black; background-color: rgb(181, 40, 40);"
-                        mat-button (click)="openDialogDelete(ricetta.id)">Cancella</button>
-                    <button *ngIf="this.service.isAdmin"
-                        style="color: black; background-color: rgb(246, 213, 48); margin-left: 5px;" mat-button
-                        (click)="openDialog(ricetta, ricetta.id)">Modifica</button>
-                    <div>
-                        <button mat-button (click)="deletePreferiti(ricetta.id)"
-                            *ngIf="this.service.isLogged && !this.service.isAdmin" class="but">Elimina dalla
-                            lista</button>
-                    </div>
-                </mat-card-actions>
-            </mat-card>
-        </span>
-    </div>
-</div> -->

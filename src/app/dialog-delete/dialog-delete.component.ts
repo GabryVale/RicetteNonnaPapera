@@ -22,6 +22,7 @@ export class DialogDeleteComponent {
     cancella() {
      this.id = this.service.idRicettaDelete
       this.service.delete(this.id).subscribe(() => {  
+        alert("ricetta aliminata")
         this.dialogRef.close();
       }, () => {
         alert("errore");
@@ -32,6 +33,7 @@ export class DialogDeleteComponent {
     cancellaPreferiti() {
       this.id = this.service.idRicettaDeleteLista
        this.service.deleteRicettaPreferiti(this.id).subscribe(() => { 
+        this.service.controllo = false
        });
        this.dialogRef.close();
        alert("ricetta tolta dalla lista preferiti") 

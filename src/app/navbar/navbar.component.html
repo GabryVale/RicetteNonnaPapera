@@ -4,10 +4,6 @@
     <span style="cursor: pointer;" (click)="homepage()">homepage</span>
     <span class="example-spacer"></span>
 
-    <!-- <div *ngIf="!this.service.isAdmin && this.service.isLogged">
-      <button class="but" style="position: relative; bottom: 15px;" type="submit" (click)="listaPreferiti()">Lista Preferiti</button>
-  </div> -->
-   
     <!--<div class="login-container" style="position: relative; right: 1025px; bottom: 5px;">
       <form [formGroup]="form">
           <div style="display: flex; align-items: baseline;">
@@ -29,7 +25,7 @@
         </button>-->
     <button *ngIf="this.service.isAdmin && this.service.isLogged" mat-button (click)="aggiungiRicetta()">Aggiungi ricetta</button>    
     <button *ngIf="!this.service.isLogged" mat-button (click)="LogIn()">Log In</button>
-    <button *ngIf="this.service.isLogged" mat-button (click)="LogOut()">Log Out</button>
+    <button *ngIf="this.service.isLogged" mat-button (click)="logOut()">Log Out</button>
   </mat-toolbar>
 
 

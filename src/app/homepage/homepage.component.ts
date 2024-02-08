@@ -11,13 +11,15 @@ import { Ricette } from '../class/ricette';
 import { PaginatorComponent } from '../paginator/paginator.component';
 import { DialogComponent } from '../dialog/dialog.component';
 import { DialogDeleteComponent } from '../dialog-delete/dialog-delete.component';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 
 
 
 @Component({
   selector: 'app-homepage',
   standalone: true,
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatMenuModule, CommonModule, MatCardModule, PaginatorComponent],
+  imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatMenuModule, CommonModule, MatCardModule, PaginatorComponent, FormsModule, ReactiveFormsModule],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.css'
 })
@@ -34,16 +36,19 @@ export class HomepageComponent {
   error: boolean = false;
   searchNav: boolean = true;
   dialogRef: any;
-  dialog: any;
   tipoPiatto: any;
   listaRicette: Ricette[] = [];
   dialogRefDelete: any;
   ricettePrefe: any
   dialogRefLista: any;
+  form!: FormGroup;
+  like: boolean = false;
 
 
-  constructor(private router: Router, private route: ActivatedRoute, public service: ServiceService) {
-    
+  constructor(private router: Router, private route: ActivatedRoute, public service: ServiceService, private fb: FormBuilder, public dialog: MatDialog) {
+    this.form = this.fb.group({
+      cerca: ['', Validators.required],
+    });
   }
 
   ngOnInit() {
@@ -155,13 +160,34 @@ export class HomepageComponent {
     });
     this.dialogRefLista.afterClosed().subscribe((result: any) => {
        this.listaPreferiti();
-       alert("ricetta tolta dalla lista preferiti")
-    });
-    
-  }
-  listaPreferiti() {
-    throw new Error('Method not implemented.');
+    }); 
   }
 
-  
+  ricerca() {
+    this.service.like = false
+    this.error = false
+    this.ricette
+    this.titolo = this.form.value.cerca;
+    if(this.titolo){
+      this.service.ricerca(this.titolo).subscribe((res) => {
+        this.ricettePrefe = res;
+        this.service.list = true;
+        if(this.ricettePrefe.length < 1){
+          this.error = true;
+        this.service.list = false;
+        }   
+      });
+    }
+  }
+
+  listaPreferiti(){
+    this.service.list = false
+    this.service.listaPreferiti().subscribe((res)=>{
+      this.service.listaPrefe = res 
+      this.service.like = true
+      if(this.service.listaPrefe.length < 1){
+        this.error = true;
+      }  
+      });    
+  }
 }

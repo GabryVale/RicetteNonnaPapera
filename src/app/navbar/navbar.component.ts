@@ -10,6 +10,7 @@ import { ServiceService } from '../service.ts/service.service';
 import { MatDialog } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Ricette } from '../class/ricette';
+import { DialogLogoutComponent } from '../dialog-logout/dialog-logout.component';
 
 
 @Component({
@@ -30,6 +31,7 @@ export class NavbarComponent {
   search: boolean = false
   objPreferiti: any;
   like: boolean = false;
+  dialogRefLogout: any
 
   constructor(private router: Router, public service: ServiceService, public dialog: MatDialog, private fb: FormBuilder) {
     this.form = this.fb.group({
@@ -58,54 +60,28 @@ export class NavbarComponent {
 
   }
 
-  listaPreferiti(){
-    this.service.listaPreferiti().subscribe((res)=>{
-      this.service.listaPrefe = res 
-      this.service.like = true
-      if(this.objPreferiti.length < 1){
-        this.error = true;
-      }  
-      });    
-  }
 
-
-  ricerca() {
-    this.error = false
-    this.titolo = this.form.value.cerca;
-    if (this.titolo) {
-      this.service.ricerca(this.titolo).subscribe((res) => {
-        this.ricette = res;
-        if(this.ricette.length < 1)
-        this.error = true;
-        this.service.errorNav = this.error
-      });
-    }
-  }
-
-
-  LogOut() {
-    // this.tasto = true
-    // localStorage.setItem("login", "false");
-    // localStorage.setItem("admin", "false");
-    // this.service.isLogged = false;
-    // this.service.isAdmin = false;
-    // this.router.navigate(['Homepage']);
-    // this.tasto= false
-    if(localStorage.getItem("user")){
-      localStorage.removeItem("user");
-      localStorage.removeItem("JwtAccess-Token");
-      this.service.isLogged = false;
-      this.service.isAdmin = false;
-      this.router.navigate(['Homepage']);
-    }
-  }
+ 
   LogIn() {
     this.router.navigate(['Login'])
   }
   homepage() {
+    this.service.list = false
+    this.service.like = false
     this.router.navigate(['Homepage']);
   }
   aggiungiRicetta(){
     this.router.navigate(['creazione']);
   }
+
+  logOut(){ 
+    this.service.dialog = this.dialogRefLogout;
+    this.dialogRefLogout = this.dialog.open(DialogLogoutComponent, {
+      height: '300px',
+      width: '350px',
+    });
+    this.dialogRefLogout.afterClosed().subscribe((result: any) => {
+    });
+  }
+
 }

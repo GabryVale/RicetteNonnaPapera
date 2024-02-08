@@ -1,13 +1,13 @@
 <div *ngIf="this.service.isLogged && this.service.isAdmin" class="login-container">
     <div style="color: whitesmoke; position: relative; left: 10px;">
-        <h3>Sicureo di eliminare la ricetta?</h3>
+        <h3>Sicuro di eliminare la ricetta?</h3>
     </div>
     <div style="display: flex; margin: 10px; justify-content: center;">
         <div style="margin-right: 30px;">
-          <button (click)="cancella()" style="height: 50px; width: 50px; padding: 10px;">Si</button>
+          <button (click)="cancella()" style="height: 50px; width: 50px; padding: 10px; background-color: rgb(99, 201, 94);">Si</button>
         </div>
         <div>
-           <button (click)="decline()" style="height: 50px; width: 50px; padding: 10px;">No</button>
+           <button (click)="decline()" style="height: 50px; width: 50px; padding: 10px; background-color: rgb(193, 71, 62);">No</button>
         </div>
     </div>
 </div>
@@ -15,14 +15,14 @@
 
 <div *ngIf="this.service.isLogged && !this.service.isAdmin" class="login-container">
     <div style="color: whitesmoke; position: relative; left: 10px;">
-        <h3>Sicureo di eliminare la ricetta dalla lista preferiti?</h3>
+        <h3>Sicuro di eliminare la ricetta dalla lista preferiti?</h3>
     </div>
     <div style="display: flex; margin: 10px; justify-content: center;">
         <div style="margin-right: 30px;">
-          <button (click)="cancellaPreferiti()" style="height: 50px; width: 50px; padding: 10px;">Si</button>
+          <button (click)="cancellaPreferiti()" style="height: 50px; width: 50px; padding: 10px; background-color: rgb(99, 201, 94);">Si</button>
         </div>
         <div>
-           <button (click)="decline()" style="height: 50px; width: 50px; padding: 10px;">No</button>
+           <button (click)="decline()" style="height: 50px; width: 50px; padding: 10px; background-color: rgb(193, 71, 62);">No</button>
         </div>
     </div>
 </div>
