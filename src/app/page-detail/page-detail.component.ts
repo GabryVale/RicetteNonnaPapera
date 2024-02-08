@@ -15,6 +15,7 @@ import { DialogComponent } from '../dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogDeleteComponent } from '../dialog-delete/dialog-delete.component';
 import { Categ, Ricetta } from '../class/ricetta';
+import { DialogAddPreferitiComponent } from '../dialog-add-preferiti/dialog-add-preferiti.component';
 
 
 @Component({
@@ -191,8 +192,15 @@ export class PageDetailComponent {
   }
 
   listaPreferitiAdd(id: number) {
-    this.service.addRicettaPreferiti(id).subscribe(() => { });
-    alert("ricetta aggiunta alla lista preferiti");
+    // this.service.addRicettaPreferiti(id).subscribe(() => { });
+    // alert("ricetta aggiunta alla lista preferiti");
+    // window.location.reload()
+    this.service.idAddListaPreferiti= id;
+    this.service.dialog = this.dialogRefLista;
+    this.dialogRefLista = this.dialog.open(DialogAddPreferitiComponent, {
+      height: '300px',
+      width: '350px',
+    });
   }
 
 
@@ -218,6 +226,5 @@ export class PageDetailComponent {
       this.service.controllo = false
       return this.service.controllo
     }
-     
   }
 }

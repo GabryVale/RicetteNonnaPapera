@@ -37,8 +37,8 @@ export class PaginatorComponent {
   }
 
 
-  dettaglio(id: number) {
-    this.router.navigate(['Homepage/Primi-Piatti/' + id]);
+  dettaglio(ricetta: Ricette, id: number) {
+    this.router.navigate(['Homepage/'+ ricetta.categoria.categoria + "/" + id]);
   }
 
   handlePageEvent(e: PageEvent) {

@@ -36,6 +36,7 @@ export class DialogDeleteComponent {
         this.service.controllo = false
        });
        this.dialogRef.close();
+       window.location.reload()
        alert("ricetta tolta dalla lista preferiti") 
      }
  

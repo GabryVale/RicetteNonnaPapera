@@ -5,7 +5,7 @@
                 <mat-card-header>
                     <mat-card-title style="color: whitesmoke;">{{ricetta?.titolo}}</mat-card-title>
                 </mat-card-header>
-                <img (click)="dettaglio(ricetta.id)" style="height: 266px; width: 350ppx;"  mat-card-image src="{{ricetta?.image}}">
+                <img (click)="dettaglio(ricetta,ricetta.id)" style="height: 266px; width: 350ppx;"  mat-card-image src="{{ricetta?.image}}">
             </mat-card>
         </div>
     </div>

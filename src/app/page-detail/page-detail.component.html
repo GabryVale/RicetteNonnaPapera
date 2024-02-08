@@ -70,11 +70,11 @@
                     <button *ngIf="this.service.isAdmin"
                         style="color: black; background-color: rgb(246, 213, 48); margin-left: 5px;" mat-button
                         (click)="openDialog(ricetta, ricetta.id)">Modifica</button>
-                    <div (click)="listaPreferitiAdd(ricetta.id)" *ngIf="this.service.isLogged && !this.service.isAdmin && !controllaIcon(ricetta)">
-                        <img style="color: black;  margin-left: 20px; height: 20px; width: 20px;" src="assets/icon2.png">
+                    <div (click)="listaPreferitiAdd(ricetta.id)" >
+                        <img *ngIf="this.service.isLogged && !this.service.isAdmin && !controllaIcon(ricetta)" style="color: black;  margin-left: 20px; height: 20px; width: 20px;" src="assets/icon2.png">
                     </div>
-                    <div (click)="deletePreferiti(ricetta.id)" *ngIf="this.service.isLogged && !this.service.isAdmin && controllaIcon(ricetta)">
-                        <img style="color: black;  margin-left: 20px; height: 20px; width: 20px;" src="assets/icon.png">
+                    <div (click)="deletePreferiti(ricetta.id)" >
+                        <img *ngIf="this.service.isLogged && !this.service.isAdmin && controllaIcon(ricetta)" style="color: black;  margin-left: 20px; height: 20px; width: 20px;" src="assets/icon.png">
                     </div>
                 </mat-card-actions>
             </mat-card>

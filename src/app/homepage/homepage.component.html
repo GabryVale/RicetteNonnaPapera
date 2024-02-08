@@ -64,7 +64,7 @@
         <app-paginator></app-paginator>
     </div>
     <div *ngIf=" this.service.list && !this.service.like">
-        <h2>Ricerca ricette:</h2>
+        <h2 style="padding: 15px;">Ricerca ricette:</h2>
         <div *ngIf="error" style="padding: 15px;">
             <h2>{{this.messageError}}</h2>
         </div>
@@ -72,7 +72,7 @@
             <div style="display: flex; justify-content: flex-start; padding: 15px;">
                 <div>
                     <mat-card class="example-card" style="cursor: pointer;">
-                        <mat-card-header (click)="dettaglioRicette(ricetta.titolo, ricetta.id)">
+                        <mat-card-header (click)="dettaglio(ricetta,ricetta.id)">
                             <mat-card-title>{{ricetta.titolo}}</mat-card-title>
                         </mat-card-header>
 
@@ -92,9 +92,11 @@
                                     *ngIf="this.service.isLogged && !this.service.isAdmin" class="but">Elimina dalla
                                     lista</button>
                             </div> -->
-                            <div (click)="deletePreferiti(ricetta.id)" *ngIf="this.service.isLogged && !this.service.isAdmin" >
-                                <img 
-                                    style="color: black;  margin-left: 20px; height: 20px; width: 20px;" src="assets/icon.png">
+                            <div (click)="listaPreferitiAdd(ricetta.id)" >
+                                <img *ngIf="this.service.isLogged && !this.service.isAdmin && !controllaIcon(ricetta)" style="color: black;  margin-left: 20px; height: 20px; width: 20px;" src="assets/icon2.png">
+                            </div>
+                            <div (click)="deletePreferiti(ricetta.id)" >
+                                <img *ngIf="this.service.isLogged && !this.service.isAdmin && controllaIcon(ricetta)" style="color: black;  margin-left: 20px; height: 20px; width: 20px;" src="assets/icon.png">
                             </div>
                         </mat-card-actions>
                     </mat-card>
@@ -105,7 +107,7 @@
 
 
     <div *ngIf=" this.service.like && !this.service.list">
-        <h2>Ricerca ricette:</h2>
+        <h2 style="padding: 15px;">Ricerca ricette:</h2>
         <div *ngIf="error" style="padding: 15px;">
             <h2>{{this.messageError}}</h2>
         </div>
@@ -113,7 +115,7 @@
             <div style="display: flex; justify-content: flex-start; padding: 15px;">
                 <div>
                     <mat-card class="example-card" style="cursor: pointer;">
-                        <mat-card-header (click)="dettaglioRicette(ricetta.titolo, ricetta.id)">
+                        <mat-card-header (click)="dettaglio(ricetta,ricetta.id)">
                             <mat-card-title>{{ricetta.titolo}}</mat-card-title>
                         </mat-card-header>
 

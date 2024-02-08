@@ -13,6 +13,7 @@ import { DialogComponent } from '../dialog/dialog.component';
 import { DialogDeleteComponent } from '../dialog-delete/dialog-delete.component';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { DialogAddPreferitiComponent } from '../dialog-add-preferiti/dialog-add-preferiti.component';
 
 
 
@@ -43,6 +44,8 @@ export class HomepageComponent {
   dialogRefLista: any;
   form!: FormGroup;
   like: boolean = false;
+  controlloRicette: Ricette[] = []
+  objPreferiti: any
 
 
   constructor(private router: Router, private route: ActivatedRoute, public service: ServiceService, private fb: FormBuilder, public dialog: MatDialog) {
@@ -51,17 +54,14 @@ export class HomepageComponent {
     });
   }
 
-  ngOnInit() {
-    
-    // if (localStorage.getItem("login") == "true") {
-    //   this.service.isLogged = true;
-    // }
-    // else {
-    //   this.service.isLogged = false;
-    // }
-    
+  ngOnInit() {  
     this.searchNav = this.service.searchNav;
     this.ricette = this.service.ricetteTrovate
+
+    this.service.listaPreferiti().subscribe((res) => {
+      this.objPreferiti = res
+      this.controlloRicette = this.objPreferiti;
+    });
   }
 
   primiPiatti() {
@@ -76,8 +76,8 @@ export class HomepageComponent {
     this.router.navigate(['Homepage/Contorni'])
   }
 
-  dettaglio(id: number) {
-    this.router.navigate(['Homepage/Primi-Piatti/' + id]);
+  dettaglio(ricetta:Ricette,id: number) {
+    this.router.navigate(['Homepage/'+ ricetta.categoria.categoria + "/" + id]);
   }
 
 
@@ -136,21 +136,6 @@ export class HomepageComponent {
     });
   }
 
-  dettaglioRicette(titolo: string, id: number) {
-
-    this.tipoPiatto = this.route!.snapshot.params['tipoPagina'];
-
-    if (this.tipoPiatto == "Primi-Piatti") {
-      this.router.navigate(['Homepage/Primi-Piatti/' + id])
-    }
-    if (this.tipoPiatto == "Secondi-Piatti") {
-      this.router.navigate(['Homepage/Secondi-Piatti/' + id])
-    }
-    if (this.tipoPiatto == "Contorni") {
-      this.router.navigate(['Homepage/Contorni/' + id])
-    }
-  }
-
   deletePreferiti(id: number){
     this.service.idRicettaDeleteLista = id;
     this.service.dialog = this.dialogRefLista;
@@ -189,5 +174,31 @@ export class HomepageComponent {
         this.error = true;
       }  
       });    
+  }
+
+  listaPreferitiAdd(id: number) {
+    // this.service.addRicettaPreferiti(id).subscribe(() => { });
+    // alert("ricetta aggiunta alla lista preferiti");
+    // window.location.reload()
+    this.service.idAddListaPreferiti= id;
+    this.service.dialog = this.dialogRefLista;
+    this.dialogRefLista = this.dialog.open(DialogAddPreferitiComponent, {
+      height: '300px',
+      width: '350px',
+    });
+  }
+
+  ret: Ricette | undefined
+  controllo: boolean = false
+
+  controllaIcon(ricetta: Ricette): boolean {
+    this.ret = this.controlloRicette.find((res)=>res.id == ricetta.id)
+    if(this.ret){
+      this.service.controllo = true
+      return this.service.controllo
+    }else{
+      this.service.controllo = false
+      return this.service.controllo
+    }
   }
 }

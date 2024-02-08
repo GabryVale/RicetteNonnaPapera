@@ -13,6 +13,7 @@ export class ServiceService {
   ricettaSelected: Ricetta | undefined
   idRicettaDelete: number = 0
   idRicettaDeleteLista: number = 0
+  idAddListaPreferiti: number = 0
   idRicetta: number=0
   dialog: any
   token: any = ""
