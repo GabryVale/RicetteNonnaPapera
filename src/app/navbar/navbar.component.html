@@ -24,7 +24,8 @@
           <mat-icon>share</mat-icon>
         </button>-->
     <button *ngIf="this.service.isAdmin && this.service.isLogged" mat-button (click)="aggiungiRicetta()">Aggiungi ricetta</button>    
-    <button *ngIf="!this.service.isLogged" mat-button (click)="LogIn()">Log In</button>
+    <button *ngIf="!this.service.isLogged" mat-button (click)="logIn()">Log In</button>
+    <button *ngIf="!this.service.isLogged" mat-button (click)="registra()">Registrati</button>
     <button *ngIf="this.service.isLogged" mat-button (click)="logOut()">Log Out</button>
   </mat-toolbar>
 

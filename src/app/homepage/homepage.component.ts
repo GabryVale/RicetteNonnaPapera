@@ -27,7 +27,7 @@ import { DialogAddPreferitiComponent } from '../dialog-add-preferiti/dialog-add-
 export class HomepageComponent {
   tipoPagina: string = "";
   ricette: Ricette[] = []
-  
+
   obj: any;
   pageable: any
   pageSize: number = 0
@@ -54,14 +54,16 @@ export class HomepageComponent {
     });
   }
 
-  ngOnInit() {  
+  ngOnInit() {
     this.searchNav = this.service.searchNav;
     this.ricette = this.service.ricetteTrovate
 
-    this.service.listaPreferiti().subscribe((res) => {
-      this.objPreferiti = res
-      this.controlloRicette = this.objPreferiti;
-    });
+    if (this.service.isLogged) {
+      this.service.listaPreferiti().subscribe((res) => {
+        this.objPreferiti = res
+        this.controlloRicette = this.objPreferiti;
+      });
+    }
   }
 
   primiPiatti() {
@@ -76,8 +78,8 @@ export class HomepageComponent {
     this.router.navigate(['Homepage/Contorni'])
   }
 
-  dettaglio(ricetta:Ricette,id: number) {
-    this.router.navigate(['Homepage/'+ ricetta.categoria.categoria + "/" + id]);
+  dettaglio(ricetta: Ricette, id: number) {
+    this.router.navigate(['Homepage/' + ricetta.categoria.categoria + "/" + id]);
   }
 
 
@@ -136,7 +138,7 @@ export class HomepageComponent {
     });
   }
 
-  deletePreferiti(id: number){
+  deletePreferiti(id: number) {
     this.service.idRicettaDeleteLista = id;
     this.service.dialog = this.dialogRefLista;
     this.dialogRefLista = this.dialog.open(DialogDeleteComponent, {
@@ -144,8 +146,8 @@ export class HomepageComponent {
       width: '350px',
     });
     this.dialogRefLista.afterClosed().subscribe((result: any) => {
-       this.listaPreferiti();
-    }); 
+      this.listaPreferiti();
+    });
   }
 
   ricerca() {
@@ -153,34 +155,34 @@ export class HomepageComponent {
     this.error = false
     this.ricette
     this.titolo = this.form.value.cerca;
-    if(this.titolo){
+    if (this.titolo) {
       this.service.ricerca(this.titolo).subscribe((res) => {
         this.ricettePrefe = res;
         this.service.list = true;
-        if(this.ricettePrefe.length < 1){
+        if (this.ricettePrefe.length < 1) {
           this.error = true;
-        this.service.list = false;
-        }   
+          this.service.list = false;
+        }
       });
     }
   }
 
-  listaPreferiti(){
+  listaPreferiti() {
     this.service.list = false
-    this.service.listaPreferiti().subscribe((res)=>{
-      this.service.listaPrefe = res 
+    this.service.listaPreferiti().subscribe((res) => {
+      this.service.listaPrefe = res
       this.service.like = true
-      if(this.service.listaPrefe.length < 1){
+      if (this.service.listaPrefe.length < 1) {
         this.error = true;
-      }  
-      });    
+      }
+    });
   }
 
   listaPreferitiAdd(id: number) {
     // this.service.addRicettaPreferiti(id).subscribe(() => { });
     // alert("ricetta aggiunta alla lista preferiti");
     // window.location.reload()
-    this.service.idAddListaPreferiti= id;
+    this.service.idAddListaPreferiti = id;
     this.service.dialog = this.dialogRefLista;
     this.dialogRefLista = this.dialog.open(DialogAddPreferitiComponent, {
       height: '300px',
@@ -192,11 +194,11 @@ export class HomepageComponent {
   controllo: boolean = false
 
   controllaIcon(ricetta: Ricette): boolean {
-    this.ret = this.controlloRicette.find((res)=>res.id == ricetta.id)
-    if(this.ret){
+    this.ret = this.controlloRicette.find((res) => res.id == ricetta.id)
+    if (this.ret) {
       this.service.controllo = true
       return this.service.controllo
-    }else{
+    } else {
       this.service.controllo = false
       return this.service.controllo
     }

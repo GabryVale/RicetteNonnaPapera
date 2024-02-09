@@ -5,6 +5,7 @@ import { PageDetailComponent } from './page-detail/page-detail.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { PageRicettaComponent } from './page-ricetta/page-ricetta.component';
 import { CreazioneRicettaComponent } from './creazione-ricetta/creazione-ricetta.component';
+import { SignupComponent } from './signup/signup.component';
 
 
 export const routes: Routes = [
@@ -32,4 +33,8 @@ export const routes: Routes = [
 {
     path: 'creazione',
     component: CreazioneRicettaComponent
+},
+{
+    path: 'registrazione',
+    component: SignupComponent
 }];

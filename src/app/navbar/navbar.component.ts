@@ -62,7 +62,7 @@ export class NavbarComponent {
 
 
  
-  LogIn() {
+  logIn() {
     this.router.navigate(['Login'])
   }
   homepage() {
@@ -82,6 +82,10 @@ export class NavbarComponent {
     });
     this.dialogRefLogout.afterClosed().subscribe((result: any) => {
     });
+  }
+
+  registra(){
+    this.router.navigate(['registrazione']);
   }
 
 }

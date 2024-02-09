@@ -61,7 +61,7 @@ user: User = {
       this.service.isLogged = true;
       this.roles = this.token.roles;
       this.roles.forEach((res)=>{
-        if(res == "ROLE_ADMIN"){
+        if(res == "ROLE_ADMIN" || res == "admin"){
           this.service.isAdmin = true;
         }
         else{

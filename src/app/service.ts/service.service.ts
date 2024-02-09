@@ -76,6 +76,15 @@ export class ServiceService {
     return this.http.post(this.apiUrl + "api/auth/signin", user, httpOptions)
   }
 
+  registrazione(user: any){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      })
+    };
+    return this.http.post(this.apiUrl + "api/auth/signup", user, httpOptions);
+  }
+
   edit(ricetta: any){
     this.token = localStorage.getItem("JwtAccess-Token");
     this.tokenString = JSON.parse(this.token)

@@ -1,0 +1,20 @@
+<div class="login-container">
+    <form [formGroup]="form">
+        <label for="email">Username:</label>
+        <input required type="text" type="text" formControlName="username" id="username" placeholder="username">
+        <label for="email">Email:</label>
+        <input required type="text" type="text" formControlName="email" id="email" placeholder="email">
+        <label for="password">Password:</label>
+        <input required type="password" formControlName="password" name="password" id="password" placeholder="password">
+        <label for="ruolo">Ruolo:</label>
+        <mat-form-field>
+            <mat-label>Ruolo</mat-label>
+            <mat-select formControlName="ruolo">
+                @for (ruolo of listaRuoli; track ruolo) {
+                <mat-option [value]="ruolo">{{ruolo}}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+        <button type="submit" (click)="registra()">Registrati</button>
+    </form>
+</div>

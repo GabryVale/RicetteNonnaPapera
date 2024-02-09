@@ -80,10 +80,13 @@ export class PageDetailComponent {
       }
     })
 
-    this.service.listaPreferiti().subscribe((res) => {
+
+    if(this.service.isLogged){
+      this.service.listaPreferiti().subscribe((res) => {
       this.objPreferiti = res
       this.controlloRicette = this.objPreferiti;
     });
+    }
   }
 
 
